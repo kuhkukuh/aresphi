@@ -13,7 +13,7 @@
       theme: {
         extend: {
           fontFamily: { heading: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] },
-          colors: { beige: { DEFAULT: '#F2EFEA' }, stone: { 850: '#26221E' }, amber: { DEFAULT: '#E6A756' }, sage: { DEFAULT: '#2C3E35' } }
+          colors: { beige: { DEFAULT: '#F2EFEA' }, stone: { 850: '#26221E' }, orange: { DEFAULT: '#f97316' }, sage: { DEFAULT: '#2C3E35' } }
         }
       }
     }
@@ -27,11 +27,12 @@
     .font-playfair { font-family: 'Playfair Display', serif !important; }
     
     /* Eyebrow - Section labels */
-    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #E6A756; }
-    .eyebrow-line { display: inline-block; height: 1px; width: 56px; background: currentColor; transform: translateY(-3px); margin-right: 14px; }
+    .eyebrow { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(214,211,206,0.4); }
+    .eyebrow-left { font-size: 11px; font-weight: 600; color: #f97316; text-transform: uppercase; letter-spacing: 0.15em; }
+    .eyebrow-right { font-size: 11px; color: #A8A29E; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
     
     /* Selection */
-    ::selection { background: #E6A756; color: #fff; }
+    ::selection { background: #f97316; color: #fff; }
     
     /* Animations */
     .will-change-transform { will-change: transform; }
@@ -78,7 +79,7 @@
     .will-change-transform { will-change: transform; }
   </style>
 </head>
-  <body class="antialiased overflow-x-hidden selection:bg-amber selection:text-white" style="font-family:'Inter',sans-serif">
+  <body class="antialiased overflow-x-hidden selection:bg-orange selection:text-white" style="font-family:'Inter',sans-serif">
 
   <!-- Vertical Lines -->
   <div class="vertical-lines">
@@ -93,15 +94,15 @@
   <!-- SVG Flow Lines -->
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
     <svg class="absolute top-0 w-[150vw] h-[150vh] left-[-25vw]" viewBox="0 0 1000 1000" fill="none">
-      <path d="M -100 200 C 300 100, 600 500, 1100 300" stroke="#E6A756" stroke-width="2" opacity="0.25" class="path-draw"></path>
-      <path d="M -100 600 C 400 800, 500 200, 1100 700" stroke="#E6A756" stroke-width="1.5" opacity="0.15" class="path-draw" style="animation-delay: 0.5s"></path>
+      <path d="M -100 200 C 300 100, 600 500, 1100 300" stroke="#f97316" stroke-width="2" opacity="0.25" class="path-draw"></path>
+      <path d="M -100 600 C 400 800, 500 200, 1100 700" stroke="#f97316" stroke-width="1.5" opacity="0.15" class="path-draw" style="animation-delay: 0.5s"></path>
     </svg>
   </div>
 
     <!-- Navigation -->
     <nav class="floating-nav fixed left-1/2 top-5 z-[100] flex w-[calc(100%-32px)] max-w-6xl -translate-x-1/2 items-center justify-between rounded-full border border-white/15 bg-black/35 px-4 py-3 backdrop-blur-2xl sm:px-5 md:px-6" aria-label="Main navigation">
       <a href="#" class="group flex items-center gap-3 text-white" aria-label="Aresphi home">
-        <span class="font-playfair text-2xl italic tracking-tight">Aresphi<span class="text-amber">®</span></span>
+        <span class="font-playfair text-2xl italic tracking-tight">Aresphi<span class="text-orange">®</span></span>
       </a>
 
       <div class="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-2 py-2 md:flex" aria-label="Primary links">
@@ -122,7 +123,7 @@
       <div class="absolute inset-0 bg-gradient-to-b from-[#0a0d1f] via-[#0e1228] to-[#0a0d1f]"></div>
       <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <h1 id="wordmark" class="select-none text-[17vw] leading-[0.85] text-center will-change-transform font-playfair italic tracking-tighter">
-          Aresphi<span class="text-amber font-playfair italic tracking-tighter">®</span>
+          Aresphi<span class="text-orange font-playfair italic tracking-tighter">®</span>
         </h1>
       </div>
       <div id="cardStack" class="relative z-20 max-w-7xl mx-auto px-6 w-full pb-16 -mt-[6vw] will-change-transform">
@@ -183,7 +184,10 @@
       <div class="max-w-7xl mx-auto">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
           <div>
-            <p class="eyebrow"><span class="eyebrow-line"></span> Mengapa Aresphi</p>
+            <div class="eyebrow">
+              <span class="eyebrow-left">/ 01 Mengapa Aresphi</span>
+              <span class="eyebrow-right">[ 01 ]</span>
+            </div>
             <h2 class="mt-8 text-4xl font-medium leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.6rem] text-stone-900" style="letter-spacing: -.055em;">
               Kepercayaan<br><span class="font-playfair italic font-normal text-stone-500/80">yang Terbukti</span>
             </h2>
@@ -209,7 +213,7 @@
           <!-- Flashlight Cards -->
           <div class="flashlight-card" onmousemove="this.style.setProperty('--mouse-x', event.clientX - this.getBoundingClientRect().left + 'px'); this.style.setProperty('--mouse-y', event.clientY - this.getBoundingClientRect().top + 'px')">
             <div class="flashlight-card-content p-6 h-full flex flex-col justify-between min-h-[180px]">
-              <div class="w-14 h-14 rounded-2xl bg-amber/10 flex items-center justify-center mb-4 text-amber text-2xl font-bold">01</div>
+              <div class="w-14 h-14 rounded-2xl bg-orange/10 flex items-center justify-center mb-4 text-orange text-2xl font-bold">01</div>
               <div><h4 class="text-xl tracking-tight text-stone-900 mb-1">Layanan Lengkap</h4><p class="text-stone-500 text-sm">Konsultasi hingga transaksi</p></div>
             </div>
           </div>
@@ -223,7 +227,7 @@
           
           <!-- Dark Card -->
           <div class="md:col-span-2 bg-sage rounded-2xl p-8 flex flex-col justify-between relative overflow-hidden text-white min-h-[160px]">
-            <div class="flex items-center gap-2"><div class="w-2 h-2 bg-amber rounded-full animate-pulse"></div><span class="text-xs uppercase tracking-wide opacity-80">Transparansi Total</span></div>
+            <div class="flex items-center gap-2"><div class="w-2 h-2 bg-orange rounded-full animate-pulse"></div><span class="text-xs uppercase tracking-wide opacity-80">Transparansi Total</span></div>
             <div><h3 class="text-3xl tracking-tight mb-2">100%</h3><p class="text-white/60 text-sm">Informasi jujur. Tanpa biaya tersembunyi.</p></div>
           </div>
           
@@ -240,24 +244,23 @@
       
       <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div class="mb-16">
-          <p class="eyebrow"><span class="eyebrow-line"></span> Pencapaian</p>
+          <div class="eyebrow">
+            <span class="eyebrow-left">/ 02 Pencapaian</span>
+            <span class="eyebrow-right">[ 02 ]</span>
+          </div>
           <h2 class="mt-8 text-4xl font-medium leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.6rem] text-white" style="letter-spacing: -.055em;">
             Angka <span class="font-playfair italic font-normal text-white/90">Berbicara</span>
           </h2>
         </div>
         
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-          <div class="text-center md:text-left"><div class="text-5xl md:text-7xl font-semibold text-white mb-2" style="letter-spacing: -.02em;">150<span class="text-amber">+</span></div><p class="text-xs font-bold uppercase text-white/50" style="letter-spacing: .24em;">Properti Terjual</p></div>
-          <div class="text-center md:text-left"><div class="text-5xl md:text-7xl font-semibold text-white mb-2" style="letter-spacing: -.02em;">200<span class="text-amber">+</span></div><p class="text-xs font-bold uppercase text-white/50" style="letter-spacing: .24em;">Klien Puas</p></div>
-          <div class="text-center md:text-left"><div class="text-5xl md:text-7xl font-semibold text-white mb-2" style="letter-spacing: -.02em;">5<span class="text-amber">+</span></div><p class="text-xs font-bold uppercase text-white/50" style="letter-spacing: .24em;">Tahun Pengalaman</p></div>
-          <div class="text-center md:text-left"><div class="text-5xl md:text-7xl font-semibold text-white mb-2" style="letter-spacing: -.02em;">98<span class="text-amber">%</span></div><p class="text-xs font-bold uppercase text-white/50" style="letter-spacing: .24em;">Keberhasilan</p></div>
+          <div class="text-center md:text-left"><div class="text-5xl md:text-7xl font-semibold text-white mb-2" style="letter-spacing: -.02em;">150<span class="text-orange">+</span></div><p class="text-xs font-bold uppercase text-white/50" style="letter-spacing: .24em;">Properti Terjual</p></div>
+          <div class="text-center md:text-left"><div class="text-5xl md:text-7xl font-semibold text-white mb-2" style="letter-spacing: -.02em;">200<span class="text-orange">+</span></div><p class="text-xs font-bold uppercase text-white/50" style="letter-spacing: .24em;">Klien Puas</p></div>
+          <div class="text-center md:text-left"><div class="text-5xl md:text-7xl font-semibold text-white mb-2" style="letter-spacing: -.02em;">5<span class="text-orange">+</span></div><p class="text-xs font-bold uppercase text-white/50" style="letter-spacing: .24em;">Tahun Pengalaman</p></div>
+          <div class="text-center md:text-left"><div class="text-5xl md:text-7xl font-semibold text-white mb-2" style="letter-spacing: -.02em;">98<span class="text-orange">%</span></div><p class="text-xs font-bold uppercase text-white/50" style="letter-spacing: .24em;">Keberhasilan</p></div>
         </div>
         
-        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <div class="space-y-3"><div class="flex justify-between"><span class="text-stone-400 text-sm">Keberhasilan</span><span class="text-amber font-medium">98%</span></div><div class="w-full h-2 bg-stone-700 rounded-full overflow-hidden"><div class="h-full bg-amber rounded-full" style="width:98%"></div></div></div>
-          <div class="space-y-3"><div class="flex justify-between"><span class="text-stone-400 text-sm">Kepuasan</span><span class="text-amber font-medium">95%</span></div><div class="w-full h-2 bg-stone-700 rounded-full overflow-hidden"><div class="h-full bg-amber rounded-full" style="width:95%"></div></div></div>
-          <div class="space-y-3"><div class="flex justify-between"><span class="text-stone-400 text-sm">Respon</span><span class="text-amber font-medium">24 jam</span></div><div class="w-full h-2 bg-stone-700 rounded-full overflow-hidden"><div class="h-full bg-amber rounded-full"></div></div></div>
-        </div>
+
       </div>
     </section>
 
@@ -266,7 +269,10 @@
       <div class="max-w-7xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
           <div class="flex flex-col justify-center sticky top-32 h-fit">
-            <p class="eyebrow"><span class="eyebrow-line"></span> Proses Kami</p>
+            <div class="eyebrow">
+              <span class="eyebrow-left">/ 03 Proses Kami</span>
+              <span class="eyebrow-right">[ 03 ]</span>
+            </div>
             <h2 class="mt-8 text-4xl font-medium leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.6rem] text-stone-900 mb-8" style="letter-spacing: -.055em;">
               Perjalanan<br><span class="font-playfair italic font-normal text-stone-500/80">properti Anda</span>
             </h2>
@@ -277,23 +283,23 @@
 
           <div class="relative w-full">
             <svg class="absolute inset-0 w-full h-full -z-10 pointer-events-none" preserveAspectRatio="none">
-              <path d="M 50,0 C 100,200 -50,400 150,800" stroke="#E6A756" stroke-width="2" fill="none" opacity="0.3"></path>
+              <path d="M 50,0 C 100,200 -50,400 150,800" stroke="#f97316" stroke-width="2" fill="none" opacity="0.3"></path>
             </svg>
             <div class="grid gap-12 md:gap-16 relative z-10">
               <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-100 w-[85%] md:w-[70%] ml-auto group hover:shadow-lg transition-shadow">
-                <div class="text-amber font-medium mb-4 text-lg">01</div>
+                <div class="text-orange font-medium mb-4 text-lg">01</div>
                 <div class="w-full h-40 rounded-2xl overflow-hidden mb-6"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Consultation" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
                 <h3 class="font-playfair text-4xl italic">Konsultasi Awal</h3>
                 <p class="text-stone-500">Memahami visi dan kebutuhan Anda melalui sesi mendalam.</p>
               </div>
               <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-100 w-[85%] md:w-[70%] group hover:shadow-lg transition-shadow">
-                <div class="text-amber font-medium mb-4 text-lg">02</div>
+                <div class="text-orange font-medium mb-4 text-lg">02</div>
                 <div class="w-full h-40 rounded-2xl overflow-hidden mb-6"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&q=80" alt="Search" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
                 <h3 class="font-playfair text-4xl italic">Kurasi Properti</h3>
                 <p class="text-stone-500">Menyajikan properti sesuai kriteria dari jaringan kami.</p>
               </div>
               <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-100 w-[85%] md:w-[70%] ml-auto group hover:shadow-lg transition-shadow">
-                <div class="text-amber font-medium mb-4 text-lg">03</div>
+                <div class="text-orange font-medium mb-4 text-lg">03</div>
                 <div class="w-full h-40 rounded-2xl overflow-hidden mb-6"><img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&q=80" alt="Transaction" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
                 <h3 class="font-playfair text-4xl italic">Pendampingan Transaksi</h3>
                 <p class="text-stone-500">Mendampingi setiap langkah hingga kunci di tangan.</p>
@@ -308,7 +314,10 @@
     <section class="py-24 relative overflow-hidden bg-beige-dark w-full" id="properti">
       <div class="max-w-7xl mx-auto px-6 md:px-12 mb-12 flex justify-between items-end">
         <div>
-          <p class="eyebrow"><span class="eyebrow-line"></span> Properti</p>
+          <div class="eyebrow">
+            <span class="eyebrow-left">/ 04 Properti</span>
+            <span class="eyebrow-right">[ 04 ]</span>
+          </div>
           <h2 class="mt-6 text-4xl font-medium leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.6rem] text-stone-900" style="letter-spacing: -.055em;">
             Koleksi<br><span class="font-playfair italic font-normal text-stone-500/80">Properti Unggulan</span>
           </h2>
@@ -326,7 +335,7 @@
             <div class="absolute bottom-0 left-0 w-full p-6 text-white">
               <div class="flex justify-between items-end mb-4">
                 <div class="bg-white/20 backdrop-blur-md rounded-full px-4 py-2 text-sm font-medium">Rp 2.5 M</div>
-                <button class="w-10 h-10 bg-amber rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-colors text-sm font-bold">→</button>
+                <button class="w-10 h-10 bg-orange rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-colors text-sm font-bold">→</button>
               </div>
               <h3 class="font-playfair text-2xl italic">Rumah Modern Pondok Indah</h3>
               <p class="text-white/70 text-sm">Jakarta Selatan</p>
@@ -402,7 +411,7 @@
           <a href="tel:+6281234567890" class="block text-3xl sm:text-4xl md:text-5xl hover:text-white/70 transition-colors font-medium tracking-tight text-white">
             +62 812 3456 7890
           </a>
-          <a href="mailto:info@aresphi.com" class="block text-3xl sm:text-4xl md:text-5xl text-amber mt-2 hover:text-amber/80 transition-colors font-medium tracking-tight">
+          <a href="mailto:info@aresphi.com" class="block text-3xl sm:text-4xl md:text-5xl text-orange mt-2 hover:text-orange/80 transition-colors font-medium tracking-tight">
             info@aresphi.com
           </a>
         </div>

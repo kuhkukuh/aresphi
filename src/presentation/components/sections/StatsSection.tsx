@@ -77,54 +77,7 @@ export function StatsSection() {
           ))}
         </div>
 
-        {/* Progress bars */}
-        <div className="mt-16 grid md:grid-cols-3 gap-8">
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="text-stone-400 text-sm">Tingkat Keberhasilan</span>
-              <span className="text-orange-400 font-medium">98%</span>
-            </div>
-            <div className="w-full h-2 bg-stone-700 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-orange-400"
-                initial={{ width: 0 }}
-                whileInView={{ width: '98%' }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.5 }}
-              />
-            </div>
-          </div>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="text-stone-400 text-sm">Kepuasan Klien</span>
-              <span className="text-orange-400 font-medium">95%</span>
-            </div>
-            <div className="w-full h-2 bg-stone-700 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-orange-400"
-                initial={{ width: 0 }}
-                whileInView={{ width: '95%' }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.6 }}
-              />
-            </div>
-          </div>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="text-stone-400 text-sm">Respon Cepat</span>
-              <span className="text-orange-400 font-medium">24jam</span>
-            </div>
-            <div className="w-full h-2 bg-stone-700 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-orange-400"
-                initial={{ width: 0 }}
-                whileInView={{ width: '100%' }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.7 }}
-              />
-            </div>
-          </div>
-        </div>
+
       </Container>
     </section>
   );
