@@ -1,0 +1,887 @@
+[
+  {
+    "id": "F-001",
+    "fingerprint": "project-setup-infrastructure|infrastructure",
+    "title": "Project Setup & Infrastructure",
+    "description": "Initialize Next.js 14+ project with TypeScript, Tailwind CSS, Drizzle ORM, Neon database connection, and Clean Architecture structure.",
+    "type": "infrastructure",
+    "module": "Infrastructure",
+    "confidence": "stated",
+    "lifecycle": "done",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "technical-notes.md",
+      "lines": "1-50",
+      "briefHash": "74e0e4f247873f96"
+    },
+    "dependsOn": [],
+    "blocks": [
+      "F-002",
+      "F-003",
+      "F-006",
+      "F-007",
+      "F-014"
+    ],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 10,
+        "factors": [
+          "All features depend on this foundation"
+        ]
+      },
+      "effort": {
+        "score": 3,
+        "factors": [
+          "Well-documented stack, straightforward setup"
+        ]
+      },
+      "risk": {
+        "score": 2,
+        "factors": [
+          "Mature tooling, clear patterns"
+        ]
+      },
+      "urgency": {
+        "factor": 1.5,
+        "reason": "Blocks all other work"
+      },
+      "priority": 30,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "docs/sandwich/specs/F-001.json",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T22:30:00.000Z"
+  },
+  {
+    "id": "F-002",
+    "fingerprint": "database-schema-migrations|infrastructure",
+    "title": "Database Schema & Migrations",
+    "description": "Define Drizzle schema for properties, articles, and admins tables. Set up migration scripts and seed data for development.",
+    "type": "infrastructure",
+    "module": "Infrastructure",
+    "confidence": "stated",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "technical-notes.md",
+      "lines": "40-100",
+      "briefHash": "74e0e4f247873f96"
+    },
+    "dependsOn": [
+      "F-001"
+    ],
+    "blocks": [
+      "F-003",
+      "F-004",
+      "F-007",
+      "F-013"
+    ],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 9,
+        "factors": [
+          "Required for all data operations"
+        ]
+      },
+      "effort": {
+        "score": 4,
+        "factors": [
+          "Schema defined in brief, straightforward mapping"
+        ]
+      },
+      "risk": {
+        "score": 3,
+        "factors": [
+          "Schema changes later may need migrations"
+        ]
+      },
+      "urgency": {
+        "factor": 1.5,
+        "reason": "Blocks admin and catalog features"
+      },
+      "priority": 18,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T14:00:00.000Z"
+  },
+  {
+    "id": "F-003",
+    "fingerprint": "admin-authentication|admin",
+    "title": "Admin Authentication",
+    "description": "Login/logout functionality for Admin/Owner with HTTPS cookie-only session for security.",
+    "type": "feature",
+    "module": "Admin Dashboard",
+    "confidence": "stated",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "118-120",
+      "briefHash": "58f038bcd8a22d6a"
+    },
+    "dependsOn": [
+      "F-001",
+      "F-002"
+    ],
+    "blocks": [
+      "F-004",
+      "F-005",
+      "F-013"
+    ],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 8,
+        "factors": [
+          "Required to manage content"
+        ]
+      },
+      "effort": {
+        "score": 4,
+        "factors": [
+          "Single role, cookie-based auth pattern"
+        ]
+      },
+      "risk": {
+        "score": 3,
+        "factors": [
+          "Well-understood pattern"
+        ]
+      },
+      "urgency": {
+        "factor": 1.2,
+        "reason": "Blocks admin CRUD features"
+      },
+      "priority": 12,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T14:00:00.000Z"
+  },
+  {
+    "id": "F-004",
+    "fingerprint": "admin-property-crud|admin",
+    "title": "Admin Property CRUD with TipTap",
+    "description": "Admin interface to create, read, update, delete property listings. Includes TipTap rich text editor for descriptions.",
+    "type": "feature",
+    "module": "Admin Dashboard",
+    "confidence": "stated",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "121-123",
+      "briefHash": "58f038bcd8a22d6a"
+    },
+    "dependsOn": [
+      "F-002",
+      "F-003"
+    ],
+    "blocks": [
+      "F-007",
+      "F-008"
+    ],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 9,
+        "factors": [
+          "Core business feature - enables listing management"
+        ]
+      },
+      "effort": {
+        "score": 6,
+        "factors": [
+          "CRUD + TipTap integration + form handling"
+        ]
+      },
+      "risk": {
+        "score": 4,
+        "factors": [
+          "Rich text adds complexity"
+        ]
+      },
+      "urgency": {
+        "factor": 1.2,
+        "reason": "Required for public catalog to have content"
+      },
+      "priority": 8,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T14:00:00.000Z"
+  },
+  {
+    "id": "F-005",
+    "fingerprint": "image-upload-properties|admin",
+    "title": "Image Upload with Compression",
+    "description": "Image upload functionality for property listings using Vercel Blob with automatic compression (Sharp).",
+    "type": "feature",
+    "module": "Admin Dashboard",
+    "confidence": "stated",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "124",
+      "briefHash": "58f038bcd8a22d6a"
+    },
+    "dependsOn": [
+      "F-003",
+      "F-004"
+    ],
+    "blocks": [
+      "F-008"
+    ],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 7,
+        "factors": [
+          "Photos are critical for property listings"
+        ]
+      },
+      "effort": {
+        "score": 4,
+        "factors": [
+          "Vercel Blob + Sharp compression"
+        ]
+      },
+      "risk": {
+        "score": 3,
+        "factors": [
+          "Standard file upload pattern"
+        ]
+      },
+      "urgency": {
+        "factor": 1,
+        "reason": "Enhances listings but can start with placeholder"
+      },
+      "priority": 9,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T14:00:00.000Z"
+  },
+  {
+    "id": "F-006",
+    "fingerprint": "homepage-company-profile|public",
+    "title": "Homepage - Company Profile",
+    "description": "Landing page with elegant hero section, typography animations, about us, USPs, statistics with animated counters, testimonials slider, and team profiles.",
+    "type": "feature",
+    "module": "Company Profile",
+    "confidence": "stated",
+    "lifecycle": "done",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "27-42",
+      "briefHash": "58f038bcd8a22d6a"
+    },
+    "dependsOn": [
+      "F-001",
+      "F-014"
+    ],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 8,
+        "factors": [
+          "First impression, builds trust, supports lead generation"
+        ]
+      },
+      "effort": {
+        "score": 5,
+        "factors": [
+          "Multiple sections, animations, scroll-triggered effects"
+        ]
+      },
+      "risk": {
+        "score": 2,
+        "factors": [
+          "Static content with animations"
+        ]
+      },
+      "urgency": {
+        "factor": 1.2,
+        "reason": "Primary entry point for visitors"
+      },
+      "priority": 11,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "docs/sandwich/specs/F-006.json",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T22:30:00.000Z"
+  },
+  {
+    "id": "F-007",
+    "fingerprint": "property-listing-catalog|public",
+    "title": "Property Listing Catalog",
+    "description": "Public catalog page listing all properties with elegant cards, hover effects, filtering by type/location/price/category, and ISG rendering.",
+    "type": "feature",
+    "module": "Katalog Properti",
+    "confidence": "stated",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "44-58",
+      "briefHash": "58f038bcd8a22d6a"
+    },
+    "dependsOn": [
+      "F-001",
+      "F-002",
+      "F-004",
+      "F-014"
+    ],
+    "blocks": [
+      "F-008"
+    ],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 9,
+        "factors": [
+          "Core business - showcases properties",
+          "Primary goal: lead generation"
+        ]
+      },
+      "effort": {
+        "score": 5,
+        "factors": [
+          "Filter UI, card animations, pagination"
+        ]
+      },
+      "risk": {
+        "score": 3,
+        "factors": [
+          "Standard list/filter pattern"
+        ]
+      },
+      "urgency": {
+        "factor": 1.5,
+        "reason": "Primary lead generation touchpoint"
+      },
+      "priority": 14,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T14:00:00.000Z"
+  },
+  {
+    "id": "F-008",
+    "fingerprint": "property-detail-page|public",
+    "title": "Property Detail Page",
+    "description": "Individual property page with photo gallery, rich text description, specifications, location map, and WhatsApp CTA.",
+    "type": "feature",
+    "module": "Katalog Properti",
+    "confidence": "stated",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "49-56",
+      "briefHash": "58f038bcd8a22d6a"
+    },
+    "dependsOn": [
+      "F-002",
+      "F-004",
+      "F-005",
+      "F-007",
+      "F-011"
+    ],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 9,
+        "factors": [
+          "Conversion point - where users inquire"
+        ]
+      },
+      "effort": {
+        "score": 5,
+        "factors": [
+          "Gallery, specs, map, WhatsApp link"
+        ]
+      },
+      "risk": {
+        "score": 3,
+        "factors": [
+          "Multiple components"
+        ]
+      },
+      "urgency": {
+        "factor": 1.5,
+        "reason": "Primary lead generation conversion point"
+      },
+      "priority": 14,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T14:00:00.000Z"
+  },
+  {
+    "id": "F-009",
+    "fingerprint": "services-page|public",
+    "title": "Services Page",
+    "description": "Page explaining services with card-based layout and elegant presentation.",
+    "type": "feature",
+    "module": "Layanan",
+    "confidence": "stated",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "60-72",
+      "briefHash": "58f038bcd8a22d6a"
+    },
+    "dependsOn": [
+      "F-001",
+      "F-014"
+    ],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 6,
+        "factors": [
+          "Builds credibility, informs clients"
+        ]
+      },
+      "effort": {
+        "score": 2,
+        "factors": [
+          "Static content page with cards"
+        ]
+      },
+      "risk": {
+        "score": 1,
+        "factors": [
+          "No complexity"
+        ]
+      },
+      "urgency": {
+        "factor": 1,
+        "reason": "Supports understanding of services"
+      },
+      "priority": 20,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T14:00:00.000Z"
+  },
+  {
+    "id": "F-010",
+    "fingerprint": "contact-page|public",
+    "title": "Contact Page",
+    "description": "Contact information page with address, phone, email, Google Maps embed, and social media links.",
+    "type": "feature",
+    "module": "Kontak",
+    "confidence": "inferred",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "85-97",
+      "briefHash": "58f038bcd8a22d6a"
+    },
+    "dependsOn": [
+      "F-001"
+    ],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 5,
+        "factors": [
+          "Provides contact information"
+        ]
+      },
+      "effort": {
+        "score": 2,
+        "factors": [
+          "Static content + Maps embed"
+        ]
+      },
+      "risk": {
+        "score": 1,
+        "factors": [
+          "Simple page"
+        ]
+      },
+      "urgency": {
+        "factor": 1,
+        "reason": "Standard business page"
+      },
+      "priority": 17,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T14:00:00.000Z"
+  },
+  {
+    "id": "F-011",
+    "fingerprint": "whatsapp-integration|public",
+    "title": "WhatsApp Integration",
+    "description": "Pre-filled WhatsApp message generation with floating button on all pages. PRIMARY GOAL: Lead generation.",
+    "type": "feature",
+    "module": "Lead Generation",
+    "confidence": "stated",
+    "lifecycle": "done",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "74-84",
+      "briefHash": "58f038bcd8a22d6a"
+    },
+    "dependsOn": [
+      "F-001"
+    ],
+    "blocks": [
+      "F-008"
+    ],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 10,
+        "factors": [
+          "PRIMARY GOAL: Lead generation",
+          "Direct conversion mechanism"
+        ]
+      },
+      "effort": {
+        "score": 3,
+        "factors": [
+          "wa.me links, floating button"
+        ]
+      },
+      "risk": {
+        "score": 1,
+        "factors": [
+          "No backend, just URL generation"
+        ]
+      },
+      "urgency": {
+        "factor": 1.5,
+        "reason": "Primary business goal"
+      },
+      "priority": 33,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "docs/sandwich/specs/F-011.json",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T22:30:00.000Z"
+  },
+  {
+    "id": "F-012",
+    "fingerprint": "blog-list-detail|public",
+    "title": "Blog List & Detail Pages",
+    "description": "Public blog pages listing articles with categories and rich text content.",
+    "type": "feature",
+    "module": "Blog",
+    "confidence": "inferred",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "99-109",
+      "briefHash": "58f038bcd8a22d6a"
+    },
+    "dependsOn": [
+      "F-002",
+      "F-013"
+    ],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 5,
+        "factors": [
+          "SEO, authority building"
+        ]
+      },
+      "effort": {
+        "score": 4,
+        "factors": [
+          "List + detail pages"
+        ]
+      },
+      "risk": {
+        "score": 2,
+        "factors": [
+          "Standard blog pattern"
+        ]
+      },
+      "urgency": {
+        "factor": 0.8,
+        "reason": "P2 priority"
+      },
+      "priority": 6,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T14:00:00.000Z"
+  },
+  {
+    "id": "F-013",
+    "fingerprint": "admin-blog-crud|admin",
+    "title": "Admin Blog CRUD",
+    "description": "Admin interface to manage blog articles with TipTap editor.",
+    "type": "feature",
+    "module": "Admin Dashboard",
+    "confidence": "inferred",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "125",
+      "briefHash": "58f038bcd8a22d6a"
+    },
+    "dependsOn": [
+      "F-002",
+      "F-003"
+    ],
+    "blocks": [
+      "F-012"
+    ],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 6,
+        "factors": [
+          "Enables content marketing"
+        ]
+      },
+      "effort": {
+        "score": 5,
+        "factors": [
+          "TipTap already integrated"
+        ]
+      },
+      "risk": {
+        "score": 3,
+        "factors": [
+          "Reuses existing patterns"
+        ]
+      },
+      "urgency": {
+        "factor": 0.8,
+        "reason": "P2 priority"
+      },
+      "priority": 5,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "",
+    "commits": [],
+    "createdAt": "2026-06-29T12:00:00.000Z",
+    "updatedAt": "2026-06-29T14:00:00.000Z"
+  },
+  {
+    "id": "F-014",
+    "fingerprint": "design-system-components|infrastructure",
+    "title": "Design System & Component Library",
+    "description": "Typography system (Playfair/Geist fonts), color palette (orange brand + warm neutrals), reusable UI components, Framer Motion animations, and property card with glow effect.",
+    "type": "infrastructure",
+    "module": "Infrastructure",
+    "confidence": "stated",
+    "lifecycle": "done",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "technical-notes.md",
+      "lines": "20-200",
+      "briefHash": "74e0e4f247873f96"
+    },
+    "dependsOn": [
+      "F-001"
+    ],
+    "blocks": [
+      "F-006",
+      "F-007"
+    ],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 9,
+        "factors": [
+          "Enables consistent design across all pages",
+          "Blocks UI-heavy features"
+        ]
+      },
+      "effort": {
+        "score": 5,
+        "factors": [
+          "Font setup, Tailwind config, base components, animations"
+        ]
+      },
+      "risk": {
+        "score": 2,
+        "factors": [
+          "Well-understood patterns from design refs"
+        ]
+      },
+      "urgency": {
+        "factor": 1.5,
+        "reason": "Blocks frontend features"
+      },
+      "priority": 16,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "docs/sandwich/specs/F-014.json",
+    "commits": [],
+    "createdAt": "2026-06-29T14:00:00.000Z",
+    "updatedAt": "2026-06-29T22:30:00.000Z"
+  },
+  {
+    "id": "F-015",
+    "fingerprint": "seo-isg-setup|infrastructure",
+    "title": "SEO & ISG Setup",
+    "description": "ISG configuration for public pages, meta tags, sitemap generation, JSON-LD structured data for properties, robots.txt, and image optimization.",
+    "type": "infrastructure",
+    "module": "SEO",
+    "confidence": "stated",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "127-140",
+      "briefHash": "58f038bcd8a22d6a"
+    },
+    "dependsOn": [
+      "F-001",
+      "F-002"
+    ],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 7,
+        "factors": [
+          "SEO critical for organic traffic"
+        ]
+      },
+      "effort": {
+        "score": 4,
+        "factors": [
+          "Standard Next.js SEO patterns"
+        ]
+      },
+      "risk": {
+        "score": 2,
+        "factors": [
+          "Well-documented patterns"
+        ]
+      },
+      "urgency": {
+        "factor": 1,
+        "reason": "SEO foundation, can be augmented later"
+      },
+      "priority": 10,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "",
+    "commits": [],
+    "createdAt": "2026-06-29T14:00:00.000Z",
+    "updatedAt": "2026-06-29T14:00:00.000Z"
+  }
+]

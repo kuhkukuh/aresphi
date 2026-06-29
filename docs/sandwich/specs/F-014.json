@@ -1,0 +1,187 @@
+{
+  "featureId": "F-014",
+  "title": "Design System & Component Library",
+  "summary": "Typography system (Playfair Display + Geist fonts), color palette (orange brand + warm neutrals), reusable UI components, Framer Motion animations, and property card with hover glow effect.",
+  "acceptanceCriteria": [
+    {
+      "id": "AC-001",
+      "given": "Tailwind config is loaded",
+      "when": "Developer uses font-serif or font-sans classes",
+      "then": "Playfair Display is applied for serif, Geist for sans-serif",
+      "testable": true,
+      "testCommand": "npm run build"
+    },
+    {
+      "id": "AC-002",
+      "given": "Custom color classes are used",
+      "when": "Developer applies bg-orange-500, text-stone-800, etc.",
+      "then": "Correct brand colors are rendered",
+      "testable": true,
+      "testCommand": "npm run build"
+    },
+    {
+      "id": "AC-003",
+      "given": "Button component is imported",
+      "when": "Button is rendered with variant prop",
+      "then": "Correct styles are applied (primary, secondary, outline)",
+      "testable": true,
+      "testCommand": "npm test -- --grep 'Button'"
+    },
+    {
+      "id": "AC-004",
+      "given": "PropertyCard component is rendered",
+      "when": "User hovers over the card",
+      "then": "Glow/highlight effect is triggered following mouse position",
+      "testable": true,
+      "testCommand": "npm test -- --grep 'PropertyCard'"
+    },
+    {
+      "id": "AC-005",
+      "given": "FadeInUp animation is applied to an element",
+      "when": "Element enters viewport",
+      "then": "Element fades in and slides up with animation",
+      "testable": true,
+      "testCommand": "npm test -- --grep 'FadeInUp'"
+    },
+    {
+      "id": "AC-006",
+      "given": "Input component is rendered",
+      "when": "User focuses and types in input",
+      "then": "Focus ring and border styles are applied correctly",
+      "testable": true,
+      "testCommand": "npm test -- --grep 'Input'"
+    },
+    {
+      "id": "AC-007",
+      "given": "Card component is rendered",
+      "when": "Card is used in layout",
+      "then": "Correct rounded corners, shadow, and padding are applied",
+      "testable": true,
+      "testCommand": "npm test -- --grep 'Card'"
+    },
+    {
+      "id": "AC-008",
+      "given": "Container component is used",
+      "when": "Page content is wrapped in Container",
+      "then": "Content is centered with proper max-width and padding",
+      "testable": true,
+      "testCommand": "npm run build"
+    }
+  ],
+  "scope": {
+    "inScope": [
+      "Typography system (Playfair Display + Geist)",
+      "Color palette configuration (orange, stone neutrals, accents)",
+      "Button component (primary, secondary, outline variants)",
+      "Input component",
+      "Card component",
+      "PropertyCard with hover glow effect",
+      "Container component",
+      "FadeInUp animation utility",
+      "FadeIn animation utility",
+      "Base Tailwind utilities extension"
+    ],
+    "outOfScope": [
+      "Property listing page",
+      "Property detail page",
+      "Navigation/Header component",
+      "Footer component",
+      "Form validation logic",
+      "Complex carousel/slider"
+    ]
+  },
+  "tasks": [
+    {
+      "id": "T-001",
+      "description": "Configure custom fonts in Tailwind config",
+      "files": ["tailwind.config.ts", "app/layout.tsx"],
+      "acceptanceCriteria": ["AC-001"],
+      "estimatedMinutes": 15
+    },
+    {
+      "id": "T-002",
+      "description": "Define color palette in Tailwind config",
+      "files": ["tailwind.config.ts"],
+      "acceptanceCriteria": ["AC-002"],
+      "estimatedMinutes": 10
+    },
+    {
+      "id": "T-003",
+      "description": "Create Button component",
+      "files": ["src/presentation/components/ui/Button.tsx"],
+      "acceptanceCriteria": ["AC-003"],
+      "estimatedMinutes": 15
+    },
+    {
+      "id": "T-004",
+      "description": "Create Input component",
+      "files": ["src/presentation/components/ui/Input.tsx"],
+      "acceptanceCriteria": ["AC-006"],
+      "estimatedMinutes": 15
+    },
+    {
+      "id": "T-005",
+      "description": "Create Card component",
+      "files": ["src/presentation/components/ui/Card.tsx"],
+      "acceptanceCriteria": ["AC-007"],
+      "estimatedMinutes": 10
+    },
+    {
+      "id": "T-006",
+      "description": "Create PropertyCard with hover glow effect",
+      "files": ["src/presentation/components/features/PropertyCard.tsx"],
+      "acceptanceCriteria": ["AC-004"],
+      "estimatedMinutes": 25
+    },
+    {
+      "id": "T-007",
+      "description": "Create Container component",
+      "files": ["src/presentation/components/ui/Container.tsx"],
+      "acceptanceCriteria": ["AC-008"],
+      "estimatedMinutes": 10
+    },
+    {
+      "id": "T-008",
+      "description": "Create animation utilities (FadeInUp, FadeIn)",
+      "files": ["src/presentation/lib/animations.ts"],
+      "acceptanceCriteria": ["AC-005"],
+      "estimatedMinutes": 15
+    },
+    {
+      "id": "T-009",
+      "description": "Create index file for UI components",
+      "files": ["src/presentation/components/ui/index.ts"],
+      "acceptanceCriteria": ["AC-003", "AC-006", "AC-007", "AC-008"],
+      "estimatedMinutes": 5
+    },
+    {
+      "id": "T-010",
+      "description": "Write component tests",
+      "files": [
+        "src/presentation/components/ui/__tests__/Button.test.tsx",
+        "src/presentation/components/ui/__tests__/Input.test.tsx",
+        "src/presentation/components/ui/__tests__/Card.test.tsx",
+        "src/presentation/components/features/__tests__/PropertyCard.test.tsx"
+      ],
+      "acceptanceCriteria": ["AC-003", "AC-004", "AC-006", "AC-007"],
+      "estimatedMinutes": 30
+    }
+  ],
+  "harness": {
+    "setup": [
+      "npm install framer-motion",
+      "npm install @fontsource/playfair-display @fontsource-variable/geist"
+    ],
+    "testsToWrite": [
+      "src/presentation/components/ui/__tests__/Button.test.tsx",
+      "src/presentation/components/ui/__tests__/Input.test.tsx",
+      "src/presentation/components/ui/__tests__/Card.test.tsx",
+      "src/presentation/components/features/__tests__/PropertyCard.test.tsx"
+    ],
+    "validators": [
+      "npm run build",
+      "npm test",
+      "npm run lint"
+    ]
+  }
+}
