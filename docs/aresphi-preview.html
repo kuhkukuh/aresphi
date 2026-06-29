@@ -211,22 +211,23 @@
           </div>
           
           <!-- Flashlight Cards -->
-          <div class="flashlight-card" onmousemove="this.style.setProperty('--mouse-x', event.clientX - this.getBoundingClientRect().left + 'px'); this.style.setProperty('--mouse-y', event.clientY - this.getBoundingClientRect().top + 'px')">
-            <div class="flashlight-card-content p-6 h-full flex flex-col justify-between min-h-[180px]">
-              <div class="w-14 h-14 rounded-2xl bg-orange/10 flex items-center justify-center mb-4 text-orange text-2xl font-bold">01</div>
+          <div class="flashlight-card overflow-hidden" onmousemove="this.style.setProperty('--mouse-x', event.clientX - this.getBoundingClientRect().left + 'px'); this.style.setProperty('--mouse-y', event.clientY - this.getBoundingClientRect().top + 'px')">
+            <div class="flashlight-card-content p-6 h-full flex flex-col justify-end min-h-[180px]">
+              <span class="absolute -top-2 -right-1 font-playfair text-[120px] italic tracking-tighter text-stone-900/30 leading-none select-none pointer-events-none">01</span>
               <div><h4 class="text-xl tracking-tight text-stone-900 mb-1">Layanan Lengkap</h4><p class="text-stone-500 text-sm">Konsultasi hingga transaksi</p></div>
             </div>
           </div>
           
-          <div class="flashlight-card" onmousemove="this.style.setProperty('--mouse-x', event.clientX - this.getBoundingClientRect().left + 'px'); this.style.setProperty('--mouse-y', event.clientY - this.getBoundingClientRect().top + 'px')">
-            <div class="flashlight-card-content p-6 h-full flex flex-col justify-between min-h-[180px]">
-              <div class="w-14 h-14 rounded-2xl bg-sage/10 flex items-center justify-center mb-4 text-sage text-2xl font-bold">02</div>
+          <div class="flashlight-card overflow-hidden" onmousemove="this.style.setProperty('--mouse-x', event.clientX - this.getBoundingClientRect().left + 'px'); this.style.setProperty('--mouse-y', event.clientY - this.getBoundingClientRect().top + 'px')">
+            <div class="flashlight-card-content p-6 h-full flex flex-col justify-end min-h-[180px]">
+              <span class="absolute -top-2 -right-1 font-playfair text-[120px] italic tracking-tighter text-stone-900/30 leading-none select-none pointer-events-none">02</span>
               <div><h4 class="text-xl tracking-tight text-stone-900 mb-1">Jaringan Luas</h4><p class="text-stone-500 text-sm">Akses properti eksklusif</p></div>
             </div>
           </div>
           
           <!-- Dark Card -->
           <div class="md:col-span-2 bg-sage rounded-2xl p-8 flex flex-col justify-between relative overflow-hidden text-white min-h-[160px]">
+            <span class="absolute -top-2 -right-1 font-playfair text-[120px] italic tracking-tighter text-white/30 leading-none select-none pointer-events-none">03</span>
             <div class="flex items-center gap-2"><div class="w-2 h-2 bg-orange rounded-full animate-pulse"></div><span class="text-xs uppercase tracking-wide opacity-80">Transparansi Total</span></div>
             <div><h3 class="text-3xl tracking-tight mb-2">100%</h3><p class="text-white/60 text-sm">Informasi jujur. Tanpa biaya tersembunyi.</p></div>
           </div>
