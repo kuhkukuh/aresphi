@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="id" class="antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aresphi Property | Partner Terpercaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { heading: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] },
+          colors: { beige: { DEFAULT: '#F2EFEA' }, stone: { 850: '#26221E' }, amber: { DEFAULT: '#E6A756' }, sage: { DEFAULT: '#2C3E35' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Base - Following Design 4 */
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F2EFEA; color: #2C2824; overflow-x: hidden; letter-spacing: -0.02em; }
+    
+    /* Font families */
+    .font-playfair { font-family: 'Playfair Display', serif !important; }
+    
+    /* Eyebrow - Section labels */
+    .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: #E6A756; }
+    .eyebrow-line { display: inline-block; height: 1px; width: 56px; background: currentColor; transform: translateY(-3px); margin-right: 14px; }
+    
+    /* Selection */
+    ::selection { background: #E6A756; color: #fff; }
+    
+    /* Animations */
+    .will-change-transform { will-change: transform; }
+    
+    /* Flashlight card effect */
+    .flashlight-card { position: relative; border-radius: 1rem; background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(0,0,0,0.05); overflow: hidden; }
+    .flashlight-card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(600px circle at var(--mouse-x,50%) var(--mouse-y,50%), rgba(255,255,255,0.8), transparent 40%); opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 0; }
+    .flashlight-card:hover::before { opacity: 1; }
+    .flashlight-card-content { position: relative; z-index: 1; }
+    
+    /* Marquee */
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .animate-marquee { animation: marquee 30s linear infinite; }
+    .marquee-mask { mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
+    
+    /* Watermark */
+    .watermark { font-size: 18vw; line-height: 0.85; opacity: 0.03; pointer-events: none; user-select: none; }
+    
+    /* Scrollbar */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    /* Vertical Lines */
+    .vertical-lines { position: fixed; inset: 0; pointer-events: none; z-index: 50; display: flex; justify-content: center; width: 100%; opacity: 0.04; }
+    
+    /* SVG Flow Lines */
+    .path-draw { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawPath 4s ease forwards; }
+    @keyframes drawPath { to { stroke-dashoffset: 0; } }
+    
+    /* Hero animations */
+    .will-change-transform { will-change: transform; }
+  </style>
+</head>
+  <body class="antialiased overflow-x-hidden selection:bg-amber selection:text-white" style="font-family:'Inter',sans-serif">
+
+  <!-- Vertical Lines -->
+  <div class="vertical-lines">
+    <div class="w-full max-w-7xl h-full flex justify-between px-6 lg:px-12">
+      <div class="w-px h-full bg-stone-800"></div>
+      <div class="w-px h-full bg-stone-800 hidden md:block"></div>
+      <div class="w-px h-full bg-stone-800 hidden lg:block"></div>
+      <div class="w-px h-full bg-stone-800"></div>
+    </div>
+  </div>
+
+  <!-- SVG Flow Lines -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <svg class="absolute top-0 w-[150vw] h-[150vh] left-[-25vw]" viewBox="0 0 1000 1000" fill="none">
+      <path d="M -100 200 C 300 100, 600 500, 1100 300" stroke="#E6A756" stroke-width="2" opacity="0.25" class="path-draw"></path>
+      <path d="M -100 600 C 400 800, 500 200, 1100 700" stroke="#E6A756" stroke-width="1.5" opacity="0.15" class="path-draw" style="animation-delay: 0.5s"></path>
+    </svg>
+  </div>
+
+    <!-- Navigation -->
+    <header class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-[#0a0d1f]/40 border-b border-white/5">
+      <nav class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div class="flex items-center gap-8">
+          <a href="#" class="text-sm font-semibold tracking-tight">
+            ARESPHI
+            <span class="text-amber">®</span>
+          </a>
+          <div class="hidden md:flex items-center gap-6">
+            <a href="#properti" class="nav-link relative text-sm text-white/60 hover:text-white transition-colors">
+              Properti
+              <span class="absolute -bottom-1 left-0 h-px w-full bg-amber origin-left scale-x-0 transition-transform duration-300"></span>
+            </a>
+            <a href="#layanan" class="nav-link relative text-sm text-white/60 hover:text-white transition-colors">
+              Layanan
+              <span class="absolute -bottom-1 left-0 h-px w-full bg-amber origin-left scale-x-0 transition-transform duration-300"></span>
+            </a>
+            <a href="#tentang" class="nav-link relative text-sm text-white/60 hover:text-white transition-colors">
+              Tentang
+              <span class="absolute -bottom-1 left-0 h-px w-full bg-amber origin-left scale-x-0 transition-transform duration-300"></span>
+            </a>
+            <a href="#kontak" class="nav-link relative text-sm text-white/60 hover:text-white transition-colors">
+              Kontak
+              <span class="absolute -bottom-1 left-0 h-px w-full bg-amber origin-left scale-x-0 transition-transform duration-300"></span>
+            </a>
+          </div>
+        </div>
+        <a href="#kontak" class="cta-btn group inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] border border-white/20 rounded-full px-5 py-2.5 hover:bg-white hover:text-[#0a0d1f] transition-all duration-300 will-change-transform">
+          KONTAK KAMI
+        </a>
+      </nav>
+    </header>
+
+    <!-- Hero -->
+    <section id="hero" class="relative min-h-screen flex flex-col justify-end overflow-hidden pt-24">
+      <div class="absolute inset-0 bg-gradient-to-b from-[#0a0d1f] via-[#0e1228] to-[#0a0d1f]"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-6 w-full">
+        <h1 id="wordmark" class="select-none text-[17vw] leading-[0.85] text-center will-change-transform font-playfair italic tracking-tighter">
+          Aresphi<span class="text-amber font-playfair italic tracking-tighter">®</span>
+        </h1>
+      </div>
+      <div id="cardStack" class="relative z-20 max-w-7xl mx-auto px-6 w-full pb-16 -mt-[6vw] will-change-transform">
+        <div class="relative h-[44vh] sm:h-[52vh]">
+          <div class="hero-card absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[72%] sm:w-[55%] md:w-[44%] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-black/60 ring-1 ring-white/10 will-change-transform z-30">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="" class="w-full h-full object-cover">
+          </div>
+          <div class="hero-card absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[58%] sm:w-[42%] md:w-[32%] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-black/60 ring-1 ring-white/10 will-change-transform z-20">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="" class="w-full h-full object-cover">
+          </div>
+          <div class="hero-card absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[58%] sm:w-[42%] md:w-[32%] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl shadow-black/60 ring-1 ring-white/10 will-change-transform z-10">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="" class="w-full h-full object-cover">
+          </div>
+        </div>
+      </div>
+      <div id="metaCard" class="absolute bottom-8 right-6 z-30 hidden md:flex items-center gap-4 rounded-xl bg-white/5 backdrop-blur-xl ring-1 ring-white/10 p-4 will-change-transform">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=200&q=80" class="w-14 h-14 rounded-lg object-cover" alt="">
+        <div>
+          <p class="text-xs tracking-[0.25em] text-white/40">
+            EST. 2020
+          </p>
+          <p class="text-sm font-medium mt-1">
+            Rumah Modern — Jakarta
+          </p>
+        </div>
+      </div>
+      <div id="heroCopy" class="absolute bottom-8 left-6 z-30 max-w-xs will-change-transform">
+        <p class="text-sm text-white/50 leading-relaxed">
+          Full-service property partner for sales, rental, and consultation across Indonesia.
+        </p>
+      </div>
+    </section>
+
+    <!-- Partner Logos -->
+    <section class="py-16 border-y border-stone-400/10 overflow-hidden bg-white/30">
+      <div class="marquee-mask">
+        <div class="flex items-center gap-20 animate-marquee">
+          <div class="flex items-center gap-20 px-10 text-stone-400 font-semibold text-lg tracking-wider opacity-40 hover:opacity-80 transition-all">
+            <span>VISA</span>
+            <span>AIRBNB</span>
+            <span>STRIPE</span>
+            <span>VERCEL</span>
+            <span>LINEAR</span>
+          </div>
+          <div class="flex items-center gap-20 px-10 text-stone-400 font-semibold text-lg tracking-wider opacity-40 hover:opacity-80 transition-all">
+            <span>VISA</span>
+            <span>AIRBNB</span>
+            <span>STRIPE</span>
+            <span>VERCEL</span>
+            <span>LINEAR</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bento Grid USP (Design 3 + Design 1 flashlight) -->
+    <section class="py-32 px-6 md:px-12" id="tentang">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+          <div>
+            <p class="eyebrow"><span class="eyebrow-line"></span> Mengapa Aresphi</p>
+            <h2 class="mt-8 text-4xl font-medium leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.6rem] text-stone-900" style="letter-spacing: -.055em;">
+              Kepercayaan<br><span class="font-playfair italic font-normal text-stone-500/80">yang Terbukti</span>
+            </h2>
+          </div>
+          <p class="text-stone-500 max-w-sm text-sm">Kami berkomitmen memberikan layanan terbaik dengan profesionalisme tinggi.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 md:h-[500px]">
+          
+          <!-- Large Card -->
+          <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-2xl min-h-[300px]">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Interior" class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-transparent"></div>
+            <div class="absolute inset-0 p-8 flex flex-col justify-end text-white">
+              <p class="text-white/80 text-lg font-light leading-snug mb-4">"Tim profesional yang sangat membantu."</p>
+              <div class="flex items-center gap-3">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="Client" class="w-10 h-10 rounded-full object-cover border-2 border-white/30">
+                <div><p class="font-medium">Ahmad Wijaya</p><p class="text-white/60 text-xs">Jakarta</p></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Flashlight Cards -->
+          <div class="flashlight-card" onmousemove="this.style.setProperty('--mouse-x', event.clientX - this.getBoundingClientRect().left + 'px'); this.style.setProperty('--mouse-y', event.clientY - this.getBoundingClientRect().top + 'px')">
+            <div class="flashlight-card-content p-6 h-full flex flex-col justify-between min-h-[180px]">
+              <div class="w-14 h-14 rounded-2xl bg-amber/10 flex items-center justify-center mb-4 text-amber text-2xl font-bold">01</div>
+              <div><h4 class="text-xl tracking-tight text-stone-900 mb-1">Layanan Lengkap</h4><p class="text-stone-500 text-sm">Konsultasi hingga transaksi</p></div>
+            </div>
+          </div>
+          
+          <div class="flashlight-card" onmousemove="this.style.setProperty('--mouse-x', event.clientX - this.getBoundingClientRect().left + 'px'); this.style.setProperty('--mouse-y', event.clientY - this.getBoundingClientRect().top + 'px')">
+            <div class="flashlight-card-content p-6 h-full flex flex-col justify-between min-h-[180px]">
+              <div class="w-14 h-14 rounded-2xl bg-sage/10 flex items-center justify-center mb-4 text-sage text-2xl font-bold">02</div>
+              <div><h4 class="text-xl tracking-tight text-stone-900 mb-1">Jaringan Luas</h4><p class="text-stone-500 text-sm">Akses properti eksklusif</p></div>
+            </div>
+          </div>
+          
+          <!-- Dark Card -->
+          <div class="md:col-span-2 bg-sage rounded-2xl p-8 flex flex-col justify-between relative overflow-hidden text-white min-h-[160px]">
+            <div class="flex items-center gap-2"><div class="w-2 h-2 bg-amber rounded-full animate-pulse"></div><span class="text-xs uppercase tracking-wide opacity-80">Transparansi Total</span></div>
+            <div><h3 class="text-3xl tracking-tight mb-2">100%</h3><p class="text-white/60 text-sm">Informasi jujur. Tanpa biaya tersembunyi.</p></div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Dark (Design 2 + 3) -->
+    <section class="relative bg-stone-850 py-32 overflow-hidden">
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <span class="font-bold text-white watermark">STATS</span>
+      </div>
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-2/3 bg-gradient-to-b from-amber/10 to-transparent blur-3xl pointer-events-none"></div>
+      
+      <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+        <div class="mb-16">
+          <p class="eyebrow"><span class="eyebrow-line"></span> Pencapaian</p>
+          <h2 class="mt-8 text-4xl font-medium leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.6rem] text-white" style="letter-spacing: -.055em;">
+            Angka <span class="font-playfair italic font-normal text-white/90">Berbicara</span>
+          </h2>
+        </div>
+        
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          <div class="text-center md:text-left"><div class="text-5xl md:text-7xl font-semibold text-white mb-2" style="letter-spacing: -.02em;">150<span class="text-amber">+</span></div><p class="text-xs font-bold uppercase text-white/50" style="letter-spacing: .24em;">Properti Terjual</p></div>
+          <div class="text-center md:text-left"><div class="text-5xl md:text-7xl font-semibold text-white mb-2" style="letter-spacing: -.02em;">200<span class="text-amber">+</span></div><p class="text-xs font-bold uppercase text-white/50" style="letter-spacing: .24em;">Klien Puas</p></div>
+          <div class="text-center md:text-left"><div class="text-5xl md:text-7xl font-semibold text-white mb-2" style="letter-spacing: -.02em;">5<span class="text-amber">+</span></div><p class="text-xs font-bold uppercase text-white/50" style="letter-spacing: .24em;">Tahun Pengalaman</p></div>
+          <div class="text-center md:text-left"><div class="text-5xl md:text-7xl font-semibold text-white mb-2" style="letter-spacing: -.02em;">98<span class="text-amber">%</span></div><p class="text-xs font-bold uppercase text-white/50" style="letter-spacing: .24em;">Keberhasilan</p></div>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div class="space-y-3"><div class="flex justify-between"><span class="text-stone-400 text-sm">Keberhasilan</span><span class="text-amber font-medium">98%</span></div><div class="w-full h-2 bg-stone-700 rounded-full overflow-hidden"><div class="h-full bg-amber rounded-full" style="width:98%"></div></div></div>
+          <div class="space-y-3"><div class="flex justify-between"><span class="text-stone-400 text-sm">Kepuasan</span><span class="text-amber font-medium">95%</span></div><div class="w-full h-2 bg-stone-700 rounded-full overflow-hidden"><div class="h-full bg-amber rounded-full" style="width:95%"></div></div></div>
+          <div class="space-y-3"><div class="flex justify-between"><span class="text-stone-400 text-sm">Respon</span><span class="text-amber font-medium">24 jam</span></div><div class="w-full h-2 bg-stone-700 rounded-full overflow-hidden"><div class="h-full bg-amber rounded-full"></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Steps (Design 2 staggered) -->
+    <section class="py-32 px-6 md:px-12" id="layanan">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+          <div class="flex flex-col justify-center sticky top-32 h-fit">
+            <p class="eyebrow"><span class="eyebrow-line"></span> Proses Kami</p>
+            <h2 class="mt-8 text-4xl font-medium leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.6rem] text-stone-900 mb-8" style="letter-spacing: -.055em;">
+              Perjalanan<br><span class="font-playfair italic font-normal text-stone-500/80">properti Anda</span>
+            </h2>
+            <a href="#kontak" class="inline-flex items-center gap-2 border border-stone-300 rounded-full px-6 py-3 w-max hover:bg-stone-900 hover:text-white transition-colors text-base font-medium">
+              Mulai Proses
+            </a>
+          </div>
+
+          <div class="relative w-full">
+            <svg class="absolute inset-0 w-full h-full -z-10 pointer-events-none" preserveAspectRatio="none">
+              <path d="M 50,0 C 100,200 -50,400 150,800" stroke="#E6A756" stroke-width="2" fill="none" opacity="0.3"></path>
+            </svg>
+            <div class="grid gap-12 md:gap-16 relative z-10">
+              <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-100 w-[85%] md:w-[70%] ml-auto group hover:shadow-lg transition-shadow">
+                <div class="text-amber font-medium mb-4 text-lg">01</div>
+                <div class="w-full h-40 rounded-2xl overflow-hidden mb-6"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Consultation" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
+                <h3 class="font-playfair text-4xl italic">Konsultasi Awal</h3>
+                <p class="text-stone-500">Memahami visi dan kebutuhan Anda melalui sesi mendalam.</p>
+              </div>
+              <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-100 w-[85%] md:w-[70%] group hover:shadow-lg transition-shadow">
+                <div class="text-amber font-medium mb-4 text-lg">02</div>
+                <div class="w-full h-40 rounded-2xl overflow-hidden mb-6"><img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&q=80" alt="Search" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
+                <h3 class="font-playfair text-4xl italic">Kurasi Properti</h3>
+                <p class="text-stone-500">Menyajikan properti sesuai kriteria dari jaringan kami.</p>
+              </div>
+              <div class="bg-white rounded-3xl p-6 shadow-sm border border-stone-100 w-[85%] md:w-[70%] ml-auto group hover:shadow-lg transition-shadow">
+                <div class="text-amber font-medium mb-4 text-lg">03</div>
+                <div class="w-full h-40 rounded-2xl overflow-hidden mb-6"><img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=600&q=80" alt="Transaction" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"></div>
+                <h3 class="font-playfair text-4xl italic">Pendampingan Transaksi</h3>
+                <p class="text-stone-500">Mendampingi setiap langkah hingga kunci di tangan.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Properties (Design 2 horizontal scroll + Design 4 grayscale hover) -->
+    <section class="py-24 relative overflow-hidden bg-beige-dark w-full" id="properti">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 mb-12 flex justify-between items-end">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line"></span> Properti</p>
+          <h2 class="mt-6 text-4xl font-medium leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.6rem] text-stone-900" style="letter-spacing: -.055em;">
+            Koleksi<br><span class="font-playfair italic font-normal text-stone-500/80">Properti Unggulan</span>
+          </h2>
+        </div>
+        <a href="#" class="hidden md:inline-flex items-center gap-2 border border-stone-300 rounded-full px-6 py-3 hover:bg-stone-900 hover:text-white transition-colors text-base font-medium">
+          Lihat Semua
+        </a>
+      </div>
+
+      <div class="h-[65vh] flex items-center w-full relative overflow-x-auto no-scrollbar">
+        <div class="flex gap-6 px-6 md:px-12 w-max h-[80%] items-center">
+          <div class="relative w-[320px] md:w-[400px] h-full rounded-2xl overflow-hidden group shadow-xl shrink-0">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="House" class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 w-full p-6 text-white">
+              <div class="flex justify-between items-end mb-4">
+                <div class="bg-white/20 backdrop-blur-md rounded-full px-4 py-2 text-sm font-medium">Rp 2.5 M</div>
+                <button class="w-10 h-10 bg-amber rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-colors text-sm font-bold">→</button>
+              </div>
+              <h3 class="font-playfair text-2xl italic">Rumah Modern Pondok Indah</h3>
+              <p class="text-white/70 text-sm">Jakarta Selatan</p>
+            </div>
+          </div>
+          
+          <div class="relative w-[320px] md:w-[400px] h-[90%] rounded-2xl overflow-hidden group shadow-xl shrink-0">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="Apartment" class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 w-full p-6 text-white">
+              <div class="bg-white/20 backdrop-blur-md rounded-full px-4 py-2 text-sm font-medium mb-4">Rp 35 jt/bln</div>
+              <h3 class="font-playfair text-2xl italic">Apartemen Mewah Sudirman</h3>
+              <p class="text-white/70 text-sm">Jakarta Pusat</p>
+            </div>
+          </div>
+          
+          <div class="relative w-[320px] md:w-[400px] h-[75%] rounded-2xl overflow-hidden group shadow-xl shrink-0">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Villa" class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 w-full p-6 text-white">
+              <div class="bg-white/20 backdrop-blur-md rounded-full px-4 py-2 text-sm font-medium mb-4">Rp 4.5 M</div>
+              <h3 class="font-playfair text-2xl italic">Villa Eksklusif BSD</h3>
+              <p class="text-white/70 text-sm">Tangerang</p>
+            </div>
+          </div>
+          
+          <div class="relative w-[320px] md:w-[400px] h-[85%] rounded-2xl overflow-hidden group shadow-xl shrink-0">
+            <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&q=80" alt="House" class="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 w-full p-6 text-white">
+              <div class="bg-white/20 backdrop-blur-md rounded-full px-4 py-2 text-sm font-medium mb-4">Rp 1.8 M</div>
+              <h3 class="font-playfair text-2xl italic">Cluster Premium Bandung</h3>
+              <p class="text-white/70 text-sm">Bandung</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote Section (Design 3 style) -->
+    <section class="relative h-[80vh] overflow-hidden flex items-center justify-center">
+      <div class="absolute inset-0">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=80" class="w-full h-full object-cover" alt="Property">
+      </div>
+      <div class="absolute inset-0 bg-stone-900/55"></div>
+      <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+        <p class="text-2xl sm:text-3xl md:text-4xl leading-snug font-medium tracking-tight text-white">
+          We believe a home isn't just a transaction —
+          <span class="text-white/40">
+            it's a life-changing experience.
+          </span>
+        </p>
+        <p class="text-sm font-medium mt-8 text-white">
+          Ahmad Wijaya
+        </p>
+        <p class="text-xs tracking-[0.2em] text-white/40 mt-1">
+          FOUNDING PARTNER
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer (Design 3 style) -->
+    <footer class="relative bg-stone-900 pt-28 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between text-xs tracking-[0.2em] text-white/40 border-b border-white/10 pb-8">
+          <span>EST. 2020</span>
+          <span class="hidden sm:block">
+            QUALITY // TRUST // TRANSPARENCY
+          </span>
+          <span>MENU</span>
+        </div>
+        <div class="text-center py-20">
+          <a href="tel:+6281234567890" class="block text-3xl sm:text-4xl md:text-5xl hover:text-white/70 transition-colors font-medium tracking-tight text-white">
+            +62 812 3456 7890
+          </a>
+          <a href="mailto:info@aresphi.com" class="block text-3xl sm:text-4xl md:text-5xl text-amber mt-2 hover:text-amber/80 transition-colors font-medium tracking-tight">
+            info@aresphi.com
+          </a>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-8 text-xs text-white/40 pb-16">
+          <div>
+            <p>ALL RIGHTS RESERVED.</p>
+            <p class="mt-1">©2025 ARESPHI</p>
+          </div>
+          <div class="sm:text-center">
+            <p>JL. SUDIRMAN NO. 123</p>
+            <p class="mt-1">JAKARTA SELATAN, 12190</p>
+          </div>
+          <div class="sm:text-right space-x-4">
+            <a href="#" class="hover:text-white transition-colors">
+              INSTAGRAM
+            </a>
+            <a href="#" class="hover:text-white transition-colors">
+              LINKEDIN
+            </a>
+            <a href="#" class="hover:text-white transition-colors">
+              PRIVACY
+            </a>
+          </div>
+        </div>
+      </div>
+      <p class="select-none text-[24vw] leading-[0.75] text-white/[0.04] text-center -mb-[4vw] font-bold tracking-tight">
+        ARESPHI
+      </p>
+    </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // nav underline draw
+    document.querySelectorAll('.nav-link').forEach(a => {
+      const u = a.querySelector('span');
+      a.addEventListener('mouseenter', () => u.style.transform = 'scaleX(1)');
+      a.addEventListener('mouseleave', () => u.style.transform = 'scaleX(0)');
+    });
+
+    if (reduced) {
+      gsap.set('#wordmark, .hero-card, #heroCopy, #metaCard', { clearProps: 'all', opacity: 1 });
+    } else {
+      // Lenis smooth scroll
+      const lenis = new Lenis({ duration: 1.3, smoothWheel: true });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(t => lenis.raf(t * 1000));
+      gsap.ticker.lagSmoothing(0);
+      lenis.stop();
+
+      // Initial states
+      gsap.set('#wordmark', { yPercent: 40, opacity: 0 });
+      gsap.set('.hero-card', { y: 120, opacity: 0, scale: 0.92 });
+      gsap.set('#heroCopy', { y: 30, opacity: 0 });
+      gsap.set('#metaCard', { y: 30, opacity: 0 });
+      gsap.set('.cta-btn', { scale: 0.8, opacity: 0 });
+
+      // Hero intro timeline - paused until ScrollTrigger is refreshed
+      const heroIntro = gsap.timeline({
+        paused: true,
+        onComplete() {
+          const heroScrub = gsap.timeline({
+            scrollTrigger: { trigger: '#hero', start: 'top top', end: '+=150%', pin: true, scrub: 1.5, refreshPriority: 1 }
+          });
+          heroScrub
+            .to('#wordmark', { yPercent: -60, ease: 'none', duration: 1 }, 0)
+            .to('#heroCopy, #metaCard', { opacity: 0, y: -40, ease: 'power1.inOut', duration: 0.6 }, 0)
+            .to('#cardStack', { y: -80, scale: 1.05, ease: 'none', duration: 1 }, 0)
+            .to('.hero-card:nth-child(1)', { rotation: -4, ease: 'none', duration: 1 }, 0)
+            .to('.hero-card:nth-child(2)', { x: '-38vw', y: -50, rotation: -9, ease: 'none', duration: 1 }, 0)
+            .to('.hero-card:nth-child(3)', { x: '38vw', y: 50, rotation: 9, ease: 'none', duration: 1 }, 0)
+            .fromTo('#cardStack, #wordmark', { opacity: 1 }, { opacity: 0, ease: 'power1.in', duration: 0.35, immediateRender: false }, 0.75);
+          ScrollTrigger.sort();
+          ScrollTrigger.refresh();
+          lenis.start();
+        }
+      });
+      heroIntro
+        .to('#wordmark', { yPercent: 0, opacity: 1, duration: 1.4, ease: 'power4.out' })
+        .to('.hero-card', { y: 0, opacity: 1, scale: 1, duration: 1.2, stagger: 0.12, ease: 'power3.out' }, '-=1')
+        .to('#heroCopy', { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }, '-=0.7')
+        .to('#metaCard', { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }, '-=0.7')
+        .to('.cta-btn', { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.7)' }, '-=0.5');
+
+      // Refresh ScrollTrigger first, then play intro (same sequence as with loader)
+      ScrollTrigger.refresh();
+      heroIntro.play();
+    }
+  </script>
+</body>
+</html>
