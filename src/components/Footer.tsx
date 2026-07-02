@@ -8,7 +8,13 @@ export default function Footer() {
           <span className="hidden sm:block">
             QUALITY // TRUST // TRANSPARENCY
           </span>
-          <span>MENU</span>
+          <a
+              href="#"
+              className="hover:text-white transition-colors"
+              aria-label="View Privacy Policy"
+            >
+              PRIVACY
+            </a>
         </div>
 
         {/* Contact Links */}
