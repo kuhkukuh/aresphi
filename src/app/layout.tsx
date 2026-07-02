@@ -34,8 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${geistSans.variable} ${playfair.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-stone-50 text-stone-900 font-sans">
+    <html lang="id" className={`${geistSans.variable} ${playfair.variable} antialiased`}>
+      <body className="min-h-screen flex flex-col bg-stone-50 text-stone-900 font-sans">
         <SmoothScrollProvider>
           {children}
         </SmoothScrollProvider>
