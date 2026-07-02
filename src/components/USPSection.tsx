@@ -28,9 +28,38 @@ export default function USPSection() {
           </p>
         </div>
 
-        {/* Grid placeholder */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 md:h-[500px]">
-          {/* Cards will go here */}
+          {/* Testimonial Card */}
+          <div className="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-2xl min-h-[300px]">
+            <img
+              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80"
+              alt="Interior"
+              className="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105 bg-stone-200"
+              onError={(e) => {
+                e.currentTarget.style.visibility = "hidden";
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-stone-900/20 to-transparent" />
+            <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
+              <p className="text-white/80 text-lg font-light leading-snug mb-4">
+                "Tim profesional yang sangat membantu."
+              </p>
+              <div className="flex items-center gap-3">
+                <img
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80"
+                  alt="Ahmad Wijaya"
+                  className="w-10 h-10 rounded-full object-cover border-2 border-white/30 bg-stone-600"
+                  onError={(e) => {
+                    e.currentTarget.style.visibility = "hidden";
+                  }}
+                />
+                <div>
+                  <p className="font-medium">Ahmad Wijaya</p>
+                  <p className="text-white/60 text-xs">Jakarta</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
