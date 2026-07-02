@@ -102,6 +102,25 @@ export default function USPSection() {
               </p>
             </div>
           </div>
+
+          {/* Dark Stats Card */}
+          <div className="md:col-span-2 bg-[#2C3E35] rounded-2xl p-8 flex flex-col justify-between relative overflow-hidden text-white min-h-[160px]">
+            <span className="absolute -top-2 -right-1 font-playfair text-[120px] italic tracking-tighter text-white/30 leading-none select-none pointer-events-none">
+              03
+            </span>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 bg-orange rounded-full animate-pulse" />
+              <span className="text-xs uppercase tracking-wide opacity-80">
+                Transparansi Total
+              </span>
+            </div>
+            <div>
+              <h3 className="text-3xl tracking-tight mb-2">100%</h3>
+              <p className="text-white/60 text-sm">
+                Informasi jujur. Tanpa biaya tersembunyi.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
