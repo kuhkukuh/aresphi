@@ -1,4 +1,4 @@
-import { integer, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
+import { integer, pgTable, text, timestamp, boolean } from 'drizzle-orm/pg-core';
 
 export const stats = pgTable('stats', {
   id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
@@ -18,7 +18,7 @@ export const properties = pgTable('properties', {
   location: text('location').notNull(),
   price: text('price').notNull(),
   status: text('status', { enum: ['available', 'sold', 'rented'] }).notNull().default('available'),
-  showInShowcase: integer('show_in_showcase', { mode: 'boolean' }).notNull().default(false),
+  showInShowcase: boolean('show_in_showcase').notNull().default(false),
   displayOrder: integer('display_order').notNull().default(0),
   createdAt: timestamp('created_at', { mode: 'date' }).notNull().defaultNow(),
   updatedAt: timestamp('updated_at', { mode: 'date' }).notNull().defaultNow(),

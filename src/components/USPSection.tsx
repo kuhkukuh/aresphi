@@ -13,15 +13,15 @@ export default function USPSection() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
           <div>
-            <div className="flex justify-between items-baseline mb-4 pb-4 border-b border-stone-400/20">
-              <span className="text-xs font-semibold text-orange uppercase tracking-[0.15em]">
+            <div className="eyebrow">
+              <span className="eyebrow-left">
                 / 01 Mengapa Aresphi
               </span>
-              <span className="text-xs text-stone-400 font-mono">
+              <span className="eyebrow-right">
                 [ 01 ]
               </span>
             </div>
-            <h2 className="mt-8 text-4xl font-medium leading-tight sm:text-5xl md:text-6xl lg:text-[4.6rem] tracking-[-0.055em] text-stone-900">
+            <h2 className="mt-8 text-4xl font-medium leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.6rem] text-stone-900" style={{ letterSpacing: '-0.055em' }}>
               Kepercayaan
               <br />
               <span className="font-playfair italic font-normal text-stone-500/80">

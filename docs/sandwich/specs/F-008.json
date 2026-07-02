@@ -1,0 +1,28 @@
+{
+  "featureId": "F-008",
+  "title": "Footer",
+  "module": "footer",
+  "description": "Contact information, social links (Instagram, LinkedIn), dan large watermark. Phone, email, dan address display.",
+  "scope": {
+    "inScope": [
+      "Phone number: +62 812 3456 7890",
+      "Email: info@aresphi.com",
+      "Address: Jl. Sudirman No. 123, Jakarta Selatan",
+      "Social links: Instagram, LinkedIn",
+      "Large Aresphi watermark"
+    ],
+    "outOfScope": [
+      "Newsletter subscription",
+      "Dynamic contact info via admin"
+    ]
+  },
+  "acceptanceCriteria": [
+    { "id": "AC1", "text": "Phone number clickable dengan tel: link", "done": false },
+    { "id": "AC2", "text": "Email clickable dengan mailto: link", "done": false },
+    { "id": "AC3", "text": "Social icons link ke Instagram dan LinkedIn profiles", "done": false },
+    { "id": "AC4", "text": "Address tampil dengan icon atau formatting yang jelas", "done": false },
+    { "id": "AC5", "text": "Large Aresphi watermark visible but subtle in background", "done": false }
+  ],
+  "dependsOn": [],
+  "source": { "file": "prd.md", "lines": "108-115" }
+}

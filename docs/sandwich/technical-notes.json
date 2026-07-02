@@ -1,0 +1,49 @@
+{
+  "stack": [
+    { "layer": "Hosting", "choice": "Vercel", "rationale": "Stated by client — seamless Next.js integration, automatic deployments, edge functions support" },
+    { "layer": "File Storage", "choice": "Vercel Blob", "rationale": "Stated by client — property photos uploaded by admin, admin selects which photos appear in each section" },
+    { "layer": "Frontend Framework", "choice": "Next.js 16.2.9 with React 19", "rationale": "Already set up in existing codebase, supports SSR and static generation" },
+    { "layer": "Styling", "choice": "Tailwind CSS 4", "rationale": "Already configured, used in design reference for utility-first styling" },
+    { "layer": "Animation", "choice": "GSAP 3 + ScrollTrigger + Lenis", "rationale": "Used in design reference for smooth scroll and scroll-triggered animations" },
+    { "layer": "Motion Library", "choice": "Framer Motion", "rationale": "Already in dependencies, alternative to GSAP for React-native animations" },
+    { "layer": "Database", "choice": "Neon PostgreSQL + Drizzle ORM", "rationale": "Already configured, serverless PostgreSQL with type-safe queries for property catalog and stats" }
+  ],
+  "architectureNotes": [
+    {
+      "heading": "Admin Dashboard with Static Auth",
+      "body": "Admin accesses dashboard using static credentials stored in environment variables. No OAuth or user management system needed. Simple HTTP Basic Auth or custom login comparing against env vars. Session via signed cookies."
+    },
+    {
+      "heading": "Property Photo Management",
+      "body": "Admin uploads property photos to Vercel Blob via admin dashboard. Each property can have multiple photos. Admin designates which photo appears in Hero, Property Showcase, and other sections. Store photo URLs and section assignments in database."
+    },
+    {
+      "heading": "Stats Management",
+      "body": "Stats (properties sold, clients, years, success rate) stored in database and editable via admin dashboard. Allows marketing team to update achievements without code changes. Single row table or key-value config."
+    },
+    {
+      "heading": "Incremental Static Regeneration for Properties",
+      "body": "Use Next.js ISR to cache property listings with revalidation interval. Properties don't change frequently, so 1-hour revalidation is acceptable. Keeps database load low while ensuring fresh data."
+    },
+    {
+      "heading": "Lead Capture: Mailto + WhatsApp Only",
+      "body": "No backend form processing needed. Contact form uses mailto: for email and WhatsApp deep links (wa.me/62xxx) for direct messaging. No lead storage in database. Simplicity over tracking for MVP."
+    },
+    {
+      "heading": "Bank Partner Logo Assets",
+      "body": "Client has 9 bank partners (BNI, BJB, BTN, BRI, BCA, BPR, BPR HIK, BWS/Bank Woori Saudara, Bank Sampoerna). Need to source official logos and apply greyscale filter for visual consistency in the marquee. Consider SVG format for crisp rendering at any size."
+    },
+    {
+      "heading": "Deferred: Property Detail & Catalog Pages",
+      "body": "Property Detail Page and Catalog Page are confirmed requirements but on hold until designs are provided. Build data models and admin CRUD now, add public pages when design is ready."
+    }
+  ],
+  "risks": [
+    { "text": "GSAP ScrollTrigger + Lenis smooth scroll may cause scroll position mismatch errors during development", "severity": "medium" },
+    { "text": "Static env-based admin auth is less secure than OAuth — suitable only for internal tools with trusted users", "severity": "low" },
+    { "text": "Bank logo sourcing may require brand guideline compliance checks for each institution", "severity": "low" }
+  ],
+  "openDecisions": [
+    { "text": "Replace GSAP with Framer Motion for smaller bundle, or keep GSAP for mature ScrollTrigger API?", "confidence": "assumed" }
+  ]
+}

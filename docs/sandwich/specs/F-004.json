@@ -1,0 +1,26 @@
+{
+  "featureId": "F-004",
+  "title": "Stats Section",
+  "module": "stats",
+  "description": "Dark background section menampilkan company achievements: 150+ Properti Terjual, 200+ Klien Puas, 5+ Tahun Pengalaman, 98% Keberhasilan. Stats editable via admin dashboard.",
+  "scope": {
+    "inScope": [
+      "4 stat items: properti terjual, klien puas, tahun pengalaman, keberhasilan",
+      "Dark background design",
+      "Admin CRUD untuk stats values",
+      "Stats fetched from database"
+    ],
+    "outOfScope": [
+      "Historical stats tracking",
+      "Stats charts/graphs"
+    ]
+  },
+  "acceptanceCriteria": [
+    { "id": "AC1", "text": "4 stat items tampil dengan dark background dan white text", "done": false },
+    { "id": "AC2", "text": "Stats values loaded from database, not hardcoded", "done": false },
+    { "id": "AC3", "text": "Admin dapat update semua stats values via dashboard", "done": false },
+    { "id": "AC4", "text": "Stats show appropriate formatting (150+, 98%, etc)", "done": false }
+  ],
+  "dependsOn": ["F-010"],
+  "source": { "file": "prd.md", "lines": "68-77" }
+}

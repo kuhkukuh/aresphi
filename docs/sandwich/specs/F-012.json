@@ -1,0 +1,24 @@
+{
+  "featureId": "F-012",
+  "title": "Property Detail Page",
+  "module": "property",
+  "description": "Individual property listing page dengan full details dan photos. ON HOLD pending design.",
+  "scope": {
+    "inScope": [
+      "Property detail view dengan photos dan information",
+      "Photo gallery/lightbox",
+      "Property information display"
+    ],
+    "outOfScope": [
+      "Booking/scheduling functionality",
+      "Mortgage calculator"
+    ]
+  },
+  "acceptanceCriteria": [
+    { "id": "AC1", "text": "Property detail page shows all property information", "done": false },
+    { "id": "AC2", "text": "Photo gallery displays all property photos", "done": false },
+    { "id": "AC3", "text": "Contact CTA visible on page", "done": false }
+  ],
+  "dependsOn": ["F-006", "F-010"],
+  "source": { "file": "prd.md", "lines": "145-151" }
+}

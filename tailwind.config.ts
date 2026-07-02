@@ -11,11 +11,14 @@ const config: Config = {
     extend: {
       fontFamily: {
         heading: ['var(--font-playfair)', 'serif'],
-        sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
+        playfair: ['var(--font-playfair)', 'serif'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },
       colors: {
         // Warm beige palette
         beige: {
+          DEFAULT: '#F2EFEA',
           50: '#FAF9F7',
           100: '#F5F3EF',
           200: '#F2EFEA',
@@ -37,6 +40,7 @@ const config: Config = {
           950: '#0C0A09',
         },
         orange: {
+          DEFAULT: '#f97316',
           50: '#FEF3E2',
           100: '#FDEBD0',
           200: '#F8C471',
@@ -44,6 +48,9 @@ const config: Config = {
           400: '#E67E22',
           500: '#D35400',
           600: '#A04000',
+        },
+        sage: {
+          DEFAULT: '#2C3E35',
         },
       },
       backgroundImage: {

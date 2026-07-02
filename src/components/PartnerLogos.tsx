@@ -28,17 +28,17 @@ const PARTNER_LOGOS = [
  */
 export default function PartnerLogos() {
   return (
-    <section className="py-6 overflow-hidden bg-stone-50 dark:bg-stone-900">
-      <div className="relative marquee-mask">
+    <section className="py-16 border-y border-stone-400/10 overflow-hidden bg-white/30">
+      <div className="marquee-mask">
         <div
-          className="flex gap-8 animate-marquee hover:[animation-play-state:paused]"
+          className="flex items-center gap-20 animate-marquee hover:[animation-play-state:paused]"
           style={{ width: 'fit-content' }}
         >
           {/* First set */}
           {PARTNER_LOGOS.map((logo) => (
             <div
               key={logo.name}
-              className="flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-300"
+              className="flex-shrink-0 px-10 text-stone-400 font-semibold text-lg tracking-wider opacity-40 hover:opacity-80 transition-all"
             >
               <Image
                 src={logo.src}
@@ -53,7 +53,7 @@ export default function PartnerLogos() {
           {PARTNER_LOGOS.map((logo) => (
             <div
               key={`${logo.name}-dup`}
-              className="flex-shrink-0 grayscale hover:grayscale-0 transition-all duration-300"
+              className="flex-shrink-0 px-10 text-stone-400 font-semibold text-lg tracking-wider opacity-40 hover:opacity-80 transition-all"
             >
               <Image
                 src={logo.src}

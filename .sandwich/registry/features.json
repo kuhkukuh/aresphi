@@ -1,0 +1,778 @@
+[
+  {
+    "id": "F-001",
+    "fingerprint": "hero-section-hero",
+    "title": "Hero Section",
+    "description": "Animated hero with wordmark, stacked property cards, and smooth scroll-triggered animations. Admin can select which property photos appear.",
+    "type": "feature",
+    "module": "Hero",
+    "confidence": "inferred",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "36-47",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [
+      "F-010"
+    ],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 9,
+        "factors": [
+          "First impression section",
+          "Sets brand tone",
+          "Primary CTA placement"
+        ]
+      },
+      "effort": {
+        "score": 6,
+        "factors": [
+          "Complex GSAP animations",
+          "Parallax effects",
+          "Admin photo selection integration"
+        ]
+      },
+      "risk": {
+        "score": 4,
+        "factors": [
+          "ScrollTrigger + Lenis compatibility",
+          "Animation performance on mobile"
+        ]
+      },
+      "urgency": {
+        "factor": 1.5,
+        "reason": "Primary landing experience, blocks marketing launch"
+      },
+      "priority": 10,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-001.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  },
+  {
+    "id": "F-002",
+    "fingerprint": "partner-logos-partners",
+    "title": "Partner Logos",
+    "description": "Marquee-style scrolling bank partner logos section with infinite horizontal scroll animation and greyscale treatment.",
+    "type": "feature",
+    "module": "Partners",
+    "confidence": "inferred",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "49-56",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 6,
+        "factors": [
+          "Builds trust via bank partnerships",
+          "Social proof element"
+        ]
+      },
+      "effort": {
+        "score": 3,
+        "factors": [
+          "Logo sourcing needed",
+          "Simple CSS marquee animation"
+        ]
+      },
+      "risk": {
+        "score": 2,
+        "factors": [
+          "Brand guideline compliance may require revisions"
+        ]
+      },
+      "urgency": {
+        "factor": 1,
+        "reason": "Trust-building but not critical path"
+      },
+      "priority": 12,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-002.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  },
+  {
+    "id": "F-003",
+    "fingerprint": "usp-section-usp",
+    "title": "USP Section",
+    "description": "Bento grid layout highlighting key differentiators: transparency, personal service, responsiveness, effective marketing, integrity. Includes flashlight effect cards and testimonial.",
+    "type": "feature",
+    "module": "USP",
+    "confidence": "inferred",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "58-66",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 7,
+        "factors": [
+          "Differentiates from competitors",
+          "Trust building"
+        ]
+      },
+      "effort": {
+        "score": 5,
+        "factors": [
+          "Bento grid layout",
+          "Flashlight hover effect",
+          "Testimonial card with client photo"
+        ]
+      },
+      "risk": {
+        "score": 2,
+        "factors": [
+          "Well-understood pattern",
+          "Static content"
+        ]
+      },
+      "urgency": {
+        "factor": 1,
+        "reason": "Important but not blocking"
+      },
+      "priority": 8,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-003.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  },
+  {
+    "id": "F-004",
+    "fingerprint": "stats-section-stats",
+    "title": "Stats Section",
+    "description": "Dark background section displaying company achievements (150+ properties sold, 200+ clients, 5+ years, 98% success rate). Stats editable via admin dashboard.",
+    "type": "feature",
+    "module": "Stats",
+    "confidence": "stated",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "68-77",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [
+      "F-010"
+    ],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 7,
+        "factors": [
+          "Trust and credibility",
+          "Social proof"
+        ]
+      },
+      "effort": {
+        "score": 4,
+        "factors": [
+          "Database integration",
+          "Admin CRUD for stats"
+        ]
+      },
+      "risk": {
+        "score": 2,
+        "factors": [
+          "Simple key-value storage",
+          "Well-understood pattern"
+        ]
+      },
+      "urgency": {
+        "factor": 1.2,
+        "reason": "Trust building, marketing wants current stats"
+      },
+      "priority": 12,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-004.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  },
+  {
+    "id": "F-005",
+    "fingerprint": "process-section-process",
+    "title": "Process Section",
+    "description": "Staggered cards showing 3-step client journey: Konsultasi Awal, Kurasi Properti, Pendampingan Transaksi. Includes sticky heading with CTA.",
+    "type": "feature",
+    "module": "Process",
+    "confidence": "stated",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "79-87",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 6,
+        "factors": [
+          "Explains service value",
+          "Guides user journey"
+        ]
+      },
+      "effort": {
+        "score": 3,
+        "factors": [
+          "Simple card layout",
+          "Static content"
+        ]
+      },
+      "risk": {
+        "score": 1,
+        "factors": [
+          "No dependencies",
+          "Static content"
+        ]
+      },
+      "urgency": {
+        "factor": 1,
+        "reason": "Core content section"
+      },
+      "priority": 13,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-005.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  },
+  {
+    "id": "F-006",
+    "fingerprint": "property-showcase-property",
+    "title": "Property Showcase",
+    "description": "Horizontal scrolling gallery of featured properties with pricing and location. Grayscale-to-color hover effect. Admin selects which properties appear.",
+    "type": "feature",
+    "module": "Property",
+    "confidence": "inferred",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "89-99",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [
+      "F-010"
+    ],
+    "blocks": [
+      "F-012",
+      "F-013"
+    ],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 9,
+        "factors": [
+          "Core product display",
+          "Primary conversion driver",
+          "Unblocks detail and catalog pages"
+        ]
+      },
+      "effort": {
+        "score": 5,
+        "factors": [
+          "Horizontal scroll implementation",
+          "Image hover effects",
+          "Database integration"
+        ]
+      },
+      "risk": {
+        "score": 3,
+        "factors": [
+          "Depends on property data",
+          "Image optimization"
+        ]
+      },
+      "urgency": {
+        "factor": 1.5,
+        "reason": "Core value proposition, blocks detail and catalog pages"
+      },
+      "priority": 14,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-006.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  },
+  {
+    "id": "F-007",
+    "fingerprint": "quote-section-quote",
+    "title": "Quote Section",
+    "description": "Full-width hero image with centered quote about home buying philosophy.",
+    "type": "feature",
+    "module": "Quote",
+    "confidence": "inferred",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "101-106",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 4,
+        "factors": [
+          "Emotional appeal",
+          "Brand personality"
+        ]
+      },
+      "effort": {
+        "score": 2,
+        "factors": [
+          "Simple layout",
+          "Static content"
+        ]
+      },
+      "risk": {
+        "score": 1,
+        "factors": [
+          "No dependencies",
+          "Simple implementation"
+        ]
+      },
+      "urgency": {
+        "factor": 0.8,
+        "reason": "Enhancement, not critical"
+      },
+      "priority": 11,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-007.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  },
+  {
+    "id": "F-008",
+    "fingerprint": "footer-footer",
+    "title": "Footer",
+    "description": "Contact information, social links (Instagram, LinkedIn), and large watermark. Phone, email, and address display.",
+    "type": "feature",
+    "module": "Footer",
+    "confidence": "inferred",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "108-115",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 5,
+        "factors": [
+          "Contact access",
+          "SEO benefit",
+          "Site completeness"
+        ]
+      },
+      "effort": {
+        "score": 2,
+        "factors": [
+          "Simple layout",
+          "Static content"
+        ]
+      },
+      "risk": {
+        "score": 1,
+        "factors": [
+          "No dependencies",
+          "Simple implementation"
+        ]
+      },
+      "urgency": {
+        "factor": 1,
+        "reason": "Site completeness"
+      },
+      "priority": 17,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-008.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  },
+  {
+    "id": "F-009",
+    "fingerprint": "navigation-navigation",
+    "title": "Navigation",
+    "description": "Floating pill-shaped navbar with glassmorphism blur effect. Links: Properti, Layanan, Tentang, Kontak. Mobile hamburger menu. Expands on scroll.",
+    "type": "feature",
+    "module": "Navigation",
+    "confidence": "inferred",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "117-124",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 7,
+        "factors": [
+          "Site-wide navigation",
+          "Mobile UX critical"
+        ]
+      },
+      "effort": {
+        "score": 4,
+        "factors": [
+          "Scroll state management",
+          "Mobile menu",
+          "Glassmorphism styling"
+        ]
+      },
+      "risk": {
+        "score": 2,
+        "factors": [
+          "Well-understood pattern"
+        ]
+      },
+      "urgency": {
+        "factor": 1.2,
+        "reason": "All pages need navigation"
+      },
+      "priority": 12,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-009.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  },
+  {
+    "id": "F-010",
+    "fingerprint": "property-management-admin",
+    "title": "Property Management Admin",
+    "description": "Admin dashboard for managing property inventory catalog with CRUD operations. Image upload to Vercel Blob, property status tracking, photo section assignment. Static auth via env variables.",
+    "type": "feature",
+    "module": "Admin",
+    "confidence": "stated",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "126-135",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [],
+    "blocks": [
+      "F-001",
+      "F-004",
+      "F-006"
+    ],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 10,
+        "factors": [
+          "Foundation for all property features",
+          "Unblocks Hero, Stats, Showcase",
+          "Enables content management"
+        ]
+      },
+      "effort": {
+        "score": 7,
+        "factors": [
+          "Full CRUD implementation",
+          "Vercel Blob integration",
+          "Auth system",
+          "Database schema"
+        ]
+      },
+      "risk": {
+        "score": 3,
+        "factors": [
+          "Static auth is simple but untested in this context",
+          "Blob upload edge cases"
+        ]
+      },
+      "urgency": {
+        "factor": 1.5,
+        "reason": "Blocks 3 downstream features, critical path for content management"
+      },
+      "priority": 11,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-010.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  },
+  {
+    "id": "F-011",
+    "fingerprint": "lead-capture-contact",
+    "title": "Lead Capture",
+    "description": "Contact form with mailto link and WhatsApp deep link integration. Form fields: name, email, phone, message.",
+    "type": "feature",
+    "module": "Contact",
+    "confidence": "inferred",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "137-143",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [],
+    "blocks": [],
+    "blockedBy": [],
+    "score": {
+      "impact": {
+        "score": 8,
+        "factors": [
+          "Primary conversion mechanism",
+          "Direct lead generation"
+        ]
+      },
+      "effort": {
+        "score": 2,
+        "factors": [
+          "Simple form",
+          "No backend processing",
+          "mailto + WhatsApp only"
+        ]
+      },
+      "risk": {
+        "score": 1,
+        "factors": [
+          "No data storage",
+          "Simple implementation"
+        ]
+      },
+      "urgency": {
+        "factor": 1.5,
+        "reason": "Core business function, lead generation"
+      },
+      "priority": 40,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-011.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  },
+  {
+    "id": "F-012",
+    "fingerprint": "property-detail-page-property",
+    "title": "Property Detail Page",
+    "description": "Individual property listing page with full details and photos. ON HOLD pending design.",
+    "type": "feature",
+    "module": "Property",
+    "confidence": "stated",
+    "lifecycle": "deferred",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "145-151",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [
+      "F-006",
+      "F-010"
+    ],
+    "blocks": [],
+    "blockedBy": [
+      "F-006",
+      "F-010"
+    ],
+    "score": {
+      "impact": {
+        "score": 7,
+        "factors": [
+          "Property information display",
+          "Conversion path"
+        ]
+      },
+      "effort": {
+        "score": 5,
+        "factors": [
+          "Page layout",
+          "Image gallery",
+          "Dependent on F-006 and F-010"
+        ]
+      },
+      "risk": {
+        "score": 2,
+        "factors": [
+          "Design pending"
+        ]
+      },
+      "urgency": {
+        "factor": 0.8,
+        "reason": "Deferred pending design"
+      },
+      "priority": 7,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-012.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  },
+  {
+    "id": "F-013",
+    "fingerprint": "catalog-page-property",
+    "title": "Catalog Page",
+    "description": "Property catalog/listing page with filtering. ON HOLD pending design.",
+    "type": "feature",
+    "module": "Property",
+    "confidence": "stated",
+    "lifecycle": "deferred",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "153-159",
+      "briefHash": "b9735466461863cd"
+    },
+    "dependsOn": [
+      "F-006",
+      "F-010"
+    ],
+    "blocks": [],
+    "blockedBy": [
+      "F-006",
+      "F-010"
+    ],
+    "score": {
+      "impact": {
+        "score": 8,
+        "factors": [
+          "Browse all properties",
+          "Filter functionality"
+        ]
+      },
+      "effort": {
+        "score": 6,
+        "factors": [
+          "Filter implementation",
+          "Pagination or infinite scroll",
+          "Dependent on F-006 and F-010"
+        ]
+      },
+      "risk": {
+        "score": 2,
+        "factors": [
+          "Design pending",
+          "Filter complexity TBD"
+        ]
+      },
+      "urgency": {
+        "factor": 0.8,
+        "reason": "Deferred pending design"
+      },
+      "priority": 6,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-013.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T00:31:00.000Z"
+  }
+]

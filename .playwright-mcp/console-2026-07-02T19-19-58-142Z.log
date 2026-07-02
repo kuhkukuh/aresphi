@@ -1,0 +1,19 @@
+[     200ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[     231ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[     270ms] [WARNING] Image with src "http://localhost:3000/partners/bni.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[     270ms] [WARNING] Image with src "http://localhost:3000/partners/bjb.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[     270ms] [WARNING] Image with src "http://localhost:3000/partners/btn.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[     270ms] [WARNING] Image with src "http://localhost:3000/partners/bri.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[     270ms] [WARNING] Image with src "http://localhost:3000/partners/bca.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[     338ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[     459ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3000/api/admin/stats:0
+[     899ms] [LOG] [Fast Refresh] done in 661ms @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[   66154ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[   66219ms] [LOG] [Fast Refresh] done in 166ms @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[   66741ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[   66776ms] [LOG] [Fast Refresh] done in 135ms @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[   67432ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[   67444ms] [LOG] [Fast Refresh] done in 113ms @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[   67662ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[   67665ms] [LOG] [Fast Refresh] done in 103ms @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477
+[   73198ms] [WARNING] Image with src "http://localhost:3000/partners/bpr.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio. @ http://localhost:3000/_next/static/chunks/1nfa_next_dist_0gnxq9c._.js:2477

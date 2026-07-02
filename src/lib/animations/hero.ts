@@ -1,62 +1,60 @@
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export const heroAnimationConfig = {
-  wordmark: {
-    duration: 0.8,
-    ease: "power3.out",
-    from: { opacity: 0, scale: 0.9, y: 30 },
-    to: { opacity: 1, scale: 1, y: 0 },
-  },
-  cards: {
-    duration: 0.6,
-    stagger: 0.1,
-    ease: "power2.out",
-    from: { opacity: 0, y: 60, rotate: -3 },
-    to: { opacity: 1, y: 0, rotate: 0 },
-  },
-  meta: {
-    duration: 0.4,
-    ease: "power2.out",
-    from: { opacity: 0, x: 20 },
-    to: { opacity: 1, x: 0 },
-  },
-  tagline: {
-    duration: 0.4,
-    ease: "power2.out",
-    from: { opacity: 0, y: 10 },
-    to: { opacity: 1, y: 0 },
-  },
-  parallax: {
-    intensity: 0.3,
-  },
-} as const;
+gsap.registerPlugin(ScrollTrigger);
 
 export function createHeroTimeline(
   wordmark: Element,
   cards: Element[],
+  cardStack: Element,
   metaCard: Element,
   tagline: Element
 ) {
-  const tl = gsap.timeline({
-    defaults: { ease: "power2.out" },
+  // Initial states - elements start hidden/offset
+  gsap.set(wordmark, { yPercent: 40, opacity: 0 });
+  gsap.set(cards, { y: 120, opacity: 0, scale: 0.92 });
+  gsap.set(metaCard, { y: 30, opacity: 0 });
+  gsap.set(tagline, { y: 30, opacity: 0 });
+
+  // Intro timeline - paused until ScrollTrigger is refreshed
+  const heroIntro = gsap.timeline({
+    paused: true,
+    onComplete() {
+      // Scroll-triggered animation after intro completes
+      const heroScrub = gsap.timeline({
+        scrollTrigger: {
+          trigger: wordmark.closest("#hero"),
+          start: "top top",
+          end: "+=150%",
+          pin: true,
+          scrub: 1.5,
+          refreshPriority: 1,
+        },
+      });
+
+      heroScrub
+        .to(wordmark, { yPercent: -60, ease: "none", duration: 1 }, 0)
+        .to([metaCard, tagline], { opacity: 0, y: -40, ease: "power1.inOut", duration: 0.6 }, 0)
+        .to(cardStack, { y: -80, scale: 1.05, ease: "none", duration: 1 }, 0)
+        .to(cards[0], { rotation: -4, ease: "none", duration: 1 }, 0)
+        .to(cards[1], { x: "-38vw", y: -50, rotation: -9, ease: "none", duration: 1 }, 0)
+        .to(cards[2], { x: "38vw", y: 50, rotation: 9, ease: "none", duration: 1 }, 0)
+        .fromTo([cardStack, wordmark], { opacity: 1 }, { opacity: 0, ease: "power1.in", duration: 0.15, immediateRender: false }, 0.88);
+
+      ScrollTrigger.sort();
+      ScrollTrigger.refresh();
+    },
   });
 
-  // Wordmark entrance
-  tl.fromTo(wordmark, heroAnimationConfig.wordmark.from, heroAnimationConfig.wordmark.to, 0);
+  heroIntro
+    .to(wordmark, { yPercent: 0, opacity: 1, duration: 1.4, ease: "power4.out" })
+    .to(cards, { y: 0, opacity: 1, scale: 1, duration: 1.2, stagger: 0.12, ease: "power3.out" }, "-=1")
+    .to(tagline, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, "-=0.7")
+    .to(metaCard, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, "-=0.7");
 
-  // Cards stagger in
-  tl.fromTo(
-    cards,
-    heroAnimationConfig.cards.from,
-    heroAnimationConfig.cards.to,
-    0.2
-  );
+  // Refresh ScrollTrigger first, then play intro
+  ScrollTrigger.refresh();
+  heroIntro.play();
 
-  // Meta card
-  tl.fromTo(metaCard, heroAnimationConfig.meta.from, heroAnimationConfig.meta.to, 0.6);
-
-  // Tagline
-  tl.fromTo(tagline, heroAnimationConfig.tagline.from, heroAnimationConfig.tagline.to, 0.7);
-
-  return tl;
+  return heroIntro;
 }

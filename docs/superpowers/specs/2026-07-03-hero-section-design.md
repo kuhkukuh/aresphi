@@ -29,6 +29,8 @@ Packages to install:
 - `@gsap/react` — React integration (useGSAP hook)
 - `lenis` — smooth scrolling (formerly @studio-freight/lenis)
 
+**Note:** Lenis is a global scroll library. It will be initialized in `layout.tsx` or a dedicated provider, not inside Hero. Hero only depends on ScrollTrigger for parallax effects.
+
 ## Animation Sequence
 
 ### Entrance (page load)
@@ -94,6 +96,22 @@ const defaultHeroPhotos: [HeroPhoto, HeroPhoto, HeroPhoto] = [
 - Founded year: "EST. 2020"
 - Tagline: "Full-service property partner for sales, rental, and consultation across Indonesia."
 - CTA: Not in hero scope (Navigation handles contact links)
+
+### Meta Card Design
+
+The design reference shows a meta card with property thumbnail and name. This spec simplifies it to show only brand info:
+
+**Design Reference Meta Card:**
+- Thumbnail image
+- "EST. 2020"
+- "Rumah Modern — Jakarta" (property name)
+
+**This Spec Meta Card:**
+- No thumbnail (removed)
+- "EST. 2020"
+- "Aresphi" (brand name)
+
+This simplifies the admin workflow — no need to select a featured property for the meta card.
 
 ## Responsive Behavior
 

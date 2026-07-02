@@ -1,6 +1,6 @@
 import { db } from '@/infrastructure/database';
 import { properties, propertyPhotos } from '@/infrastructure/database/schema';
-import { eq, asc } from 'drizzle-orm';
+import { eq, asc, sql } from 'drizzle-orm';
 import PropertyShowcaseClient from './PropertyShowcaseClient';
 
 export type Property = {
@@ -47,7 +47,7 @@ async function getShowcaseProperties(): Promise<Property[]> {
     const showcaseProperties = await db
       .select()
       .from(properties)
-      .where(eq(properties.showInShowcase, true))
+      .where(sql`${properties.showInShowcase} = true`)
       .orderBy(asc(properties.displayOrder));
 
     if (showcaseProperties.length === 0) {

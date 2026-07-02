@@ -1,0 +1,27 @@
+{
+  "featureId": "F-009",
+  "title": "Navigation",
+  "module": "navigation",
+  "description": "Floating pill-shaped navbar dengan glassmorphism blur effect. Links: Properti, Layanan, Tentang, Kontak. Mobile hamburger menu. Expands on scroll.",
+  "scope": {
+    "inScope": [
+      "Floating pill-shaped navbar dengan blur effect",
+      "Links: Properti, Layanan, Tentang, Kontak",
+      "Mobile hamburger menu",
+      "Expands/sticky behavior on scroll"
+    ],
+    "outOfScope": [
+      "User authentication in navbar",
+      "Search functionality"
+    ]
+  },
+  "acceptanceCriteria": [
+    { "id": "AC1", "text": "Navbar floating dengan glassmorphism blur effect (backdrop-blur)", "done": false },
+    { "id": "AC2", "text": "4 navigation links visible dan functional", "done": false },
+    { "id": "AC3", "text": "Mobile: hamburger menu dengan slide-out drawer", "done": false },
+    { "id": "AC4", "text": "Navbar expands atau becomes sticky after scrolling past hero", "done": false },
+    { "id": "AC5", "text": "Active section highlighted saat scroll (spy scroll)", "done": false }
+  ],
+  "dependsOn": [],
+  "source": { "file": "prd.md", "lines": "117-124" }
+}

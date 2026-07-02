@@ -1,0 +1,29 @@
+{
+  "featureId": "F-006",
+  "title": "Property Showcase",
+  "module": "property",
+  "description": "Horizontal scrolling gallery dari featured properties dengan pricing dan location. Grayscale-to-color hover effect. Admin selects which properties appear.",
+  "scope": {
+    "inScope": [
+      "Horizontal scroll container",
+      "Property cards dengan grayscale-to-color hover effect",
+      "Price badges (Rp 2.5 M, Rp 35 jt/bln, etc)",
+      "Property name dan location overlay",
+      "Admin selection untuk featured properties"
+    ],
+    "outOfScope": [
+      "Property detail page (F-012)",
+      "Property catalog page (F-013)",
+      "Filtering in showcase"
+    ]
+  },
+  "acceptanceCriteria": [
+    { "id": "AC1", "text": "Horizontal scroll gallery dengan smooth scroll behavior", "done": false },
+    { "id": "AC2", "text": "Property cards transition dari grayscale ke color on hover", "done": false },
+    { "id": "AC3", "text": "Price badge tampil dengan format yang jelas (Rp X.X M atau Rp XX jt/bln)", "done": false },
+    { "id": "AC4", "text": "Property name dan location readable sebagai overlay", "done": false },
+    { "id": "AC5", "text": "Admin dapat memilih properti featured via dashboard", "done": false }
+  ],
+  "dependsOn": ["F-010"],
+  "source": { "file": "prd.md", "lines": "89-99" }
+}

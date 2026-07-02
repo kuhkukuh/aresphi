@@ -1,0 +1,222 @@
+- generic [active] [ref=e1]:
+  - navigation "Main navigation" [ref=e2]:
+    - link "Aresphi home" [ref=e3] [cursor=pointer]:
+      - /url: "#"
+      - generic [ref=e4]: Aresphi®
+    - generic "Primary links" [ref=e5]:
+      - link "Properti" [ref=e6] [cursor=pointer]:
+        - /url: "#properti"
+      - link "Layanan" [ref=e7] [cursor=pointer]:
+        - /url: "#layanan"
+      - link "Tentang" [ref=e8] [cursor=pointer]:
+        - /url: "#tentang"
+      - link "Kontak" [ref=e9] [cursor=pointer]:
+        - /url: "#kontak"
+    - link "Hubungi Kami" [ref=e10] [cursor=pointer]:
+      - /url: "#kontak"
+  - main [ref=e11]:
+    - generic [ref=e12]:
+      - heading "Aresphi®" [level=1] [ref=e15]
+      - generic [ref=e17]:
+        - img "Modern home exterior" [ref=e19]
+        - img "Luxury interior" [ref=e21]
+        - img "Contemporary living space" [ref=e23]
+      - generic [ref=e24]:
+        - generic [ref=e26]: A
+        - generic [ref=e27]:
+          - paragraph [ref=e28]: EST. 2020
+          - paragraph [ref=e29]: Aresphi
+      - paragraph [ref=e31]: Full-service property partner for sales, rental, and consultation across Indonesia.
+    - generic [ref=e34]:
+      - img "BNI" [ref=e36]
+      - img "BJB" [ref=e38]
+      - img "BTN" [ref=e40]
+      - img "BRI" [ref=e42]
+      - img "BCA" [ref=e44]
+      - img "BPR" [ref=e46]
+      - img "BPR HIK" [ref=e48]
+      - img "BWS" [ref=e50]
+      - img "Bank Sampoerna" [ref=e52]
+      - img "BNI" [ref=e54]
+      - img "BJB" [ref=e56]
+      - img "BTN" [ref=e58]
+      - img "BRI" [ref=e60]
+      - img "BCA" [ref=e62]
+      - img "BPR" [ref=e64]
+      - img "BPR HIK" [ref=e66]
+      - img "BWS" [ref=e68]
+      - img "Bank Sampoerna" [ref=e70]
+    - generic [ref=e72]:
+      - generic [ref=e73]:
+        - generic [ref=e74]:
+          - generic [ref=e75]:
+            - generic [ref=e76]: / 01 Mengapa Aresphi
+            - generic [ref=e77]: "[ 01 ]"
+          - heading "Kepercayaan yang Terbukti" [level=2] [ref=e78]:
+            - text: Kepercayaan
+            - text: yang Terbukti
+        - paragraph [ref=e79]: Kami berkomitmen memberikan layanan terbaik dengan profesionalisme tinggi.
+      - generic [ref=e80]:
+        - generic [ref=e81]:
+          - img "Interior" [ref=e82]
+          - generic [ref=e84]:
+            - paragraph [ref=e85]: "\"Tim profesional yang sangat membantu.\""
+            - generic [ref=e86]:
+              - img "Ahmad Wijaya" [ref=e87]
+              - generic [ref=e88]:
+                - paragraph [ref=e89]: Ahmad Wijaya
+                - paragraph [ref=e90]: Jakarta
+        - generic [ref=e91] [cursor=pointer]:
+          - generic: "01"
+          - generic [ref=e92]:
+            - heading "Layanan Lengkap" [level=4] [ref=e93]
+            - paragraph [ref=e94]: Konsultasi hingga transaksi
+        - generic [ref=e95] [cursor=pointer]:
+          - generic: "02"
+          - generic [ref=e96]:
+            - heading "Jaringan Luas" [level=4] [ref=e97]
+            - paragraph [ref=e98]: Akses properti eksklusif
+        - generic [ref=e99]:
+          - generic: "03"
+          - generic [ref=e102]: Transparansi Total
+          - generic [ref=e103]:
+            - heading "100%" [level=3] [ref=e104]
+            - paragraph [ref=e105]: Informasi jujur. Tanpa biaya tersembunyi.
+    - generic [ref=e106]:
+      - generic:
+        - generic: STATS
+      - generic [ref=e107]:
+        - generic [ref=e108]:
+          - generic [ref=e109]:
+            - generic [ref=e110]: / 02 Pencapaian
+            - generic [ref=e111]: "[ 02 ]"
+          - heading "Angka Berbicara" [level=2] [ref=e112]
+        - generic [ref=e113]:
+          - generic [ref=e114]:
+            - generic [ref=e115]: 150+
+            - paragraph [ref=e116]: Properti Terjual
+          - generic [ref=e117]:
+            - generic [ref=e118]: 200+
+            - paragraph [ref=e119]: Klien Puas
+          - generic [ref=e120]:
+            - generic [ref=e121]: 5+
+            - paragraph [ref=e122]: Tahun Pengalaman
+          - generic [ref=e123]:
+            - generic [ref=e124]: 98%
+            - paragraph [ref=e125]: Keberhasilan
+    - generic [ref=e128]:
+      - generic [ref=e129]:
+        - generic [ref=e130]:
+          - generic [ref=e131]: / 03 Proses Kami
+          - generic [ref=e132]: "[ 03 ]"
+        - heading "Perjalanan properti Anda" [level=2] [ref=e133]:
+          - text: Perjalanan
+          - text: properti Anda
+        - link "Mulai Proses" [ref=e134] [cursor=pointer]:
+          - /url: "#kontak"
+      - generic [ref=e135]:
+        - img
+        - generic [ref=e136]:
+          - generic [ref=e137]:
+            - generic [ref=e138]: "01"
+            - img "Konsultasi Awal" [ref=e140]
+            - heading "Konsultasi Awal" [level=3] [ref=e141]
+            - paragraph [ref=e142]: Memahami visi dan kebutuhan Anda melalui sesi mendalam.
+          - generic [ref=e143]:
+            - generic [ref=e144]: "02"
+            - img "Kurasi Properti" [ref=e146]
+            - heading "Kurasi Properti" [level=3] [ref=e147]
+            - paragraph [ref=e148]: Menyajikan properti sesuai kriteria dari jaringan kami.
+          - generic [ref=e149]:
+            - generic [ref=e150]: "03"
+            - img "Pendampingan Transaksi" [ref=e152]
+            - heading "Pendampingan Transaksi" [level=3] [ref=e153]
+            - paragraph [ref=e154]: Mendampingi setiap langkah hingga kunci di tangan.
+    - generic [ref=e155]:
+      - generic [ref=e156]:
+        - generic [ref=e157]:
+          - generic [ref=e158]:
+            - generic [ref=e159]: / 04 Properti
+            - generic [ref=e160]: "[ 04 ]"
+          - heading "Koleksi Properti Unggulan" [level=2] [ref=e161]:
+            - text: Koleksi
+            - text: Properti Unggulan
+        - link "Lihat Semua" [ref=e162] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=e163]:
+        - button "Scroll left" [ref=e164]:
+          - img [ref=e165]
+        - button "Scroll right" [ref=e167]:
+          - img [ref=e168]
+        - generic [ref=e171]:
+          - generic [ref=e172]:
+            - img "Rumah Modern Pondok Indah" [ref=e173]
+            - generic [ref=e175]:
+              - generic [ref=e176]:
+                - generic [ref=e177]: Rp 2.5 M
+                - button "View property details" [ref=e178]: →
+              - heading "Rumah Modern Pondok Indah" [level=3] [ref=e179]
+              - paragraph [ref=e180]: Jakarta Selatan
+          - generic [ref=e181]:
+            - img "Apartemen Mewah Sudirman" [ref=e182]
+            - generic [ref=e184]:
+              - generic [ref=e185]:
+                - generic [ref=e186]: Rp 35 jt/bln
+                - button "View property details" [ref=e187]: →
+              - heading "Apartemen Mewah Sudirman" [level=3] [ref=e188]
+              - paragraph [ref=e189]: Jakarta Pusat
+          - generic [ref=e190]:
+            - img "Villa Eksklusif BSD" [ref=e191]
+            - generic [ref=e193]:
+              - generic [ref=e194]:
+                - generic [ref=e195]: Rp 4.5 M
+                - button "View property details" [ref=e196]: →
+              - heading "Villa Eksklusif BSD" [level=3] [ref=e197]
+              - paragraph [ref=e198]: Tangerang
+          - generic [ref=e199]:
+            - img "Cluster Premium Bandung" [ref=e200]
+            - generic [ref=e202]:
+              - generic [ref=e203]:
+                - generic [ref=e204]: Rp 1.8 M
+                - button "View property details" [ref=e205]: →
+              - heading "Cluster Premium Bandung" [level=3] [ref=e206]
+              - paragraph [ref=e207]: Bandung
+    - generic [ref=e208]:
+      - img "Property" [ref=e210]
+      - generic [ref=e212]:
+        - paragraph [ref=e213]: We believe a home isn't just a transaction — it's a life-changing experience.
+        - paragraph [ref=e214]: Ahmad Wijaya
+        - paragraph [ref=e215]: FOUNDING PARTNER
+    - generic [ref=e216]:
+      - generic [ref=e217]:
+        - generic [ref=e218]:
+          - generic [ref=e219]: EST. 2020
+          - generic [ref=e220]: QUALITY // TRUST // TRANSPARENCY
+          - link "View Privacy Policy" [ref=e221] [cursor=pointer]:
+            - /url: "#"
+            - text: PRIVACY
+        - generic [ref=e222]:
+          - link "Call Aresphi Property" [ref=e223] [cursor=pointer]:
+            - /url: tel:+6281234567890
+            - text: +62 812 3456 7890
+          - link "Email Aresphi Property" [ref=e224] [cursor=pointer]:
+            - /url: mailto:info@aresphi.com
+            - text: info@aresphi.com
+        - generic [ref=e225]:
+          - generic [ref=e226]:
+            - paragraph [ref=e227]: ALL RIGHTS RESERVED.
+            - paragraph [ref=e228]: ©2025 ARESPHI
+          - generic [ref=e229]:
+            - paragraph [ref=e230]: JL. SUDIRMAN NO. 123
+            - paragraph [ref=e231]: JAKARTA SELATAN, 12190
+          - generic [ref=e232]:
+            - link "Follow us on Instagram" [ref=e233] [cursor=pointer]:
+              - /url: "#"
+              - text: INSTAGRAM
+            - link "Connect with us on LinkedIn" [ref=e234] [cursor=pointer]:
+              - /url: "#"
+              - text: LINKEDIN
+      - paragraph: ARESPHI
+  - button "Open Next.js Dev Tools" [ref=e240] [cursor=pointer]:
+    - img [ref=e241]
+  - alert [ref=e244]

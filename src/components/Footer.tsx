@@ -18,7 +18,7 @@ export default function Footer() {
         </div>
 
         {/* Contact Links */}
-        <div className="text-center py-20">
+        <div id="kontak" className="text-center py-20">
           <a
             href="tel:+6281234567890"
             className="block text-3xl sm:text-4xl md:text-5xl hover:text-white/70 transition-colors font-medium tracking-tight text-white"
