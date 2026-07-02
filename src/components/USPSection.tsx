@@ -1,6 +1,12 @@
 "use client";
 
 export default function USPSection() {
+  const handleFlashlightMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+  };
+
   return (
     <section id="tentang" className="py-32 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
@@ -58,6 +64,42 @@ export default function USPSection() {
                   <p className="text-white/60 text-xs">Jakarta</p>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Flashlight Card 01 */}
+          <div
+            className="flashlight-card overflow-hidden relative rounded-xl bg-white/60 backdrop-blur-xl border border-black/5 cursor-pointer"
+            onMouseMove={handleFlashlightMove}
+          >
+            <span className="absolute -top-2 -right-1 font-playfair text-[120px] italic tracking-tighter text-stone-900/30 leading-none select-none pointer-events-none">
+              01
+            </span>
+            <div className="relative z-10 p-6 h-full flex flex-col justify-end min-h-[180px]">
+              <h4 className="text-xl tracking-tight text-stone-900 mb-1">
+                Layanan Lengkap
+              </h4>
+              <p className="text-stone-500 text-sm">
+                Konsultasi hingga transaksi
+              </p>
+            </div>
+          </div>
+
+          {/* Flashlight Card 02 */}
+          <div
+            className="flashlight-card overflow-hidden relative rounded-xl bg-white/60 backdrop-blur-xl border border-black/5 cursor-pointer"
+            onMouseMove={handleFlashlightMove}
+          >
+            <span className="absolute -top-2 -right-1 font-playfair text-[120px] italic tracking-tighter text-stone-900/30 leading-none select-none pointer-events-none">
+              02
+            </span>
+            <div className="relative z-10 p-6 h-full flex flex-col justify-end min-h-[180px]">
+              <h4 className="text-xl tracking-tight text-stone-900 mb-1">
+                Jaringan Luas
+              </h4>
+              <p className="text-stone-500 text-sm">
+                Akses properti eksklusif
+              </p>
             </div>
           </div>
         </div>
