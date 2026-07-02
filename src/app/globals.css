@@ -176,3 +176,10 @@ img[loading] {
 .snap-center {
   scroll-snap-align: center;
 }
+
+/* Reduced motion: disable marquee animation */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}
