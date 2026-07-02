@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 
 interface Stat {
   id: number;
@@ -13,7 +12,6 @@ interface Stat {
 }
 
 export default function AdminStatsPage() {
-  const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [stats, setStats] = useState<Stat[]>([]);
