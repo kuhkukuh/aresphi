@@ -386,7 +386,10 @@ export default function Hero({ photos = defaultHeroPhotos }: HeroProps) {
             <img
               src={photos[0].src}
               alt={photos[0].alt}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover bg-stone-800"
+              onError={(e) => {
+                e.currentTarget.style.visibility = "hidden";
+              }}
             />
           </div>
 
@@ -399,7 +402,10 @@ export default function Hero({ photos = defaultHeroPhotos }: HeroProps) {
             <img
               src={photos[1].src}
               alt={photos[1].alt}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover bg-stone-800"
+              onError={(e) => {
+                e.currentTarget.style.visibility = "hidden";
+              }}
             />
           </div>
 
@@ -412,7 +418,10 @@ export default function Hero({ photos = defaultHeroPhotos }: HeroProps) {
             <img
               src={photos[2].src}
               alt={photos[2].alt}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover bg-stone-800"
+              onError={(e) => {
+                e.currentTarget.style.visibility = "hidden";
+              }}
             />
           </div>
         </div>
