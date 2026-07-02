@@ -175,6 +175,9 @@ export default function Hero({ photos = defaultHeroPhotos }: HeroProps) {
         className="absolute bottom-8 right-6 z-30 hidden md:flex items-center gap-4 rounded-xl bg-white/5 backdrop-blur-xl ring-1 ring-white/10 p-4 will-change-transform"
         style={{ opacity: prefersReducedMotion ? 1 : 0 }}
       >
+        <div className="w-14 h-14 rounded-lg bg-white/10 ring-1 ring-white/10 flex items-center justify-center">
+          <span className="text-2xl font-playfair italic text-white/60">A</span>
+        </div>
         <div>
           <p className="text-xs tracking-[0.25em] text-white/40">EST. 2020</p>
           <p className="text-sm font-medium mt-1 text-white">Aresphi</p>
