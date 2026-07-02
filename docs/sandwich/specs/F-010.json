@@ -18,12 +18,12 @@
     ]
   },
   "acceptanceCriteria": [
-    { "id": "AC1", "text": "Admin can create new property listing dengan semua required fields", "done": false },
-    { "id": "AC2", "text": "Admin can upload property photos ke Vercel Blob via dashboard", "done": false },
-    { "id": "AC3", "text": "Admin can set property status: available, sold, atau rented", "done": false },
-    { "id": "AC4", "text": "Admin can designate which photo appears in Hero section", "done": false },
-    { "id": "AC5", "text": "Admin can designate which properties appear in Showcase section", "done": false },
-    { "id": "AC6", "text": "Login with static credentials from env vars, session via signed cookie", "done": false }
+    { "id": "AC1", "text": "Admin can create new property listing dengan semua required fields", "done": true },
+    { "id": "AC2", "text": "Admin can upload property photos ke Vercel Blob via dashboard", "done": true },
+    { "id": "AC3", "text": "Admin can set property status: available, sold, atau rented", "done": true },
+    { "id": "AC4", "text": "Admin can designate which photo appears in Hero section", "done": true },
+    { "id": "AC5", "text": "Admin can designate which properties appear in Showcase section", "done": true },
+    { "id": "AC6", "text": "Login with static credentials from env vars, session via signed cookie", "done": true }
   ],
   "dependsOn": [],
   "source": { "file": "prd.md", "lines": "126-135" }

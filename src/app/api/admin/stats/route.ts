@@ -5,6 +5,11 @@ import { eq } from 'drizzle-orm';
 import { getAdminSession } from '@/lib/auth';
 
 export async function GET() {
+  const isAuthenticated = await getAdminSession();
+  if (!isAuthenticated) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const allStats = await db.select().from(stats).orderBy(stats.displayOrder);
     return NextResponse.json(allStats);

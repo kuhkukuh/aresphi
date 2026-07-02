@@ -7,3 +7,4 @@
 {"source":"user-event","type":"click","text":"A\n    \n      Single Page with Tabs\n      One URL (/admin) with tabbed sections: Properties, Photos, Settings. Matches existing stats page pattern. Simpler routing.","choice":"single-page","id":null,"timestamp":1783019197706}
 {"type":"screen-added","file":"/Users/riaenriala/Documents/nightshift/aresphi/.superpowers/brainstorm/63970-1783019074/content/waiting.html"}
 {"type":"screen-added","file":"/Users/riaenriala/Documents/nightshift/aresphi/.superpowers/brainstorm/63970-1783019074/content/design-overview.html"}
+{"type":"server-stopped","reason":"idle timeout"}

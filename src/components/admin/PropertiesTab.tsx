@@ -26,10 +26,21 @@ export default function PropertiesTab() {
 
   const loadProperties = async () => {
     setIsLoading(true);
-    const res = await fetch('/api/admin/properties');
-    const data = await res.json();
-    setProperties(data);
-    setIsLoading(false);
+    try {
+      const res = await fetch('/api/admin/properties');
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        setProperties(data);
+      } else {
+        console.error('Unexpected response:', data);
+        setProperties([]);
+      }
+    } catch (error) {
+      console.error('Failed to load properties:', error);
+      setProperties([]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleDelete = async (id: number) => {
