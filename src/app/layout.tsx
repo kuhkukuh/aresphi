@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import { Playfair_Display } from 'next/font/google';
+import { SmoothScrollProvider } from '@/lib/smooth-scroll';
 import './globals.css';
 
 const geistSans = Geist({
@@ -35,7 +36,9 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${geistSans.variable} ${playfair.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-stone-50 text-stone-900 font-sans">
-        {children}
+        <SmoothScrollProvider>
+          {children}
+        </SmoothScrollProvider>
       </body>
     </html>
   );
