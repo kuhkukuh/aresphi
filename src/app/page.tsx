@@ -4,6 +4,7 @@ import USPSection from "@/components/USPSection";
 import StatsSection from "@/components/StatsSection";
 import ProcessSection from "@/components/ProcessSection";
 import PropertyShowcase from "@/components/PropertyShowcase";
+import QuoteSection from "@/components/QuoteSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
       <StatsSection />
       <ProcessSection />
       <PropertyShowcase />
+      <QuoteSection />
       <Footer />
     </main>
   );
