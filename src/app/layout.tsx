@@ -1,17 +1,20 @@
 import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
-import { Playfair_Display } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
 import { SmoothScrollProvider } from '@/lib/smooth-scroll';
+import Navigation from '@/components/Navigation';
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
 });
 
 const playfair = Playfair_Display({
   variable: '--font-playfair',
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
   display: 'swap',
 });
 
@@ -34,9 +37,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${geistSans.variable} ${playfair.variable} antialiased`}>
+    <html lang="id" className={`${inter.variable} ${playfair.variable} antialiased`}>
       <body className="min-h-screen flex flex-col bg-stone-50 text-stone-900 font-sans">
         <SmoothScrollProvider>
+          <Navigation />
           {children}
         </SmoothScrollProvider>
       </body>
