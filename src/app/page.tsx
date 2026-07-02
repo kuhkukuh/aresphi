@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import PartnerLogos from "@/components/PartnerLogos";
 import USPSection from "@/components/USPSection";
 import ProcessSection from "@/components/ProcessSection";
+import PropertyShowcase from "@/components/PropertyShowcase";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       <PartnerLogos />
       <USPSection />
       <ProcessSection />
+      <PropertyShowcase />
       <Footer />
     </main>
   );
