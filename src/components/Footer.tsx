@@ -28,7 +28,7 @@ export default function Footer() {
           </a>
           <a
             href="mailto:info@aresphi.com"
-            className="block text-3xl sm:text-4xl md:text-5xl text-orange mt-2 hover:text-orange/80 transition-colors font-medium tracking-tight"
+            className="block text-3xl sm:text-4xl md:text-5xl text-white mt-2 hover:text-orange transition-colors font-medium tracking-tight"
             aria-label="Email Aresphi Property"
           >
             info@aresphi.com
