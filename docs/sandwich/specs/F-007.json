@@ -1,0 +1,25 @@
+{
+  "featureId": "F-007",
+  "title": "Quote Section",
+  "module": "quote",
+  "description": "Full-width hero image dengan centered quote tentang home buying philosophy.",
+  "scope": {
+    "inScope": [
+      "Full-width background image",
+      "Centered quote text dengan overlay",
+      "Quote tentang home as life-changing experience",
+      "Responsive text sizing"
+    ],
+    "outOfScope": [
+      "Quote management via admin",
+      "Multiple quotes rotation"
+    ]
+  },
+  "acceptanceCriteria": [
+    { "id": "AC1", "text": "Full-width background image covers entire section viewport", "done": true },
+    { "id": "AC2", "text": "Quote text centered dan readable dengan overlay scrim", "done": true },
+    { "id": "AC3", "text": "Text responsive: readable on mobile dan desktop", "done": true }
+  ],
+  "dependsOn": [],
+  "source": { "file": "prd.md", "lines": "101-106" }
+}
