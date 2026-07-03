@@ -149,9 +149,24 @@ export default function PhotoUploader({ photos, pendingPhotos, onUploadFile, onD
     onDrop,
   });
 
+  const activeCount = queue.filter((q) => q.status !== 'error').length;
+
   return (
     <div>
       {message && <p className="text-xs text-red-500 mb-2">{message}</p>}
+      {activeCount > 0 && (
+        <p className="text-xs text-stone-400 mb-2 flex items-center gap-1.5">
+          <svg className="w-3 h-3 animate-spin text-orange" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path
+              className="opacity-90"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+            />
+          </svg>
+          Mengunggah {activeCount} foto...
+        </p>
+      )}
       <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
         {photos.map((photo, idx) => (
           <div key={photo.id} className="thumb relative aspect-square rounded-lg overflow-hidden group">
@@ -187,38 +202,48 @@ export default function PhotoUploader({ photos, pendingPhotos, onUploadFile, onD
 
         {queue.map((item) => (
           <div key={item.id} className="thumb relative aspect-square rounded-lg overflow-hidden bg-stone-100">
-            <img src={item.previewUrl} alt="Mengunggah" className="w-full h-full object-cover opacity-60" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
+            <img src={item.previewUrl} alt="Mengunggah" className="w-full h-full object-cover opacity-50" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 bg-stone-900/30">
               {item.status === 'error' ? (
                 <>
-                  <span className="text-[9px] text-red-600 uppercase tracking-wider px-1 text-center">
+                  <span className="text-[9px] text-red-100 uppercase tracking-wider px-1 text-center">
                     {item.error}
                   </span>
                   <div className="flex gap-2">
                     <button
                       type="button"
                       onClick={() => retryItem(item.id)}
-                      className="text-[9px] uppercase tracking-wider text-orange underline"
+                      className="text-[9px] uppercase tracking-wider text-white underline"
                     >
                       Coba lagi
                     </button>
                     <button
                       type="button"
                       onClick={() => removeQueueItem(item.id)}
-                      className="text-[9px] uppercase tracking-wider text-stone-500 underline"
+                      className="text-[9px] uppercase tracking-wider text-stone-200 underline"
                     >
                       Hapus
                     </button>
                   </div>
                 </>
               ) : (
-                <span className="text-[9px] uppercase tracking-wider text-stone-600">
-                  {item.status === 'queued'
-                    ? 'Menunggu...'
-                    : item.status === 'compressing'
-                    ? 'Memproses...'
-                    : 'Mengunggah...'}
-                </span>
+                <>
+                  <svg className="w-5 h-5 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path
+                      className="opacity-90"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    />
+                  </svg>
+                  <span className="text-[9px] uppercase tracking-wider text-white">
+                    {item.status === 'queued'
+                      ? 'Menunggu...'
+                      : item.status === 'compressing'
+                      ? 'Memproses...'
+                      : 'Mengunggah...'}
+                  </span>
+                </>
               )}
             </div>
           </div>
