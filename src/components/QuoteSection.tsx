@@ -1,31 +1,58 @@
 "use client";
 
-export type QuoteSectionProps = {
-  image: string;
+import { useState, useEffect } from "react";
+
+type Testimonial = {
+  id: number;
   quote: string;
-  authorName: string;
-  authorTitle: string;
+  name: string;
+  title: string;
 };
 
-const defaultProps: QuoteSectionProps = {
-  image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=80",
-  quote: "We believe a home isn't just a transaction — it's a life-changing experience.",
-  authorName: "Ahmad Wijaya",
-  authorTitle: "FOUNDING PARTNER",
-};
+export default function QuoteSection() {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
-export default function QuoteSection(props: Partial<QuoteSectionProps> = {}) {
-  const { image, quote, authorName, authorTitle } = {
-    ...defaultProps,
-    ...props,
-  };
+  useEffect(() => {
+    fetch("/api/testimonials")
+      .then((res) => res.json())
+      .then(setTestimonials)
+      .catch(() => {
+        // Fallback if no testimonials
+        setTestimonials([
+          {
+            id: 1,
+            quote: "Prosesnya sangat mudah dan transparan.\nDari konsultasi sampai serah terima kunci, semuanya dibimbing dengan baik.",
+            name: "Budi Santoso",
+            title: "PEMBELI RUMAH DI PONDOK INDAH",
+          },
+        ]);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (testimonials.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setActiveIndex((prev) => (prev + 1) % testimonials.length);
+        setIsAnimating(false);
+      }, 400);
+    }, 6000);
+
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
+
+  const activeTestimonial = testimonials[activeIndex];
 
   return (
-    <section className="relative h-[80vh] overflow-hidden flex items-center justify-center">
+    <section className="relative h-[50vh] md:h-[65vh] lg:h-[80vh] overflow-hidden flex items-center justify-center">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src={image}
+          src="/quote-section.webp"
           alt="Property"
           className="w-full h-full object-cover bg-stone-800"
           onError={(e) => {
@@ -39,11 +66,40 @@ export default function QuoteSection(props: Partial<QuoteSectionProps> = {}) {
 
       {/* Quote Content */}
       <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
-        <p className="text-2xl sm:text-3xl md:text-4xl leading-snug font-medium tracking-tight text-white whitespace-pre-line">
-          {quote}
-        </p>
-        <p className="text-sm font-medium mt-8 text-white">{authorName}</p>
-        <p className="text-xs tracking-[0.2em] text-white/40 mt-1">{authorTitle}</p>
+        <div
+          className={`transition-all duration-400 ${
+            isAnimating ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
+          }`}
+        >
+          {activeTestimonial && (
+            <>
+              <p className="text-3xl sm:text-4xl md:text-5xl leading-snug font-normal tracking-tighter text-white whitespace-pre-line">
+                "{activeTestimonial.quote}"
+              </p>
+              <p className="text-sm font-medium mt-8 text-white">
+                {activeTestimonial.name}
+              </p>
+              <p className="text-xs tracking-[0.2em] text-white/40 mt-1">
+                {activeTestimonial.title}
+              </p>
+            </>
+          )}
+        </div>
+
+        {testimonials.length > 1 && (
+          <div className="flex justify-center gap-2 mt-8">
+            {testimonials.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  i === activeIndex ? "bg-white w-6" : "bg-white/40"
+                }`}
+                aria-label={`Go to testimonial ${i + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

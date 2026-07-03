@@ -7,7 +7,7 @@ import MobileNav from "./MobileNav";
 const navLinks = [
   { href: "/#tentang", label: "Tentang", id: "tentang" },
   { href: "/#layanan", label: "Layanan", id: "layanan" },
-  { href: "/properti", label: "Properti", id: "properti" },
+  { href: "/#properti", label: "Properti", id: "properti" },
   { href: "/#kontak", label: "Kontak", id: "kontak" },
 ];
 

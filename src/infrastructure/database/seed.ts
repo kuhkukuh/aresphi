@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { db } from './index';
 import { stats, properties, propertyPhotos, heroPhotos, testimonials, socials } from './schema';
+import { eq, sql } from 'drizzle-orm';
 
 // ============================================
 // SEED DATA - Based on Aresphi Property Design
@@ -148,16 +149,28 @@ const defaultProperties = [
 
 const defaultTestimonials = [
   {
-    quote: 'We believe a home isn\'t just a transaction —\nit\'s a life-changing experience.',
-    name: 'Ahmad Wijaya',
-    title: 'FOUNDING PARTNER',
+    quote: 'Prosesnya sangat mudah dan transparan.\nDari konsultasi sampai serah terima kunci, semuanya dibimbing dengan baik.',
+    name: 'Budi Santoso',
+    title: 'PEMBELI RUMAH DI PONDOK INDAH',
     displayOrder: 0,
   },
   {
-    quote: 'Komitmen kami adalah memberikan layanan terbaik\ndengan integritas dan transparansi penuh.',
-    name: 'Siti Rahayu',
-    title: 'SENIOR PROPERTY ADVISOR',
+    quote: 'Saya sudah cari rumah bertahun-tahun, baru di Aresphi\nketemu rumah yang benar-benar cocok sama kebutuhan keluarga kami.',
+    name: 'Dewi Kusuma',
+    title: 'PEMBELI RUMAH DI BSD CITY',
     displayOrder: 1,
+  },
+  {
+    quote: 'Timnya sangat responsif dan ngerti banget kebutuhan saya.\nGak nyangka beli rumah bisa secepat ini.',
+    name: 'Rizky Pratama',
+    title: 'PEMBELI APARTEMEN DI SUDIRMAN',
+    displayOrder: 2,
+  },
+  {
+    quote: 'Kurasi propertinya tepat sasaran.\nGak perlu lihat banyak-lihat, langsung ketemu yang pas.',
+    name: 'Anita Wijaya',
+    title: 'PEMBELI VILLA DI PUNCAK',
+    displayOrder: 3,
   },
 ];
 
@@ -171,34 +184,49 @@ const defaultSocials = {
 };
 
 // ============================================
-// SEED FUNCTIONS
+// SEED FUNCTIONS (with upsert logic)
 // ============================================
 
 async function seedStats() {
   console.log('Seeding stats...');
   for (const stat of defaultStats) {
-    await db.insert(stats).values(stat).onConflictDoNothing();
+    await db.insert(stats)
+      .values(stat)
+      .onConflictDoUpdate({
+        target: stats.key,
+        set: {
+          value: stat.value,
+          suffix: stat.suffix,
+          label: stat.label,
+          displayOrder: stat.displayOrder,
+        },
+      });
   }
   console.log('✓ Stats seeded');
 }
 
 async function seedHeroPhotos() {
   console.log('Seeding hero photos...');
-  const existing = await db.select().from(heroPhotos);
-  if (existing.length === 0) {
-    await db.insert(heroPhotos).values(defaultHeroPhotos);
-    console.log('✓ Hero photos seeded');
-  } else {
-    console.log('✓ Hero photos already exist, skipping');
+  for (const photo of defaultHeroPhotos) {
+    await db.insert(heroPhotos)
+      .values(photo)
+      .onConflictDoUpdate({
+        target: heroPhotos.position,
+        set: {
+          url: photo.url,
+          alt: photo.alt,
+        },
+      });
   }
+  console.log('✓ Hero photos seeded');
 }
 
 async function seedProperties() {
   console.log('Seeding properties...');
-  const existing = await db.select().from(properties);
-  if (existing.length === 0) {
-    for (const prop of defaultProperties) {
-      const [inserted] = await db.insert(properties).values({
+  for (const prop of defaultProperties) {
+    // Upsert property by slug
+    const [upserted] = await db.insert(properties)
+      .values({
         name: prop.name,
         slug: prop.slug,
         location: prop.location,
@@ -211,33 +239,48 @@ async function seedProperties() {
         description: prop.description,
         showInShowcase: prop.showInShowcase,
         displayOrder: prop.displayOrder,
-      }).returning();
+      })
+      .onConflictDoUpdate({
+        target: properties.slug,
+        set: {
+          name: prop.name,
+          location: prop.location,
+          latitude: prop.latitude,
+          longitude: prop.longitude,
+          price: prop.price,
+          propertyType: prop.propertyType,
+          landArea: prop.landArea,
+          buildingArea: prop.buildingArea,
+          description: prop.description,
+          showInShowcase: prop.showInShowcase,
+          displayOrder: prop.displayOrder,
+          updatedAt: sql`now()`,
+        },
+      })
+      .returning();
 
-      // Insert photos for this property
-      for (const photo of prop.photos) {
-        await db.insert(propertyPhotos).values({
-          propertyId: inserted.id,
-          url: photo.url,
-          alt: photo.alt,
-          displayOrder: photo.displayOrder,
-        });
-      }
+    // Delete existing photos for this property and re-insert
+    await db.delete(propertyPhotos).where(eq(propertyPhotos.propertyId, upserted.id));
+
+    // Insert photos for this property
+    for (const photo of prop.photos) {
+      await db.insert(propertyPhotos).values({
+        propertyId: upserted.id,
+        url: photo.url,
+        alt: photo.alt,
+        displayOrder: photo.displayOrder,
+      });
     }
-    console.log('✓ Properties seeded');
-  } else {
-    console.log('✓ Properties already exist, skipping');
   }
+  console.log('✓ Properties seeded');
 }
 
 async function seedTestimonials() {
   console.log('Seeding testimonials...');
-  const existing = await db.select().from(testimonials);
-  if (existing.length === 0) {
-    await db.insert(testimonials).values(defaultTestimonials);
-    console.log('✓ Testimonials seeded');
-  } else {
-    console.log('✓ Testimonials already exist, skipping');
-  }
+  // Clear existing and re-insert (no unique key for upsert)
+  await db.delete(testimonials);
+  await db.insert(testimonials).values(defaultTestimonials);
+  console.log('✓ Testimonials seeded');
 }
 
 async function seedSocials() {
@@ -245,10 +288,12 @@ async function seedSocials() {
   const existing = await db.select().from(socials);
   if (existing.length === 0) {
     await db.insert(socials).values(defaultSocials);
-    console.log('✓ Socials seeded');
   } else {
-    console.log('✓ Socials already exist, skipping');
+    await db.update(socials)
+      .set(defaultSocials)
+      .where(eq(socials.id, existing[0].id));
   }
+  console.log('✓ Socials seeded');
 }
 
 async function seed() {

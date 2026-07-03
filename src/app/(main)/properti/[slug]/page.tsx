@@ -1,11 +1,12 @@
 import { db } from '@/infrastructure/database';
 import { properties, propertyPhotos, socials } from '@/infrastructure/database/schema';
-import { eq, and, ne, asc } from 'drizzle-orm';
+import { eq, ne, asc, sql } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import DetailClient from './DetailClient';
 import Footer from '@/components/Footer';
 import FlashlightCard from '@/components/FlashlightCard';
+import PropertyMap from '@/components/PropertyMap';
 
 export const revalidate = 60; // ISR: regenerate every 60 seconds
 
@@ -74,29 +75,27 @@ async function getPropertyBySlug(slug: string) {
   }
 }
 
-async function getSimilarProperties(propertyId: number, propertyType: string) {
+async function getRandomProperties(propertyId: number) {
   try {
-    const similar = await db
+    // Get 3 random properties (excluding current)
+    const random = await db
       .select()
       .from(properties)
-      .where(
-        and(
-          eq(properties.propertyType, propertyType as 'rumah' | 'apartemen' | 'villa' | 'ruko'),
-          ne(properties.id, propertyId)
-        )
-      )
+      .where(ne(properties.id, propertyId))
+      .orderBy(sql`RANDOM()`)
       .limit(3);
 
     const withPhotos = await Promise.all(
-      similar.map(async (prop) => {
-        const photos = await db
+      random.map(async (prop) => {
+        const [photo] = await db
           .select()
           .from(propertyPhotos)
           .where(eq(propertyPhotos.propertyId, prop.id))
-          .orderBy(asc(propertyPhotos.displayOrder));
+          .orderBy(asc(propertyPhotos.displayOrder))
+          .limit(1);
         return {
           ...prop,
-          photos,
+          photos: photo ? [photo] : [],
         };
       })
     );
@@ -128,8 +127,8 @@ export default async function PropertyDetailPage({
     notFound();
   }
 
-  const [similarProperties, social] = await Promise.all([
-    getSimilarProperties(property.id, property.propertyType),
+  const [suggestedProperties, social] = await Promise.all([
+    getRandomProperties(property.id),
     getSocials(),
   ]);
 
@@ -208,18 +207,18 @@ export default async function PropertyDetailPage({
               </div>
             )}
 
-            {/* Map Placeholder */}
+            {/* Map */}
             <div className="mt-12">
               <div className="eyebrow">
                 <span className="eyebrow-left"><span className="text-stone-500">—</span> Lokasi</span>
                 <span className="eyebrow-right">[ 02 ]</span>
               </div>
-              <div className="rounded-2xl overflow-hidden aspect-[16/7] bg-stone-200 relative flex items-center justify-center">
-                <i className="ph-fill ph-map-pin text-orange text-4xl" style={{ filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}></i>
-                <div className="absolute bottom-4 left-4 bg-white/80 backdrop-blur-md rounded-full px-4 py-2 text-sm text-stone-700">
-                  {property.location}
-                </div>
-              </div>
+              <PropertyMap
+                latitude={property.latitude}
+                longitude={property.longitude}
+                location={property.location}
+                propertyName={property.name}
+              />
             </div>
           </main>
 
@@ -263,12 +262,12 @@ export default async function PropertyDetailPage({
         </div>
       </section>
 
-      {/* Similar Properties */}
-      {similarProperties.length > 0 && (
+      {/* Suggested Properties */}
+      {suggestedProperties.length > 0 && (
         <section className="py-24 relative overflow-hidden bg-white/30 w-full">
           <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12">
             <div className="eyebrow">
-              <span className="eyebrow-left"><span className="text-stone-500">—</span> Properti Serupa</span>
+              <span className="eyebrow-left"><span className="text-stone-500">—</span> Properti Lainnya</span>
               <span className="eyebrow-right">[ 05 ]</span>
             </div>
             <h2 className="mt-6 text-4xl font-medium leading-[1.02] sm:text-5xl text-stone-900" style={{ letterSpacing: '-.055em' }}>
@@ -278,16 +277,16 @@ export default async function PropertyDetailPage({
 
           <div className="h-[55vh] flex items-center w-full relative overflow-x-auto no-scrollbar">
             <div className="flex gap-6 px-6 md:px-12 w-max h-[80%] items-center">
-              {similarProperties.map((similar) => (
+              {suggestedProperties.map((suggested) => (
                 <a
-                  key={similar.id}
-                  href={`/properti/${similar.slug}`}
+                  key={suggested.id}
+                  href={`/properti/${suggested.slug}`}
                   className="similar-card relative w-[300px] md:w-[360px] h-full rounded-2xl overflow-hidden group shadow-xl shrink-0"
                 >
-                  {similar.photos[0] ? (
+                  {suggested.photos[0] ? (
                     <img
-                      src={similar.photos[0].url}
-                      alt={similar.photos[0].alt || similar.name}
+                      src={suggested.photos[0].url}
+                      alt={suggested.photos[0].alt || suggested.name}
                       className="w-full h-full object-cover transition-transform duration-700 ease-out filter grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105"
                     />
                   ) : (
@@ -296,10 +295,10 @@ export default async function PropertyDetailPage({
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 w-full p-6 text-white">
                     <div className="bg-white/20 backdrop-blur-md rounded-full px-4 py-2 text-sm font-medium mb-4 inline-block">
-                      {similar.price}
+                      {suggested.price}
                     </div>
-                    <h3 className="font-playfair text-2xl italic">{similar.name}</h3>
-                    <p className="text-white/70 text-sm">{similar.location}</p>
+                    <h3 className="font-playfair text-2xl italic">{suggested.name}</h3>
+                    <p className="text-white/70 text-sm">{suggested.location}</p>
                   </div>
                 </a>
               ))}

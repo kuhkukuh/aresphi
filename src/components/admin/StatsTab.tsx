@@ -77,7 +77,7 @@ export default function StatsTab() {
                   </span>
                   <button
                     onClick={() => setEditingId(null)}
-                    className="text-stone-400 hover:text-stone-700"
+                    className="cursor-pointer w-7 h-7 rounded-full bg-stone-100 hover:bg-orange/10 flex items-center justify-center text-stone-400 hover:text-orange transition-colors"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -106,15 +106,15 @@ export default function StatsTab() {
                 </div>
               </>
             ) : (
-              <>
-                <button
-                  onClick={() => setEditingId(stat.id)}
-                  className="absolute top-4 right-4 text-stone-300 group-hover:text-orange transition-colors"
-                >
+              <button
+                onClick={() => setEditingId(stat.id)}
+                className="w-full text-left cursor-pointer"
+              >
+                <span className="absolute top-4 right-4 text-stone-300 group-hover:text-orange transition-colors">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                   </svg>
-                </button>
+                </span>
                 <div className="text-4xl font-semibold text-stone-900 mb-2">
                   {stat.value}
                   <span className="text-orange">{stat.suffix}</span>
@@ -122,7 +122,7 @@ export default function StatsTab() {
                 <p className="text-xs font-bold uppercase text-stone-400 tracking-widest">
                   {stat.label}
                 </p>
-              </>
+              </button>
             )}
           </div>
         ))}

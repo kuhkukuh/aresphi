@@ -112,6 +112,61 @@ body {
   opacity: 1;
 }
 
+/* Dark variant for login - elegant warm glow */
+.flashlight-card.dark {
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+
+.flashlight-card.dark::before {
+  opacity: 0;
+  transition: opacity 0.4s;
+  background: radial-gradient(
+    500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(249, 115, 22, 0.12),
+    rgba(251, 146, 60, 0.06) 30%,
+    transparent 60%
+  );
+}
+
+.flashlight-card.dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.08),
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.flashlight-card.dark:hover::before,
+.flashlight-card.dark:hover::after {
+  opacity: 1;
+}
+
+/* Big text overlay for login */
+.admin-wordmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28vw;
+  font-weight: 400;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: none;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  white-space: nowrap;
+}
+
 .flashlight-card-content {
   position: relative;
   z-index: 1;
@@ -122,6 +177,10 @@ body {
   transition: all 0.15s ease;
   border-bottom: 2px solid transparent;
   color: #78716c;
+}
+
+.subtab-btn:hover {
+  color: #1c1917;
 }
 
 .subtab-btn.active {

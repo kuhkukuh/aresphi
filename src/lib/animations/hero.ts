@@ -49,7 +49,7 @@ export function createHeroTimeline(
 
   heroIntro
     .to(wordmark, { yPercent: 0, opacity: 1, duration: 1.4, ease: "power4.out" })
-    .to(cards, { y: 0, opacity: 1, scale: 1, duration: 1.2, stagger: 0.12, ease: "power3.out" }, "-=1")
+    .to(cards, { y: 0, opacity: 1, scale: 1, x: (i) => ['0vw', '-11.4vw', '11.4vw'][i] as string, rotation: (i) => [-1.2, -2.7, 2.7][i] as number, duration: 1.2, stagger: 0.12, ease: 'power3.out' }, '-=1')
     .to(tagline, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, "-=0.7")
     .to(metaCard, { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" }, "-=0.7");
 

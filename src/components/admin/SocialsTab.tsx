@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSocials, useUpdateSocials, type Social } from '@/lib/admin-hooks';
+import { PhoneInput } from '@/components/PhoneInput';
 
 export default function SocialsTab() {
   const { data: socials, isLoading } = useSocials();
@@ -68,18 +69,11 @@ export default function SocialsTab() {
       )}
 
       <div className="grid md:grid-cols-2 gap-6 max-w-3xl">
-        <div>
-          <label className="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">
-            Telepon
-          </label>
-          <input
-            type="text"
-            value={formData.phone || ''}
-            onChange={(e) => setFormData((f) => ({ ...f, phone: e.target.value }))}
-            placeholder="+62 812 3456 7890"
-            className="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange"
-          />
-        </div>
+        <PhoneInput
+          value={formData.phone || ''}
+          onChange={(value) => setFormData((f) => ({ ...f, phone: value }))}
+          label="Telepon"
+        />
         <div>
           <label className="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">
             Email

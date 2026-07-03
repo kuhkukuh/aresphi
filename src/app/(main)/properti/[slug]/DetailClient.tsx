@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 
 interface Photo {
   url: string;
@@ -64,13 +65,16 @@ export default function DetailClient({ photos }: DetailClientProps) {
     <>
       {/* Hero Image */}
       <div
-        className="rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9] shadow-xl ring-1 ring-black/5 cursor-pointer"
+        className="rounded-2xl overflow-hidden aspect-[16/9] md:aspect-[21/9] shadow-xl ring-1 ring-black/5 cursor-pointer relative"
         onClick={() => openLightbox(currentIndex)}
       >
-        <img
+        <Image
           src={heroPhoto.url}
           alt={heroPhoto.alt}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 1400px"
+          priority
         />
       </div>
 
@@ -79,13 +83,15 @@ export default function DetailClient({ photos }: DetailClientProps) {
         {photos.map((photo, index) => (
           <div
             key={index}
-            className={`thumb ${index === currentIndex ? 'active' : ''} w-24 h-16 rounded-lg overflow-hidden shrink-0`}
+            className={`thumb ${index === currentIndex ? 'active' : ''} w-24 h-16 rounded-lg overflow-hidden shrink-0 relative`}
             onClick={() => setCurrentIndex(index)}
           >
-            <img
+            <Image
               src={photo.url}
               alt={photo.alt}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              sizes="96px"
             />
           </div>
         ))}
@@ -107,7 +113,7 @@ export default function DetailClient({ photos }: DetailClientProps) {
             type="button"
             aria-label="Tutup galeri"
             onClick={closeLightbox}
-            className="lightbox-btn absolute top-6 right-6 w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-orange transition-colors"
+            className="lightbox-btn absolute top-6 right-6 w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-orange transition-colors z-10"
           >
             ✕
           </button>
@@ -117,30 +123,35 @@ export default function DetailClient({ photos }: DetailClientProps) {
             type="button"
             aria-label="Foto sebelumnya"
             onClick={showPrev}
-            className="lightbox-btn absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-orange transition-colors"
+            className="lightbox-btn absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-orange transition-colors z-10"
           >
             ←
           </button>
 
           {/* Image */}
-          <img
-            src={photos[currentIndex]?.url}
-            alt={photos[currentIndex]?.alt || 'Foto properti diperbesar'}
-            className="max-h-[85vh] max-w-[88vw] rounded-xl"
-          />
+          <div className="relative max-h-[85vh] max-w-[88vw] w-[88vw] h-[85vh]">
+            <Image
+              src={photos[currentIndex]?.url}
+              alt={photos[currentIndex]?.alt || 'Foto properti diperbesar'}
+              fill
+              className="object-contain rounded-xl"
+              sizes="88vw"
+              priority
+            />
+          </div>
 
           {/* Next Button */}
           <button
             type="button"
             aria-label="Foto berikutnya"
             onClick={showNext}
-            className="lightbox-btn absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-orange transition-colors"
+            className="lightbox-btn absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-orange transition-colors z-10"
           >
             →
           </button>
 
           {/* Counter */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-sm font-mono">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70 text-sm font-mono z-10">
             {currentIndex + 1} / {photos.length}
           </div>
         </div>

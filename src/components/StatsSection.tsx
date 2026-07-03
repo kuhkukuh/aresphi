@@ -36,11 +36,11 @@ export default function StatsSection() {
   }, []);
 
   return (
-    <section className="relative bg-stone-850 py-32 overflow-hidden">
+    <section className="relative bg-stone-850 py-16 md:py-24 lg:py-32 overflow-hidden">
       {/* Watermark */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <span className="font-bold text-white text-[18vw] leading-[0.85] opacity-[0.03] select-none">
-          STATS
+          DATA
         </span>
       </div>
       
@@ -49,22 +49,18 @@ export default function StatsSection() {
       
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Header */}
-        <div className="mb-16">
-          <div className="flex justify-between items-baseline mb-4 pb-4 border-b border-stone-700/40">
-            <span className="text-xs font-semibold text-orange uppercase tracking-[0.15em]">
-              / 02 Pencapaian
-            </span>
-            <span className="text-xs text-stone-500 font-mono">
-              [ 02 ]
-            </span>
+        <div className="mb-12 md:mb-16">
+          <div className="eyebrow">
+            <span className="eyebrow-left">/ 02 Pencapaian</span>
+            <span className="eyebrow-right">[ 02 ]</span>
           </div>
-          <h2 className="mt-8 text-4xl font-medium leading-[1.02] sm:text-5xl md:text-6xl lg:text-[4.6rem] text-white" style={{ letterSpacing: '-0.055em' }}>
+          <h2 className="mt-6 md:mt-8 text-4xl font-medium leading-[1.1] sm:text-5xl md:text-6xl text-white tracking-[-0.055em]">
             Angka <span className="font-playfair italic font-normal text-white/90">Berbicara</span>
           </h2>
         </div>
         
         {/* Stats Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {stats.map((stat) => (
             <div key={stat.id} className="text-center md:text-left">
               <div className="text-5xl md:text-7xl font-semibold text-white mb-2" style={{ letterSpacing: '-0.02em' }}>
