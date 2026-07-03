@@ -38,12 +38,12 @@ export default function DesktopNav({ activeSection }: DesktopNavProps) {
         })}
       </div>
 
-      {/* Hubungi Kami Button */}
+      {/* Katalog Properti Button */}
       <a
-        href="#kontak"
+        href="/properti"
         className={`ml-auto hidden md:inline-flex ${navStyles.button.primary}`}
       >
-        Hubungi Kami
+        Katalog Properti
       </a>
     </>
   );

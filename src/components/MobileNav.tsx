@@ -114,14 +114,14 @@ export default function MobileNav({ activeSection }: MobileNavProps) {
                   </motion.a>
                 ))}
 
-                {/* Hubungi Kami Button */}
+                {/* Katalog Properti Button */}
                 <motion.a
-                  href="#kontak"
+                  href="/properti"
                   variants={itemVariants}
                   className={`mt-2 inline-flex justify-center ${navStyles.button.primary}`}
                   onClick={handleLinkClick}
                 >
-                  Hubungi Kami
+                  Katalog Properti
                 </motion.a>
               </motion.div>
             </motion.div>
