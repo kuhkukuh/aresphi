@@ -117,7 +117,7 @@ Floating navigation bar with glassmorphism effect
 
 **Features:**
 - `[inferred]` Floating pill-shaped navbar with blur effect
-- `[inferred]` Links: Properti, Layanan, Tentang, Kontak
+- `[stated]` Links: Tentang, Layanan, Properti, Kontak
 - `[inferred]` Mobile hamburger menu
 - `[inferred]` Expands on scroll
 
@@ -196,18 +196,6 @@ Not specified
 
 
 ## Changes since last run
-- changed mode
-- added modules[9].features[5]
-- changed modules[11].description
-- changed modules[11].features[0].text
-- changed modules[11].features[1].text
-- added modules[11].features[2]
-- added modules[11].features[3]
-- changed modules[12].description
-- changed modules[12].features[0].text
-- changed modules[12].features[1].text
-- added modules[12].features[2]
-- added modules[12].features[3]
-- added modules[12].features[4]
-- removed constraints[5]
+- changed modules[8].features[1].text
+- changed modules[8].features[1].confidence
 

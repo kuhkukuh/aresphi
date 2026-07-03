@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
+import { z } from 'zod';
 import {
   useProperties,
   useCreateProperty,
@@ -228,6 +229,16 @@ export default function PropertiesTab() {
   );
 }
 
+// Helper to generate URL-friendly slug from name
+function generateSlugFromName(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
+
 // Full-screen Property Form Component
 function PropertyForm({
   property,
@@ -248,8 +259,24 @@ function PropertyForm({
   uploadingPhotos: boolean;
   fileInputRef: React.RefObject<HTMLInputElement | null>;
 }) {
+  // Validation schema
+  const propertySchema = z.object({
+    name: z.string().min(1, 'Nama properti wajib diisi').max(32, 'Nama properti maksimal 32 karakter'),
+    slug: z.string().min(1, 'Slug wajib diisi').max(50, 'Slug maksimal 50 karakter'),
+    location: z.string().min(1, 'Lokasi wajib diisi'),
+    latitude: z.number().nullable(),
+    longitude: z.number().nullable(),
+    price: z.string().min(1, 'Harga wajib diisi'),
+    propertyType: z.enum(['rumah', 'apartemen', 'villa', 'ruko']),
+    landArea: z.string().min(1, 'Luas tanah wajib diisi'),
+    buildingArea: z.string().min(1, 'Luas bangunan wajib diisi'),
+    description: z.string().min(320, 'Deskripsi minimal 320 karakter'),
+    showInShowcase: z.boolean(),
+  });
+
   const [formData, setFormData] = useState({
     name: property?.name || '',
+    slug: property?.slug || '',
     location: property?.location || '',
     latitude: property?.latitude || null as number | null,
     longitude: property?.longitude || null as number | null,
@@ -260,8 +287,29 @@ function PropertyForm({
     description: property?.description || '',
     showInShowcase: property?.showInShowcase ?? true,
   });
+  const [slugManuallyEdited, setSlugManuallyEdited] = useState(!!property?.slug);
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [isSaving, setIsSaving] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
+  const descriptionRef = useRef<HTMLDivElement>(null);
+
+  // Helper to strip HTML tags for character count
+  const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').trim();
+
+  // Auto-generate slug from name unless manually edited
+  const handleNameChange = (name: string) => {
+    setFormData((f) => ({ ...f, name }));
+    if (!slugManuallyEdited) {
+      setFormData((f) => ({ ...f, slug: generateSlugFromName(name) }));
+    }
+  };
+
+  // Sync description from ref to state (call before validation)
+  const syncDescriptionToState = () => {
+    if (descriptionRef.current) {
+      setFormData((f) => ({ ...f, description: descriptionRef.current!.innerHTML }));
+    }
+  };
 
   // Flashlight effect for sidebar
   useEffect(() => {
@@ -280,6 +328,30 @@ function PropertyForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Sync description from contentEditable before validation
+    syncDescriptionToState();
+    
+    // Validate photo count
+    const photoCount = (property?.photos.length || 0) + pendingPhotos.length;
+    if (photoCount < 1) {
+      setValidationErrors({ photos: 'Minimal 1 foto properti diperlukan' });
+      return;
+    }
+    
+    // Validate form data
+    const result = propertySchema.safeParse(formData);
+    if (!result.success) {
+      const errors: Record<string, string> = {};
+      result.error.issues.forEach((issue) => {
+        const path = issue.path[0] as string;
+        errors[path] = issue.message;
+      });
+      setValidationErrors(errors);
+      return;
+    }
+    
+    setValidationErrors({});
     setIsSaving(true);
     try {
       await onSave({
@@ -318,22 +390,58 @@ function PropertyForm({
         <div className="lg:col-span-2 space-y-6">
           <div>
             <label className="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">
-              Nama Properti
+              Nama Properti <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               value={formData.name}
-              onChange={(e) => setFormData((f) => ({ ...f, name: e.target.value }))}
+              onChange={(e) => handleNameChange(e.target.value)}
               placeholder="mis. Rumah Modern Pondok Indah"
-              className="w-full bg-transparent border-0 border-b-2 border-stone-200 px-0 py-2 text-3xl font-playfair italic text-stone-900 focus:outline-none focus:border-orange transition-colors"
-              required
+              maxLength={32}
+              className={`w-full bg-transparent border-0 border-b-2 px-0 py-2 text-3xl font-playfair italic text-stone-900 focus:outline-none transition-colors ${
+                validationErrors.name ? 'border-red-400 focus:border-red-500' : 'border-stone-200 focus:border-orange'
+              }`}
             />
+            <div className="flex justify-between mt-1">
+              {validationErrors.name && (
+                <p className="text-xs text-red-500">{validationErrors.name}</p>
+              )}
+              <p className="text-xs text-stone-400 ml-auto">{formData.name.length}/32</p>
+            </div>
+          </div>
+
+          <div>
+            <label className="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">
+              Slug (URL) <span className="text-red-500">*</span>
+            </label>
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-stone-400">/properti/</span>
+              <input
+                type="text"
+                value={formData.slug}
+                onChange={(e) => {
+                  setFormData((f) => ({ ...f, slug: e.target.value }));
+                  setSlugManuallyEdited(true);
+                }}
+                placeholder="rumah-modern-pondok-indah"
+                maxLength={50}
+                className={`flex-1 bg-transparent border-0 border-b-2 px-0 py-2 text-sm text-stone-700 focus:outline-none transition-colors ${
+                  validationErrors.slug ? 'border-red-400 focus:border-red-500' : 'border-stone-200 focus:border-orange'
+                }`}
+              />
+            </div>
+            <div className="flex justify-between mt-1">
+              {validationErrors.slug && (
+                <p className="text-xs text-red-500">{validationErrors.slug}</p>
+              )}
+              <p className="text-xs text-stone-400 ml-auto">{formData.slug.length}/50</p>
+            </div>
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">
-                Tipe Properti
+                Tipe Properti <span className="text-red-500">*</span>
               </label>
               <select
                 value={formData.propertyType}
@@ -348,22 +456,26 @@ function PropertyForm({
             </div>
             <div>
               <label className="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">
-                Harga
+                Harga <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={formData.price}
                 onChange={(e) => setFormData((f) => ({ ...f, price: e.target.value }))}
                 placeholder="Rp 2.5 M"
-                className="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2.5 text-sm focus:outline-none focus:border-orange"
-                required
+                className={`w-full rounded-lg bg-white/70 px-3 py-2.5 text-sm focus:outline-none ${
+                  validationErrors.price ? 'border border-red-400 focus:border-red-500' : 'border border-stone-300 focus:border-orange'
+                }`}
               />
+              {validationErrors.price && (
+                <p className="text-xs text-red-500 mt-1">{validationErrors.price}</p>
+              )}
             </div>
           </div>
 
           <div>
             <label className="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">
-              Lokasi / Alamat
+              Lokasi / Alamat <span className="text-red-500">*</span>
             </label>
             <AddressInput
               value={formData.location}
@@ -374,40 +486,57 @@ function PropertyForm({
                 longitude: coords?.lng ?? f.longitude,
               }))}
               placeholder="Cari alamat..."
-              className="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2.5 text-sm focus:outline-none focus:border-orange"
+              className={`w-full rounded-lg bg-white/70 px-3 py-2.5 text-sm focus:outline-none ${
+                validationErrors.location ? 'border border-red-400 focus:border-red-500' : 'border border-stone-300 focus:border-orange'
+              }`}
             />
+            {validationErrors.location && (
+              <p className="text-xs text-red-500 mt-1">{validationErrors.location}</p>
+            )}
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">
-                Luas Tanah (m²)
+                Luas Tanah (m²) <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={formData.landArea}
                 onChange={(e) => setFormData((f) => ({ ...f, landArea: e.target.value }))}
-                className="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2.5 text-sm focus:outline-none focus:border-orange"
+                className={`w-full rounded-lg bg-white/70 px-3 py-2.5 text-sm focus:outline-none ${
+                  validationErrors.landArea ? 'border border-red-400 focus:border-red-500' : 'border border-stone-300 focus:border-orange'
+                }`}
               />
+              {validationErrors.landArea && (
+                <p className="text-xs text-red-500 mt-1">{validationErrors.landArea}</p>
+              )}
             </div>
             <div>
               <label className="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">
-                Luas Bangunan (m²)
+                Luas Bangunan (m²) <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 value={formData.buildingArea}
                 onChange={(e) => setFormData((f) => ({ ...f, buildingArea: e.target.value }))}
-                className="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2.5 text-sm focus:outline-none focus:border-orange"
+                className={`w-full rounded-lg bg-white/70 px-3 py-2.5 text-sm focus:outline-none ${
+                  validationErrors.buildingArea ? 'border border-red-400 focus:border-red-500' : 'border border-stone-300 focus:border-orange'
+                }`}
               />
+              {validationErrors.buildingArea && (
+                <p className="text-xs text-red-500 mt-1">{validationErrors.buildingArea}</p>
+              )}
             </div>
           </div>
 
           <div>
             <label className="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">
-              Deskripsi
+              Deskripsi <span className="text-red-500">*</span>
             </label>
-            <div className="rounded-lg border border-stone-300 bg-white/70 overflow-hidden">
+            <div className={`rounded-lg bg-white/70 overflow-hidden ${
+              validationErrors.description ? 'border border-red-400' : 'border border-stone-300'
+            }`}>
               <div className="flex items-center gap-1 border-b border-stone-200 bg-stone-50 px-2 py-1.5">
                 <button
                   type="button"
@@ -470,20 +599,36 @@ function PropertyForm({
                 </button>
               </div>
               <div
+                ref={descriptionRef}
                 contentEditable
+                suppressContentEditableWarning
                 dangerouslySetInnerHTML={{ __html: formData.description || '' }}
-                onInput={(e) => setFormData((f) => ({ ...f, description: e.currentTarget.innerHTML }))}
+                onInput={() => {
+                  // Use ref instead of e.currentTarget to avoid null reference
+                  if (descriptionRef.current) {
+                    setFormData((f) => ({ ...f, description: descriptionRef.current!.innerHTML }));
+                  }
+                }}
                 data-placeholder="Tulis deskripsi properti..."
                 className="rte-body p-3 text-sm text-stone-700 leading-relaxed"
               />
+            </div>
+            <div className="flex justify-between mt-1">
+              {validationErrors.description && (
+                <p className="text-xs text-red-500">{validationErrors.description}</p>
+              )}
+              <p className="text-xs text-stone-400 ml-auto">{stripHtml(formData.description).length} karakter (min. 320)</p>
             </div>
           </div>
 
           {/* Photo gallery */}
           <div>
             <label className="text-xs text-stone-400 uppercase tracking-wider mb-2 block">
-              Foto Properti
+              Foto Properti <span className="text-red-500">*</span>
             </label>
+            {validationErrors.photos && (
+              <p className="text-xs text-red-500 mb-2">{validationErrors.photos}</p>
+            )}
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
               {/* Existing photos from property */}
               {property?.photos.map((photo, idx) => (

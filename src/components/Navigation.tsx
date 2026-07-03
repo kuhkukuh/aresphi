@@ -17,6 +17,7 @@ const navStyles = {
     floating: "border border-white/10 bg-black/50 backdrop-blur-2xl",
     shadow: "shadow-[0_24px_90px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.16)]",
   },
+  containerRounded: "rounded-full",
   link: {
     base: "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
     inactive: "text-white/80 hover:bg-white/10 hover:text-white",
@@ -95,7 +96,7 @@ export default function Navigation() {
 
       {/* Desktop Navigation */}
       <nav
-        className={`${navStyles.container.base} ${navStyles.container.floating} ${navStyles.container.shadow} w-[calc(100%-32px)] px-4 py-3 sm:px-5 md:px-6 ${
+        className={`${navStyles.container.base} ${navStyles.container.floating} ${navStyles.container.shadow} ${navStyles.containerRounded} w-[calc(100%-32px)] px-4 py-3 sm:px-5 md:px-6 ${
           isReady ? "opacity-100" : "opacity-0"
         } ${hasScrolled ? "max-w-[1152px]" : "max-w-[800px]"} hidden md:flex`}
         style={{

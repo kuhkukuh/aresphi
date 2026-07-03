@@ -4,6 +4,16 @@ import { properties, propertyPhotos } from '@/infrastructure/database/schema';
 import { getAdminSession } from '@/lib/auth';
 import { asc, eq } from 'drizzle-orm';
 
+// Helper to generate URL-friendly slug
+function generateSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
+
 export async function GET() {
   const isAuth = await getAdminSession();
   if (!isAuth) {
@@ -37,11 +47,24 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { name, location, latitude, longitude, price, propertyType, landArea, buildingArea, description, showInShowcase } = body;
+    const { name, slug, location, latitude, longitude, price, propertyType, landArea, buildingArea, description, showInShowcase } = body;
 
-    if (!name || !location || !price) {
+    if (!name || !slug || !location || !price) {
       return NextResponse.json(
-        { error: 'Name, location, and price are required' },
+        { error: 'Name, slug, location, and price are required' },
+        { status: 400 }
+      );
+    }
+
+    // Check for duplicate slug
+    const existing = await db
+      .select()
+      .from(properties)
+      .where(eq(properties.slug, slug));
+    
+    if (existing.length > 0) {
+      return NextResponse.json(
+        { error: 'Slug already exists. Please use a different slug.' },
         { status: 400 }
       );
     }
@@ -50,6 +73,7 @@ export async function POST(request: Request) {
       .insert(properties)
       .values({
         name,
+        slug,
         location,
         latitude: latitude || null,
         longitude: longitude || null,

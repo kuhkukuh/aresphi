@@ -35,11 +35,11 @@ export default function MobileNav({ activeSection }: MobileNavProps) {
   const containerVariants = {
     collapsed: {
       borderRadius: 9999,
-      transition: { type: "spring" as const, stiffness: 300, damping: 30 },
+      transition: { type: "tween" as const, duration: 0.3, ease: [0.16, 1, 0.3, 1] as const },
     },
     expanded: {
       borderRadius: 24,
-      transition: { type: "spring" as const, stiffness: 300, damping: 30 },
+      transition: { type: "tween" as const, duration: 0.3, ease: [0.16, 1, 0.3, 1] as const },
     },
   };
 
@@ -47,18 +47,18 @@ export default function MobileNav({ activeSection }: MobileNavProps) {
     collapsed: {
       height: 0,
       opacity: 0,
-      transition: { type: "spring" as const, stiffness: 300, damping: 30 },
+      transition: { type: "tween" as const, duration: 0.3, ease: [0.16, 1, 0.3, 1] as const },
     },
     expanded: {
       height: "auto",
       opacity: 1,
-      transition: { type: "spring" as const, stiffness: 300, damping: 30, staggerChildren: 0.05, delayChildren: 0.1 },
+      transition: { type: "tween" as const, duration: 0.3, ease: [0.16, 1, 0.3, 1] as const, staggerChildren: 0.05, delayChildren: 0.05 },
     },
   };
 
   const itemVariants = {
     collapsed: { opacity: 0, y: -10 },
-    expanded: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 30 } },
+    expanded: { opacity: 1, y: 0, transition: { type: "tween" as const, duration: 0.2 } },
   };
 
   return (

@@ -16,12 +16,29 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { name, location, latitude, longitude, price, propertyType, landArea, buildingArea, description, showInShowcase, displayOrder } = body;
+    const { name, slug, location, latitude, longitude, price, propertyType, landArea, buildingArea, description, showInShowcase, displayOrder } = body;
+
+    // If slug is being updated, check for duplicates
+    if (slug !== undefined) {
+      const existing = await db
+        .select()
+        .from(properties)
+        .where(eq(properties.slug, slug));
+      
+      const isDuplicate = existing.some(p => p.id !== parseInt(id));
+      if (isDuplicate) {
+        return NextResponse.json(
+          { error: 'Slug already exists. Please use a different slug.' },
+          { status: 400 }
+        );
+      }
+    }
 
     const [updated] = await db
       .update(properties)
       .set({
         ...(name !== undefined && { name }),
+        ...(slug !== undefined && { slug }),
         ...(location !== undefined && { location }),
         ...(latitude !== undefined && { latitude }),
         ...(longitude !== undefined && { longitude }),

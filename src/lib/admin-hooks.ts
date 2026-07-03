@@ -6,6 +6,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 export type Property = {
   id: number;
   name: string;
+  slug: string;
   location: string;
   latitude: number | null;
   longitude: number | null;

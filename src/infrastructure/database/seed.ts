@@ -19,9 +19,20 @@ const defaultHeroPhotos = [
   { position: 3, url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80', alt: 'Contemporary living space' },
 ];
 
+// Helper to generate URL-friendly slug
+function generateSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
+
 const defaultProperties = [
   {
     name: 'Rumah Modern Pondok Indah',
+    slug: 'rumah-modern-pondok-indah',
     location: 'Jakarta Selatan',
     price: 'Rp 2.5 M',
     propertyType: 'rumah' as const,
@@ -37,6 +48,7 @@ const defaultProperties = [
   },
   {
     name: 'Apartemen Mewah Sudirman',
+    slug: 'apartemen-mewah-sudirman',
     location: 'Jakarta Pusat',
     price: 'Rp 35 jt/bln',
     propertyType: 'apartemen' as const,
@@ -51,6 +63,7 @@ const defaultProperties = [
   },
   {
     name: 'Villa Eksklusif BSD',
+    slug: 'villa-eksklusif-bsd',
     location: 'Tangerang',
     price: 'Rp 4.5 M',
     propertyType: 'villa' as const,
@@ -65,6 +78,7 @@ const defaultProperties = [
   },
   {
     name: 'Cluster Premium Bandung',
+    slug: 'cluster-premium-bandung',
     location: 'Bandung',
     price: 'Rp 1.8 M',
     propertyType: 'rumah' as const,
@@ -133,6 +147,7 @@ async function seedProperties() {
     for (const prop of defaultProperties) {
       const [inserted] = await db.insert(properties).values({
         name: prop.name,
+        slug: prop.slug,
         location: prop.location,
         price: prop.price,
         propertyType: prop.propertyType,

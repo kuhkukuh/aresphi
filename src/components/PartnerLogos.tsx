@@ -3,15 +3,13 @@
 import Image from 'next/image';
 
 const PARTNER_LOGOS = [
-  { name: 'BNI', src: '/partners/bni.svg' },
-  { name: 'BJB', src: '/partners/bjb.svg' },
-  { name: 'BTN', src: '/partners/btn.svg' },
-  { name: 'BRI', src: '/partners/bri.svg' },
-  { name: 'BCA', src: '/partners/bca.svg' },
-  { name: 'BPR', src: '/partners/bpr.svg' },
-  { name: 'BPR HIK', src: '/partners/bpr-hik.svg' },
-  { name: 'BWS', src: '/partners/bws.svg' },
-  { name: 'Bank Sampoerna', src: '/partners/sampoerna.svg' },
+  { name: 'BCA', src: '/partners/bca.png' },
+  { name: 'BNI', src: '/partners/bni.png' },
+  { name: 'Mandiri', src: '/partners/mandiri.png' },
+  { name: 'BJB', src: '/partners/bjb.png' },
+  { name: 'BTN', src: '/partners/btn.png' },
+  { name: 'BSI', src: '/partners/bsi.png' },
+  { name: 'CIMB Niaga', src: '/partners/cimb.png' },
 ];
 
 /**
@@ -23,29 +21,31 @@ const PARTNER_LOGOS = [
  * Features:
  * - Infinite horizontal scroll (30s cycle)
  * - Pause on hover
- * - Greyscale with color reveal on hover
  * - Reduced motion support
  */
 export default function PartnerLogos() {
   return (
-    <section className="py-16 border-y border-stone-400/10 overflow-hidden bg-white/30">
-      <div className="marquee-mask">
+    <section className="py-6 border-y border-stone-400/10 bg-white/30">
+      <div className="overflow-hidden">
         <div
-          className="flex items-center gap-20 animate-marquee hover:[animation-play-state:paused]"
-          style={{ width: 'fit-content' }}
+          className="flex items-center gap-24"
+          style={{
+            width: 'fit-content',
+            animation: 'marquee 30s linear infinite',
+          }}
         >
           {/* First set */}
           {PARTNER_LOGOS.map((logo) => (
             <div
               key={logo.name}
-              className="flex-shrink-0 px-10 text-stone-400 font-semibold text-lg tracking-wider opacity-40 hover:opacity-80 transition-all"
+              className="flex-shrink-0 px-20 opacity-70 hover:opacity-100 transition-all"
             >
               <Image
                 src={logo.src}
                 alt={logo.name}
-                width={160}
-                height={64}
-                className="h-16 w-auto object-contain"
+                width={360}
+                height={144}
+                className="h-36 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
               />
             </div>
           ))}
@@ -53,19 +53,30 @@ export default function PartnerLogos() {
           {PARTNER_LOGOS.map((logo) => (
             <div
               key={`${logo.name}-dup`}
-              className="flex-shrink-0 px-10 text-stone-400 font-semibold text-lg tracking-wider opacity-40 hover:opacity-80 transition-all"
+              className="flex-shrink-0 px-20 opacity-70 hover:opacity-100 transition-all"
             >
               <Image
                 src={logo.src}
                 alt={logo.name}
-                width={160}
-                height={64}
-                className="h-16 w-auto object-contain"
+                width={360}
+                height={144}
+                className="h-36 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
               />
             </div>
           ))}
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
     </section>
   );
 }
