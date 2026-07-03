@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import { z } from 'zod';
@@ -15,6 +15,7 @@ import {
 } from '@/lib/admin-hooks';
 import { appToast } from '@/lib/toast';
 import { AddressInput } from '@/components/AddressInput';
+import PhotoUploader from '@/components/admin/PhotoUploader';
 
 export default function PropertiesTab() {
   const { data: properties, isLoading } = useProperties();
@@ -26,8 +27,6 @@ export default function PropertiesTab() {
 
   const [showForm, setShowForm] = useState(false);
   const [editingProperty, setEditingProperty] = useState<Property | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [uploadingPhotos, setUploadingPhotos] = useState(false);
   const [pendingPhotos, setPendingPhotos] = useState<string[]>([]);
 
   const openCreateForm = () => {
@@ -67,21 +66,12 @@ export default function PropertiesTab() {
     }
   };
 
-  const handlePhotoUpload = async (files: FileList | null, propertyId: number | null) => {
-    if (!files || files.length === 0) return;
-
-    setUploadingPhotos(true);
-    try {
-      for (const file of Array.from(files)) {
-        const { url } = await uploadMutation.mutateAsync(file);
-        if (propertyId) {
-          await addPhotoMutation.mutateAsync({ propertyId, url });
-        } else {
-          setPendingPhotos((prev) => [...prev, url]);
-        }
-      }
-    } finally {
-      setUploadingPhotos(false);
+  const handleUploadFile = async (file: File, propertyId: number | null) => {
+    const { url } = await uploadMutation.mutateAsync(file);
+    if (propertyId) {
+      await addPhotoMutation.mutateAsync({ propertyId, url });
+    } else {
+      setPendingPhotos((prev) => [...prev, url]);
     }
   };
 
@@ -218,10 +208,8 @@ export default function PropertiesTab() {
               }
               closeForm();
             }}
-            onUploadPhoto={handlePhotoUpload}
+            onUploadFile={handleUploadFile}
             onDeletePhoto={handleDeletePhoto}
-            uploadingPhotos={uploadingPhotos}
-            fileInputRef={fileInputRef}
           />,
           document.body
         )}
@@ -245,19 +233,15 @@ function PropertyForm({
   pendingPhotos,
   onClose,
   onSave,
-  onUploadPhoto,
+  onUploadFile,
   onDeletePhoto,
-  uploadingPhotos,
-  fileInputRef,
 }: {
   property: Property | null;
   pendingPhotos: string[];
   onClose: () => void;
   onSave: (data: Partial<Property>) => Promise<void>;
-  onUploadPhoto: (files: FileList | null, propertyId: number | null) => Promise<void>;
+  onUploadFile: (file: File, propertyId: number | null) => Promise<void>;
   onDeletePhoto: (photoId: number | null, photoUrl?: string) => Promise<void>;
-  uploadingPhotos: boolean;
-  fileInputRef: React.RefObject<HTMLInputElement | null>;
 }) {
   // Validation schema
   const propertySchema = z.object({
@@ -292,6 +276,13 @@ function PropertyForm({
   const [isSaving, setIsSaving] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const descriptionRef = useRef<HTMLDivElement>(null);
+
+  // Stable identity for PhotoUploader's onUploadFile prop, so it doesn't
+  // change on every PropertyForm render.
+  const handleUploadFileForProperty = useCallback(
+    (file: File) => onUploadFile(file, property?.id ?? null),
+    [onUploadFile, property?.id]
+  );
 
   // Helper to strip HTML tags for character count
   const stripHtml = (html: string) => html.replace(/<[^>]*>/g, '').trim();
@@ -629,74 +620,12 @@ function PropertyForm({
             {validationErrors.photos && (
               <p className="text-xs text-red-500 mb-2">{validationErrors.photos}</p>
             )}
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
-              {/* Existing photos from property */}
-              {property?.photos.map((photo, idx) => (
-                <div key={photo.id} className="thumb relative aspect-square rounded-lg overflow-hidden group">
-                  <img
-                    src={photo.url}
-                    alt={photo.alt || `Foto ${idx + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => onDeletePhoto(photo.id)}
-                    className="absolute top-1 right-1 w-5 h-5 rounded-full bg-stone-900/70 text-white flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"
-                    aria-label="Hapus foto"
-                  >
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              ))}
-              
-              {/* Pending photos (new property) */}
-              {pendingPhotos.map((url, idx) => (
-                <div key={url} className="thumb relative aspect-square rounded-lg overflow-hidden group">
-                  <img
-                    src={url}
-                    alt={`Foto ${idx + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => onDeletePhoto(null, url)}
-                    className="absolute top-1 right-1 w-5 h-5 rounded-full bg-stone-900/70 text-white flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"
-                    aria-label="Hapus foto"
-                  >
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              ))}
-              
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className="aspect-square rounded-lg border-2 border-dashed border-stone-300 flex flex-col items-center justify-center gap-1 text-stone-400 hover:border-orange hover:text-orange transition-colors"
-              >
-                {uploadingPhotos ? (
-                  <span className="text-[9px] uppercase tracking-wider">Uploading...</span>
-                ) : (
-                  <>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                    </svg>
-                    <span className="text-[9px] uppercase tracking-wider">Tambah</span>
-                  </>
-                )}
-              </button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                multiple
-                onChange={(e) => onUploadPhoto(e.target.files, property?.id ?? null)}
-                className="hidden"
-              />
-            </div>
+            <PhotoUploader
+              photos={property?.photos ?? []}
+              pendingPhotos={pendingPhotos}
+              onUploadFile={handleUploadFileForProperty}
+              onDeletePhoto={onDeletePhoto}
+            />
           </div>
         </div>
 
