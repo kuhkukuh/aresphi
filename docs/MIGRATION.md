@@ -356,21 +356,14 @@ When migrations are merged to `main`:
 
 > ⚠️ **Requires**: `DATABASE_UNPOOLED_URL` secret in repository settings
 
-### Setting Up Environment Secrets
+### Setting Up Repository Secrets
 
-This workflow uses a **`production` environment** for security:
+1. Go to **Settings > Secrets and variables > Actions**
+2. Click **New repository secret**
+3. Name: `DATABASE_UNPOOLED_URL`
+4. Value: Your Neon direct connection string
 
-1. Go to **Settings > Environments > New environment**
-2. Name it `production`
-3. Add secret: `DATABASE_UNPOOLED_URL` = your Neon direct connection string
-4. (Optional) Add protection rules:
-   - Required reviewers for deployments
-   - Limit to specific branches (e.g., `main`)
-
-**Why environment secrets?**
-- Can require approval before running
-- Can restrict which branches can access
-- Better auditability for production DB access
+That's it! The migration workflow will use this secret to apply migrations.
 
 ### Local Migration Check
 
