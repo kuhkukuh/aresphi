@@ -108,7 +108,7 @@ export default function Navigation() {
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <a href="#" className="group flex items-center gap-3 text-white" aria-label="Aresphi home">
+        <a href="/" className="group flex items-center gap-3 text-white" aria-label="Aresphi home">
           <span className="font-playfair text-2xl italic tracking-tight">
             Aresphi<span className="text-orange">®</span>
           </span>

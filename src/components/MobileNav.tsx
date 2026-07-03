@@ -61,7 +61,7 @@ export default function MobileNav({ activeSection }: MobileNavProps) {
         {/* Header Row - Always Visible */}
         <div className="flex w-full items-center justify-between px-4 py-3">
           {/* Logo */}
-          <a href="#" className="font-playfair text-2xl italic tracking-tight text-white">
+          <a href="/" className="font-playfair text-2xl italic tracking-tight text-white">
             Aresphi<span className="text-orange">®</span>
           </a>
 
