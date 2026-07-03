@@ -1,0 +1,26 @@
+{
+  "featureId": "F-005",
+  "title": "Process Section",
+  "module": "Process",
+  "description": "Staggered cards showing 3-step client journey: Konsultasi Awal, Kurasi Properti, Pendampingan Transaksi. Includes sticky heading with CTA.",
+  "scope": {
+    "inScope": [
+      "Step 1: Konsultasi Awal - understanding client needs",
+      "Step 2: Kurasi Properti - curated property selection",
+      "Step 3: Pendampingan Transaksi - end-to-end support",
+      "Sticky heading with CTA button"
+    ],
+    "outOfScope": [
+      "Dynamic process step management",
+      "Booking/scheduling integration"
+    ]
+  },
+  "acceptanceCriteria": [
+    { "id": "AC1", "text": "Three process cards display in staggered layout: Konsultasi Awal, Kurasi Properti, Pendampingan Transaksi", "done": false },
+    { "id": "AC2", "text": "Each card shows step number, title, and description", "done": false },
+    { "id": "AC3", "text": "Sticky heading remains visible while scrolling through section", "done": false },
+    { "id": "AC4", "text": "CTA button links to contact section", "done": false }
+  ],
+  "dependsOn": [],
+  "source": { "file": "prd.md", "lines": "79-87" }
+}

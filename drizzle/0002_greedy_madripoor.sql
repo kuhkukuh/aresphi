@@ -1,0 +1,1 @@
+ALTER TABLE "properties" ALTER COLUMN "show_in_showcase" SET DATA TYPE boolean;

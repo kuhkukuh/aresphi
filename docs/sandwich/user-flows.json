@@ -1,0 +1,147 @@
+{
+  "flows": [
+    {
+      "id": "UF-001",
+      "title": "Visitor explores property listings",
+      "actor": "Pembeli Rumah",
+      "trigger": "Visitor lands on homepage and scrolls to Property Showcase section",
+      "steps": [
+        "Visitor sees horizontal scrolling gallery of featured properties",
+        "Visitor hovers over a property card to see full-color image",
+        "Visitor notes the price badge, property name, and location",
+        "Visitor contacts Aresphi via WhatsApp or email for more information"
+      ],
+      "outcome": "Visitor has browsed available properties and initiated contact for promising listings",
+      "confidence": "inferred"
+    },
+    {
+      "id": "UF-002",
+      "title": "Property owner submits inquiry",
+      "actor": "Pemilik Properti",
+      "trigger": "Property owner wants to list their property with Aresphi",
+      "steps": [
+        "Owner navigates to Kontak section via navigation or footer",
+        "Owner finds contact information (phone, email, WhatsApp)",
+        "Owner reaches out via mailto link or WhatsApp deep link",
+        "Aresphi team responds to schedule consultation"
+      ],
+      "outcome": "Owner has initiated contact with Aresphi for property listing",
+      "confidence": "stated"
+    },
+    {
+      "id": "UF-003",
+      "title": "Investor learns about company credentials",
+      "actor": "Investor Properti",
+      "trigger": "Investor wants to verify Aresphi's track record before engaging",
+      "steps": [
+        "Investor scrolls to Stats Section (Pencapaian)",
+        "Investor reviews metrics: properties sold, satisfied clients, years experience, success rate",
+        "Investor scrolls to USP Section to understand differentiators",
+        "Investor reads testimonials from previous clients"
+      ],
+      "outcome": "Investor has confidence in Aresphi's capabilities and credibility",
+      "confidence": "inferred"
+    },
+    {
+      "id": "UF-004",
+      "title": "Business owner seeks commercial property",
+      "actor": "Pelaku Usaha",
+      "trigger": "Business owner needs ruko, gudang, or kantor space",
+      "steps": [
+        "Business owner lands on homepage from search or referral",
+        "Owner scrolls through Hero section to understand services",
+        "Owner navigates to Layanan section to see service process",
+        "Owner contacts Aresphi via WhatsApp or email for commercial property needs"
+      ],
+      "outcome": "Business owner has initiated contact for commercial property consultation",
+      "confidence": "inferred"
+    },
+    {
+      "id": "UF-005",
+      "title": "Admin manages property catalog",
+      "actor": "Admin",
+      "trigger": "Aresphi agent acquires new property to list or needs to update existing listings",
+      "steps": [
+        "Admin logs into property management dashboard using env-stored credentials",
+        "Admin uploads property photos to Vercel Blob via the dashboard",
+        "Admin enters property details (name, location, price, type, status)",
+        "Admin selects which photos appear in Hero, Property Showcase, and other sections",
+        "Property appears in designated sections on the public website"
+      ],
+      "outcome": "Property catalog is updated and visible on website",
+      "confidence": "stated"
+    },
+    {
+      "id": "UF-006",
+      "title": "Admin updates company stats",
+      "actor": "Admin",
+      "trigger": "Marketing team wants to update achievement metrics",
+      "steps": [
+        "Admin logs into dashboard",
+        "Admin navigates to Stats management section",
+        "Admin updates values for properties sold, clients, years, success rate",
+        "Stats Section on public website reflects new values"
+      ],
+      "outcome": "Company achievements are kept current on the website",
+      "confidence": "stated"
+    },
+    {
+      "id": "UF-007",
+      "title": "Renter explores rental options",
+      "actor": "Penyewa",
+      "trigger": "Individual or family needs rental property",
+      "steps": [
+        "Renter visits Aresphi website",
+        "Renter browses Property Showcase for rental listings (indicated by monthly price format)",
+        "Renter reviews Process Section to understand how Aresphi helps",
+        "Renter contacts Aresphi via WhatsApp for viewing appointment"
+      ],
+      "outcome": "Renter has scheduled property viewing with Aresphi agent",
+      "confidence": "inferred"
+    },
+    {
+      "id": "UF-008",
+      "title": "Visitor browses property catalog with filters",
+      "actor": "Pembeli Rumah",
+      "trigger": "Visitor clicks 'Properti' in navigation to see all available properties",
+      "steps": [
+        "Visitor lands on Catalog Page with grid of all properties",
+        "Visitor filters by type: Jual or Sewa",
+        "Visitor filters by price range using price slider or input",
+        "Visitor filters by location using dropdown or search",
+        "Visitor browses filtered results in grid layout"
+      ],
+      "outcome": "Visitor has found properties matching their criteria",
+      "confidence": "stated"
+    },
+    {
+      "id": "UF-009",
+      "title": "Visitor views property details",
+      "actor": "Pembeli Rumah",
+      "trigger": "Visitor clicks on a property card from Showcase or Catalog",
+      "steps": [
+        "Visitor lands on Property Detail Page",
+        "Visitor browses photo gallery with lightbox view",
+        "Visitor reads property specs: bedrooms, bathrooms, land area, building area",
+        "Visitor reviews price and location details",
+        "Visitor clicks WhatsApp or email button to contact Aresphi about the property"
+      ],
+      "outcome": "Visitor has full property information and direct contact channel",
+      "confidence": "stated"
+    },
+    {
+      "id": "UF-010",
+      "title": "Admin manages hero section photos",
+      "actor": "Admin",
+      "trigger": "Marketing wants to update featured properties in hero",
+      "steps": [
+        "Admin logs into dashboard",
+        "Admin navigates to Hero tab",
+        "Admin selects which property photos appear in hero section",
+        "Admin saves changes and hero section updates on public site"
+      ],
+      "outcome": "Hero section showcases current featured properties",
+      "confidence": "stated"
+    }
+  ]
+}

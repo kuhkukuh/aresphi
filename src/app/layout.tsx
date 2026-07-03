@@ -1,16 +1,19 @@
 import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
-import { Playfair_Display } from 'next/font/google';
+import { Inter, Playfair_Display } from 'next/font/google';
+import { Toaster } from 'sonner';
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
 });
 
 const playfair = Playfair_Display({
   variable: '--font-playfair',
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
   display: 'swap',
 });
 
@@ -33,9 +36,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${geistSans.variable} ${playfair.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-stone-50 text-stone-900 font-sans">
+    <html lang="id" className={`${inter.variable} ${playfair.variable} antialiased`}>
+      <body className="min-h-screen flex flex-col bg-stone-50 text-stone-900 font-sans">
         {children}
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            unstyled: true,
+            classNames: {
+              toast: 'group flex items-center gap-3 w-auto max-w-md px-4 py-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-xl shadow-stone-900/10',
+              title: 'text-sm font-medium text-stone-900',
+              description: 'text-sm text-stone-500',
+              icon: 'flex-shrink-0 w-5 h-5 text-orange',
+              success: 'text-orange',
+              error: 'text-red-500',
+              info: 'text-blue-500',
+              closeButton: 'right-1 top-1/2 -translate-y-1/2 left-auto bg-white/5 backdrop-blur-md border-white/10 hover:bg-white/10 text-stone-500 hover:text-stone-700',
+            },
+          }}
+        />
       </body>
     </html>
   );

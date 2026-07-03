@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "name": "Aresphi Property",
+  "briefHashes": {
+    "prd": "70a4f1563a744726",
+    "userFlows": "75776185fe11c0f1",
+    "technicalNotes": "4c37ca67cb222fee",
+    "clientQuestions": "193654cd531f5b65"
+  },
+  "gates": {
+    "briefApproved": {
+      "passed": false
+    },
+    "queueApproved": {
+      "passed": false
+    }
+  },
+  "createdAt": "2026-07-03T00:31:00.000Z",
+  "updatedAt": "2026-07-03T09:15:00.000Z"
+}

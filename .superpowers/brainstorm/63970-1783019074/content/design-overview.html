@@ -1,0 +1,59 @@
+<h2>Design: Property Management Admin</h2>
+<p class="subtitle">Overview of the proposed architecture</p>
+
+<div class="mockup" style="margin-bottom: 2rem;">
+  <div class="mockup-header">Admin Page Structure</div>
+  <div class="mockup-body" style="padding: 1.5rem;">
+    <div style="display: flex; gap: 0.5rem; border-bottom: 2px solid #e7e5e4; margin-bottom: 1rem; padding-bottom: 0.5rem;">
+      <span style="padding: 0.5rem 1rem; background: #1c1917; color: white; border-radius: 0.5rem 0.5rem 0 0; font-weight: 500;">Properties</span>
+      <span style="padding: 0.5rem 1rem; color: #78716c;">Hero</span>
+      <span style="padding: 0.5rem 1rem; color: #78716c;">Stats</span>
+    </div>
+    <div style="color: #78716c; font-size: 0.875rem;">↓ Tab content area ↓</div>
+  </div>
+</div>
+
+<h3>Database Schema</h3>
+
+<div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem;">
+  <h4 style="margin: 0 0 0.75rem 0; color: #1c1917;">properties</h4>
+  <ul style="margin: 0; padding-left: 1.25rem; color: #57534e; font-size: 0.9rem; line-height: 1.6;">
+    <li><code>id</code>, <code>name</code>, <code>location</code>, <code>price</code></li>
+    <li><code>status</code> (available | sold | rented)</li>
+    <li><code>showInShowcase</code> (boolean) — featured in carousel</li>
+    <li><code>displayOrder</code> — order in showcase</li>
+  </ul>
+</div>
+
+<div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem;">
+  <h4 style="margin: 0 0 0.75rem 0; color: #1c1917;">property_photos</h4>
+  <ul style="margin: 0; padding-left: 1.25rem; color: #57534e; font-size: 0.9rem; line-height: 1.6;">
+    <li><code>id</code>, <code>propertyId</code> (FK), <code>url</code>, <code>alt</code></li>
+    <li><code>displayOrder</code> — order within property gallery</li>
+  </ul>
+</div>
+
+<div style="background: #fafaf9; border: 1px solid #e7e5e4; border-radius: 0.75rem; padding: 1rem; margin-bottom: 1.5rem;">
+  <h4 style="margin: 0 0 0.75rem 0; color: #1c1917;">hero_photos</h4>
+  <ul style="margin: 0; padding-left: 1.25rem; color: #57534e; font-size: 0.9rem; line-height: 1.6;">
+    <li><code>id</code>, <code>url</code>, <code>alt</code>, <code>position</code> (1, 2, or 3)</li>
+    <li>Exactly 3 photos for the stacked cards</li>
+  </ul>
+</div>
+
+<h3>Tabs Breakdown</h3>
+
+<div style="display: grid; gap: 1rem;">
+  <div style="background: #fff; border: 1px solid #e7e5e4; border-radius: 0.75rem; padding: 1rem;">
+    <h4 style="margin: 0 0 0.5rem 0;">📋 Properties Tab</h4>
+    <p style="margin: 0; color: #57534e; font-size: 0.9rem;">List all properties with status badges. Click to expand/edit. Inline photo upload (drag & drop to Vercel Blob). Toggle "Show in Showcase" per property.</p>
+  </div>
+  <div style="background: #fff; border: 1px solid #e7e5e4; border-radius: 0.75rem; padding: 1rem;">
+    <h4 style="margin: 0 0 0.5rem 0;">🖼️ Hero Tab</h4>
+    <p style="margin: 0; color: #57534e; font-size: 0.9rem;">Upload/manage exactly 3 hero photos. Positions 1, 2, 3 map to front, middle, back cards in the stacked Hero animation.</p>
+  </div>
+  <div style="background: #fff; border: 1px solid #e7e5e4; border-radius: 0.75rem; padding: 1rem;">
+    <h4 style="margin: 0 0 0.5rem 0;">📊 Stats Tab</h4>
+    <p style="margin: 0; color: #57534e; font-size: 0.9rem;">Existing stats editor — migrate from <code>/admin/stats</code> into this tab.</p>
+  </div>
+</div>

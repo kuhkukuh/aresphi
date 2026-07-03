@@ -1,0 +1,27 @@
+{
+  "featureId": "F-003",
+  "title": "USP Section",
+  "module": "USP",
+  "description": "Bento grid layout highlighting key differentiators: transparency, personal service, responsiveness, effective marketing, integrity. Includes flashlight effect cards and testimonial.",
+  "scope": {
+    "inScope": [
+      "Bento grid layout with USP items",
+      "Flashlight hover effect on cards",
+      "Large testimonial card with client photo",
+      "Dark stats card showing transparency metric"
+    ],
+    "outOfScope": [
+      "Dynamic testimonial management",
+      "USP content editing via admin"
+    ]
+  },
+  "acceptanceCriteria": [
+    { "id": "AC1", "text": "Bento grid displays 5 USP items: transparency, personal service, responsiveness, effective marketing, integrity", "done": false },
+    { "id": "AC2", "text": "Flashlight effect follows cursor on card hover", "done": false },
+    { "id": "AC3", "text": "Testimonial card shows client photo and quote", "done": false },
+    { "id": "AC4", "text": "Dark stats card displays transparency metric", "done": false },
+    { "id": "AC5", "text": "Layout is responsive on mobile devices", "done": false }
+  ],
+  "dependsOn": [],
+  "source": { "file": "prd.md", "lines": "58-66" }
+}

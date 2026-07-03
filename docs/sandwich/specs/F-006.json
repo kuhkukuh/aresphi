@@ -1,0 +1,28 @@
+{
+  "featureId": "F-006",
+  "title": "Property Showcase",
+  "module": "Property",
+  "description": "Horizontal scrolling gallery of featured properties with pricing and location. Grayscale-to-color hover effect. Admin selects which properties appear.",
+  "scope": {
+    "inScope": [
+      "Horizontal scroll container for property cards",
+      "Property cards with grayscale-to-color hover effect",
+      "Price badges (Rp 2.5 M, Rp 35 jt/bln, etc.)",
+      "Property name and location overlay",
+      "Admin selection of featured properties"
+    ],
+    "outOfScope": [
+      "Property detail page navigation (handled by F-012)",
+      "Filter functionality (handled by F-013)"
+    ]
+  },
+  "acceptanceCriteria": [
+    { "id": "AC1", "text": "Property cards display in horizontal scroll container", "done": false },
+    { "id": "AC2", "text": "Cards show grayscale image that transitions to color on hover", "done": false },
+    { "id": "AC3", "text": "Each card shows price badge, property name, and location", "done": false },
+    { "id": "AC4", "text": "Admin can select which properties appear in showcase via dashboard", "done": false },
+    { "id": "AC5", "text": "Clicking a card navigates to property detail page", "done": false }
+  ],
+  "dependsOn": ["F-010"],
+  "source": { "file": "prd.md", "lines": "89-99" }
+}

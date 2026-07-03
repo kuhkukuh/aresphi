@@ -1,0 +1,184 @@
+{
+  "projectName": "Aresphi Property",
+  "mode": "refine",
+  "overview": "A full-service property broker platform for sales, rental, and consultation services across Indonesia. The website serves as a digital storefront to build trust, generate leads, and showcase property listings.",
+  "projectState": {
+    "phase": "development",
+    "hasExistingCodebase": true,
+    "orderSource": "Business onboarding form with design reference"
+  },
+  "actors": [
+    { "name": "Pemilik Properti", "role": "Property owners looking to sell or rent their properties", "confidence": "stated" },
+    { "name": "Pembeli Rumah", "role": "Home buyers seeking residential properties", "confidence": "stated" },
+    { "name": "Investor Properti", "role": "Property investors looking for investment opportunities", "confidence": "stated" },
+    { "name": "Penyewa", "role": "Individuals and families seeking rental properties", "confidence": "stated" },
+    { "name": "Pelaku Usaha", "role": "Business owners seeking commercial properties (ruko, gudang, kantor)", "confidence": "stated" },
+    { "name": "Admin", "role": "Internal team managing property listings, inventory catalog, and site content", "confidence": "stated" }
+  ],
+  "modules": [
+    {
+      "name": "Hero Section",
+      "status": "partial",
+      "description": "Animated hero with wordmark, stacked property cards, and smooth scroll-triggered animations",
+      "features": [
+        { "text": "Large animated wordmark with Aresphi branding", "confidence": "inferred" },
+        { "text": "Stacked property cards with parallax effect", "confidence": "inferred" },
+        { "text": "Meta card showing featured property info", "confidence": "inferred" },
+        { "text": "Tagline and CTA copy", "confidence": "inferred" },
+        { "text": "Admin can select which property photos appear", "confidence": "stated" }
+      ]
+    },
+    {
+      "name": "Partner Logos",
+      "status": "planned",
+      "description": "Marquee-style scrolling bank partner logos section",
+      "features": [
+        { "text": "Infinite horizontal scroll animation", "confidence": "inferred" },
+        { "text": "Bank partner logos: BNI, BJB, BTN, BRI, BCA, BPR, BPR HIK, BWS (Bank Woori Saudara), Bank Sampoerna", "confidence": "stated" },
+        { "text": "Greyscale logo treatment for visual consistency", "confidence": "stated" }
+      ]
+    },
+    {
+      "name": "USP Section",
+      "status": "planned",
+      "description": "Bento grid layout highlighting key differentiators: transparency, personal service, responsiveness, effective marketing, integrity",
+      "features": [
+        { "text": "Large testimonial card with client photo", "confidence": "inferred" },
+        { "text": "Flashlight effect cards for USP items", "confidence": "inferred" },
+        { "text": "Dark stats card showing transparency metric", "confidence": "inferred" }
+      ]
+    },
+    {
+      "name": "Stats Section",
+      "status": "planned",
+      "description": "Dark background section displaying company achievements",
+      "features": [
+        { "text": "150+ Properti Terjual", "confidence": "stated" },
+        { "text": "200+ Klien Puas", "confidence": "stated" },
+        { "text": "5+ Tahun Pengalaman", "confidence": "stated" },
+        { "text": "98% Keberhasilan", "confidence": "stated" },
+        { "text": "Stats editable via admin dashboard", "confidence": "stated" }
+      ]
+    },
+    {
+      "name": "Process Section",
+      "status": "planned",
+      "description": "Staggered cards showing the 3-step client journey: Konsultasi Awal, Kurasi Properti, Pendampingan Transaksi",
+      "features": [
+        { "text": "Step 1: Konsultasi Awal - understanding client needs", "confidence": "stated" },
+        { "text": "Step 2: Kurasi Properti - curated property selection", "confidence": "stated" },
+        { "text": "Step 3: Pendampingan Transaksi - end-to-end support", "confidence": "stated" },
+        { "text": "Sticky heading with CTA button", "confidence": "inferred" }
+      ]
+    },
+    {
+      "name": "Property Showcase",
+      "status": "planned",
+      "description": "Horizontal scrolling gallery of featured properties with pricing and location",
+      "features": [
+        { "text": "Horizontal scroll container", "confidence": "inferred" },
+        { "text": "Property cards with grayscale-to-color hover effect", "confidence": "inferred" },
+        { "text": "Price badges (Rp 2.5 M, Rp 35 jt/bln, etc.)", "confidence": "inferred" },
+        { "text": "Property name and location overlay", "confidence": "inferred" },
+        { "text": "Admin can select which property photos appear", "confidence": "stated" }
+      ]
+    },
+    {
+      "name": "Quote Section",
+      "status": "planned",
+      "description": "Full-width hero image with centered quote about home buying philosophy",
+      "features": [
+        { "text": "Background property image", "confidence": "inferred" },
+        { "text": "Quote about home as life-changing experience", "confidence": "inferred" }
+      ]
+    },
+    {
+      "name": "Footer",
+      "status": "planned",
+      "description": "Contact information, social links, and large watermark",
+      "features": [
+        { "text": "Phone number: +62 812 3456 7890", "confidence": "inferred" },
+        { "text": "Email: info@aresphi.com", "confidence": "inferred" },
+        { "text": "Address: Jl. Sudirman No. 123, Jakarta Selatan", "confidence": "inferred" },
+        { "text": "Social links: Instagram, LinkedIn", "confidence": "inferred" }
+      ]
+    },
+    {
+      "name": "Navigation",
+      "status": "partial",
+      "description": "Floating navigation bar with glassmorphism effect",
+      "features": [
+        { "text": "Floating pill-shaped navbar with blur effect", "confidence": "inferred" },
+        { "text": "Links: Properti, Layanan, Tentang, Kontak", "confidence": "inferred" },
+        { "text": "Mobile hamburger menu", "confidence": "inferred" },
+        { "text": "Expands on scroll", "confidence": "inferred" }
+      ]
+    },
+    {
+      "name": "Property Management",
+      "status": "planned",
+      "description": "Admin interface to manage property inventory catalog with CRUD operations",
+      "features": [
+        { "text": "CRUD operations for property inventory catalog", "confidence": "stated" },
+        { "text": "Image upload to Vercel Blob for property photos", "confidence": "stated" },
+        { "text": "Property status (available, sold, rented)", "confidence": "stated" },
+        { "text": "Admin selects which photos appear in each section", "confidence": "stated" },
+        { "text": "Static authentication via environment variables", "confidence": "stated" },
+        { "text": "Dashboard with tabs for Properties, Stats, Hero photos", "confidence": "stated" }
+      ]
+    },
+    {
+      "name": "Lead Capture",
+      "status": "planned",
+      "description": "Contact form with mailto and WhatsApp deep link integration",
+      "features": [
+        { "text": "Contact form with name, email, phone, message", "confidence": "inferred" },
+        { "text": "mailto: link for email contact", "confidence": "stated" },
+        { "text": "WhatsApp deep link for direct contact", "confidence": "stated" }
+      ]
+    },
+    {
+      "name": "Property Detail Page",
+      "status": "planned",
+      "description": "Individual property listing page with full details, photo gallery, and contact CTA",
+      "features": [
+        { "text": "Property photo gallery with lightbox", "confidence": "stated" },
+        { "text": "Property information: price, location, specs, description", "confidence": "stated" },
+        { "text": "WhatsApp and email contact buttons", "confidence": "stated" },
+        { "text": "Design ready for implementation", "confidence": "stated" }
+      ]
+    },
+    {
+      "name": "Catalog Page",
+      "status": "planned",
+      "description": "Property catalog/listing page with filters for type, price, location",
+      "features": [
+        { "text": "Grid layout of property cards", "confidence": "stated" },
+        { "text": "Filter by property type (jual, sewa)", "confidence": "stated" },
+        { "text": "Filter by price range", "confidence": "stated" },
+        { "text": "Filter by location", "confidence": "stated" },
+        { "text": "Design ready for implementation", "confidence": "stated" }
+      ]
+    }
+  ],
+  "integrations": [
+    { "text": "Vercel (hosting)", "confidence": "stated" },
+    { "text": "Vercel Blob (file storage)", "confidence": "stated" },
+    { "text": "Neon PostgreSQL (database)", "confidence": "inferred" },
+    { "text": "GSAP + ScrollTrigger (animations)", "confidence": "inferred" },
+    { "text": "Lenis (smooth scrolling)", "confidence": "inferred" },
+    { "text": "WhatsApp deep links", "confidence": "stated" }
+  ],
+  "constraints": [
+    { "text": "Design must match provided aresphi-preview.html exactly", "confidence": "stated" },
+    { "text": "Indonesian language for content", "confidence": "stated" },
+    { "text": "Mobile-first responsive design", "confidence": "inferred" },
+    { "text": "Smooth animations with reduced-motion support", "confidence": "inferred" },
+    { "text": "Admin auth via static env credentials (no OAuth)", "confidence": "stated" }
+  ],
+  "stakeholders": [
+    { "name": "Aresphi Property Team", "role": "Client" }
+  ],
+  "timeline": null,
+  "openQuestionsCount": 0
+}

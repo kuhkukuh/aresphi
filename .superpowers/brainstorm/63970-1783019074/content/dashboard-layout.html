@@ -1,0 +1,26 @@
+<h2>Admin Dashboard Layout</h2>
+<p class="subtitle">How should the property management interface be organized?</p>
+
+<div class="options">
+  <div class="option" data-choice="single-page" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Single Page with Tabs</h3>
+      <p>One URL (<code>/admin</code>) with tabbed sections: Properties, Photos, Settings. Matches existing stats page pattern. Simpler routing.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="sidebar" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Sidebar Navigation</h3>
+      <p>Traditional admin layout with persistent sidebar. Separate pages: <code>/admin/properties</code>, <code>/admin/photos</code>, <code>/admin/stats</code>. More scalable.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="card-modal" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Dashboard Overview + Modals</h3>
+      <p>Card-based overview at <code>/admin</code> showing quick stats and property count. Click cards to open modal editors. Modern, task-focused.</p>
+    </div>
+  </div>
+</div>

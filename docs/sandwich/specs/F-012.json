@@ -1,0 +1,30 @@
+{
+  "featureId": "F-012",
+  "title": "Property Detail Page",
+  "module": "Property",
+  "description": "Individual property listing page with full details, photo gallery with lightbox, and contact CTA. Property specs: price, location, bedrooms, bathrooms, land area, building area. WhatsApp and email contact buttons.",
+  "scope": {
+    "inScope": [
+      "Property photo gallery with lightbox",
+      "Property information: price, location, specs, description",
+      "WhatsApp and email contact buttons",
+      "Property specs grid: bedrooms, bathrooms, land area, building area"
+    ],
+    "outOfScope": [
+      "Similar properties recommendations",
+      "Property inquiry form submission",
+      "3D virtual tour"
+    ]
+  },
+  "acceptanceCriteria": [
+    { "id": "AC1", "text": "Photo gallery displays all property photos with lightbox view", "done": false },
+    { "id": "AC2", "text": "Property specs display: price, location, bedrooms, bathrooms, land area, building area", "done": false },
+    { "id": "AC3", "text": "Description section shows property details text", "done": false },
+    { "id": "AC4", "text": "WhatsApp button opens WhatsApp with pre-filled message about property", "done": false },
+    { "id": "AC5", "text": "Email button opens email client with pre-filled subject about property", "done": false },
+    { "id": "AC6", "text": "Page uses ISR with 1-hour revalidation", "done": false },
+    { "id": "AC7", "text": "Page includes JSON-LD structured data for SEO", "done": false }
+  ],
+  "dependsOn": ["F-006", "F-010"],
+  "source": { "file": "prd.md", "lines": "148-157" }
+}

@@ -1,0 +1,25 @@
+{
+  "featureId": "F-002",
+  "title": "Partner Logos",
+  "module": "Partners",
+  "description": "Marquee-style scrolling bank partner logos section with infinite horizontal scroll animation and greyscale treatment.",
+  "scope": {
+    "inScope": [
+      "Bank partner logos: BNI, BJB, BTN, BRI, BCA, BPR, BPR HIK, BWS (Bank Woori Saudara), Bank Sampoerna",
+      "Infinite horizontal scroll animation",
+      "Greyscale logo treatment for visual consistency"
+    ],
+    "outOfScope": [
+      "Partner link clicks (no navigation required)",
+      "Dynamic partner management (static list)"
+    ]
+  },
+  "acceptanceCriteria": [
+    { "id": "AC1", "text": "All 9 bank partner logos display in greyscale", "done": false },
+    { "id": "AC2", "text": "Logos scroll horizontally with infinite loop animation", "done": false },
+    { "id": "AC3", "text": "Animation pauses on hover for individual logo inspection", "done": false },
+    { "id": "AC4", "text": "Logos are crisp at all viewport sizes (SVG preferred)", "done": false }
+  ],
+  "dependsOn": [],
+  "source": { "file": "prd.md", "lines": "49-56" }
+}

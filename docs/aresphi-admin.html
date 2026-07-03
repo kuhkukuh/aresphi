@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="id" class="antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Aresphi Property</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { heading: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] },
+          colors: { beige: { DEFAULT: '#F2EFEA' }, stone: { 850: '#26221E' }, orange: { DEFAULT: '#f97316' }, sage: { DEFAULT: '#2C3E35' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F2EFEA; color: #2C2824; overflow-x: hidden; letter-spacing: -0.02em; }
+    .font-playfair { font-family: 'Playfair Display', serif !important; }
+
+    .eyebrow { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(214,211,206,0.4); }
+    .eyebrow-left { font-size: 11px; font-weight: 600; color: #f97316; text-transform: uppercase; letter-spacing: 0.15em; }
+    .eyebrow-right { font-size: 11px; color: #A8A29E; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+
+    ::selection { background: #f97316; color: #fff; }
+
+    .flashlight-card { position: relative; border-radius: 1rem; background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(0,0,0,0.06); overflow: hidden; }
+    .flashlight-card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(600px circle at var(--mouse-x,50%) var(--mouse-y,50%), rgba(255,255,255,0.8), transparent 40%); opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 0; }
+    .flashlight-card:hover::before { opacity: 1; }
+    .flashlight-card-content { position: relative; z-index: 1; }
+
+    /* Tab underline */
+    .subtab-btn { transition: all 0.15s ease; border-bottom: 2px solid transparent; color: #78716c; }
+    .subtab-btn.active { border-bottom-color: #f97316; color: #1c1917; font-weight: 600; }
+    .subtab-btn.disabled { color: #D6D3CE; cursor: not-allowed; }
+    .subtab-btn.disabled:hover { color: #D6D3CE; }
+
+    /* Custom checkbox (filter-check convention) */
+    .filter-check { appearance: none; width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid #D6D3CE; background: #fff; cursor: pointer; position: relative; flex-shrink: 0; transition: all 0.15s ease; }
+    .filter-check:checked { background: #f97316; border-color: #f97316; }
+    .filter-check:checked::after { content: ""; position: absolute; left: 5px; top: 1px; width: 5px; height: 9px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+
+    /* Pill toggle switch */
+    .switch { appearance: none; width: 40px; height: 22px; border-radius: 9999px; background: #D6D3CE; position: relative; cursor: pointer; transition: background 0.15s ease; flex-shrink: 0; }
+    .switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 9999px; background: #fff; transition: transform 0.15s ease; box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+    .switch:checked { background: #f97316; }
+    .switch:checked::after { transform: translateX(18px); }
+
+    /* Status badges */
+    .badge-available { background: rgba(44,62,53,0.1); color: #2C3E35; }
+    .badge-sold { background: #E7E5E4; color: #78716c; }
+    .badge-rented { background: rgba(249,115,22,0.1); color: #f97316; }
+
+    /* Row image + thumb hover */
+    .row-img img, .fp-img { transition: transform 0.7s ease, filter 0.7s ease; filter: grayscale(30%); }
+    .fp-card:hover .fp-img { filter: grayscale(0%); transform: scale(1.05); }
+
+    .thumb { cursor: pointer; transition: box-shadow 0.2s ease, transform 0.2s ease; }
+    .thumb:hover { transform: translateY(-2px); }
+
+    /* Hero tile hover overlay */
+    .hero-tile .hero-overlay { opacity: 0; transition: opacity 0.25s ease; }
+    .hero-tile:hover .hero-overlay { opacity: 1; }
+
+    /* Full-screen property form */
+    #property-form { position: fixed; inset: 0; background: #F2EFEA; z-index: 200; opacity: 0; pointer-events: none; transform: translateY(16px); transition: opacity 0.3s ease, transform 0.3s ease; overflow-y: auto; }
+    #property-form.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+    /* Rich text editor */
+    .rte-toolbar button { transition: background 0.15s ease; }
+    .rte-body { min-height: 220px; }
+    .rte-body:focus { outline: none; }
+    .rte-body:empty:before { content: attr(data-placeholder); color: #A8A29E; }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .tab-panel-content { display: none; }
+    .tab-panel-content.active { display: block; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fp-img, .thumb, #property-form, .hero-tile .hero-overlay { transition: none; }
+    }
+  </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-orange selection:text-white">
+
+  <!-- ============================================================ -->
+  <!-- SCREEN 1: LOGIN STATE (tampilan sebelum admin login)          -->
+  <!-- ============================================================ -->
+  <div class="bg-stone-900 text-white/70 text-center text-[11px] py-2 tracking-[0.25em] uppercase">Login State — tampilan sebelum login</div>
+
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden px-6">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#0a0d1f] via-[#0e1228] to-[#0a0d1f]"></div>
+
+    <div class="relative z-10 w-full max-w-sm">
+      <div class="flashlight-card !bg-white/[0.04] !border-white/10 backdrop-blur-2xl" onmousemove="this.style.setProperty('--mouse-x', event.clientX - this.getBoundingClientRect().left + 'px'); this.style.setProperty('--mouse-y', event.clientY - this.getBoundingClientRect().top + 'px')">
+        <div class="flashlight-card-content p-8 md:p-10">
+          <div class="text-center mb-8">
+            <span class="font-playfair text-3xl italic tracking-tight text-white">Aresphi<span class="text-orange">®</span></span>
+            <p class="text-white/40 text-xs uppercase tracking-[0.25em] mt-3">Admin Dashboard</p>
+          </div>
+
+          <div class="bg-red-500/10 border border-red-500/20 text-red-300 text-xs rounded-lg px-4 py-3 mb-5 text-center">
+            Username atau password salah.
+          </div>
+
+          <form class="space-y-4">
+            <div>
+              <label class="text-xs text-white/40 uppercase tracking-wider mb-1.5 block">Username</label>
+              <input type="text" value="admin" class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-orange transition-colors">
+            </div>
+            <div>
+              <label class="text-xs text-white/40 uppercase tracking-wider mb-1.5 block">Password</label>
+              <input type="password" value="••••••••" class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-orange transition-colors">
+            </div>
+            <button type="button" class="w-full rounded-full bg-white text-black font-semibold py-3 text-sm mt-2 hover:bg-white/90 transition-colors">
+              Masuk
+            </button>
+          </form>
+        </div>
+      </div>
+      <p class="text-center text-white/25 text-xs mt-6 tracking-wide">© 2025 Aresphi Property — Internal Use Only</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- SCREEN 2: DASHBOARD STATE (setelah admin login)                -->
+  <!-- ============================================================ -->
+  <div class="bg-stone-900 text-white/70 text-center text-[11px] py-2 tracking-[0.25em] uppercase">Dashboard State — halaman setelah admin login</div>
+
+  <div id="admin-shell" class="min-h-screen bg-beige">
+
+    <!-- Topbar -->
+    <header class="sticky top-0 z-40 bg-white/60 backdrop-blur-sm border-b border-stone-200/60">
+      <div class="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
+        <div class="flex items-baseline gap-3">
+          <span class="font-playfair text-xl italic tracking-tight text-stone-900">Aresphi<span class="text-orange">®</span></span>
+          <span class="text-xs uppercase tracking-[0.2em] text-stone-400 hidden sm:inline">Admin Dashboard</span>
+        </div>
+        <button type="button" class="flex items-center gap-2 text-sm font-medium text-stone-500 hover:text-stone-900 transition-colors">
+          <i class="ph ph-sign-out text-base"></i>
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 md:px-12 py-10">
+
+      <!-- Tabs (single flat row) -->
+      <div class="flex gap-6 mb-8 border-b border-stone-300/50 overflow-x-auto no-scrollbar">
+        <button type="button" class="subtab-btn active pb-3 text-sm whitespace-nowrap" data-tab="property" onclick="switchTab('property')">Property</button>
+        <button type="button" class="subtab-btn pb-3 text-sm whitespace-nowrap" data-tab="hero" onclick="switchTab('hero')">Hero Photos</button>
+        <button type="button" class="subtab-btn pb-3 text-sm whitespace-nowrap" data-tab="stats" onclick="switchTab('stats')">Stats</button>
+        <button type="button" class="subtab-btn pb-3 text-sm whitespace-nowrap" data-tab="testimonial" onclick="switchTab('testimonial')">Testimonial</button>
+        <button type="button" class="subtab-btn pb-3 text-sm whitespace-nowrap" data-tab="socials" onclick="switchTab('socials')">Socials</button>
+        <button type="button" class="subtab-btn disabled pb-3 text-sm whitespace-nowrap inline-flex items-center gap-2" data-tab="blog" disabled aria-disabled="true">
+          Blog
+          <span class="text-[9px] uppercase tracking-wider bg-stone-200 text-stone-500 rounded-full px-2 py-0.5">Segera</span>
+        </button>
+      </div>
+
+      <!-- Tab panel -->
+      <div id="tab-panel" class="flashlight-card">
+        <div class="flashlight-card-content p-6 md:p-8">
+
+          <!-- ============ BLOG (disabled, out of scope) ============ -->
+          <div class="tab-panel-content" id="panel-blog">
+            <div class="mb-6">
+              <div class="eyebrow-left mb-1">Admin</div>
+              <h2 class="font-playfair italic text-2xl text-stone-900">Blog</h2>
+            </div>
+            <div class="flex flex-col items-center justify-center text-center py-20 text-stone-400">
+              <i class="ph ph-newspaper text-4xl mb-4"></i>
+              <p class="text-sm max-w-xs">Manajemen blog belum tersedia. Fitur ini di luar cakupan (out of scope) untuk saat ini.</p>
+            </div>
+          </div>
+
+          <!-- ============ HERO PHOTOS ============ -->
+          <div class="tab-panel-content" id="panel-hero">
+            <div class="mb-6">
+              <div class="eyebrow-left mb-1">Admin</div>
+              <h2 class="font-playfair italic text-2xl text-stone-900">Foto Hero</h2>
+              <p class="text-sm text-stone-500 mt-1">3 foto yang tampil pada stack kartu di halaman utama.</p>
+            </div>
+
+            <div class="grid items-end gap-4" style="grid-template-columns: 1fr 1.2fr 1fr;">
+              <div class="hero-tile relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg ring-1 ring-stone-200">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" class="w-full h-full object-cover" alt="Hero posisi 2">
+                <div class="hero-overlay absolute inset-0 bg-black/50 flex items-center justify-center">
+                  <button type="button" class="bg-white text-stone-900 text-xs font-medium rounded-full px-4 py-2">Ganti Foto</button>
+                </div>
+              </div>
+              <div class="hero-tile relative aspect-[4/3] rounded-2xl overflow-hidden shadow-xl ring-1 ring-stone-200 -translate-y-4">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" class="w-full h-full object-cover" alt="Hero posisi 1">
+                <div class="hero-overlay absolute inset-0 bg-black/50 flex items-center justify-center">
+                  <button type="button" class="bg-white text-stone-900 text-xs font-medium rounded-full px-4 py-2">Ganti Foto</button>
+                </div>
+              </div>
+              <div class="hero-tile relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg ring-1 ring-stone-200">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" class="w-full h-full object-cover" alt="Hero posisi 3">
+                <div class="hero-overlay absolute inset-0 bg-black/50 flex items-center justify-center">
+                  <button type="button" class="bg-white text-stone-900 text-xs font-medium rounded-full px-4 py-2">Ganti Foto</button>
+                </div>
+              </div>
+            </div>
+            <div class="grid gap-4 mt-4 text-center text-xs text-stone-400 uppercase tracking-wider" style="grid-template-columns: 1fr 1.2fr 1fr;">
+              <span>Posisi 2 (Tengah)</span>
+              <span>Posisi 1 (Depan)</span>
+              <span>Posisi 3 (Belakang)</span>
+            </div>
+          </div>
+
+          <!-- ============ PROPERTY ============ -->
+          <div class="tab-panel-content active" id="panel-property">
+            <div class="mb-6">
+              <div class="eyebrow-left mb-1">Admin</div>
+              <h2 class="font-playfair italic text-2xl text-stone-900">Properti</h2>
+              <p class="text-sm text-stone-500 mt-1">Kelola seluruh properti dari sini — tambah baru, urutkan, dan pilih mana yang tampil di seksi Koleksi Properti Unggulan.</p>
+            </div>
+
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Add new property tile -->
+              <button type="button" onclick="openPropertyForm('create')" class="h-64 rounded-2xl border-2 border-dashed border-stone-300 flex flex-col items-center justify-center gap-2 text-stone-400 hover:border-orange hover:text-orange transition-colors">
+                <i class="ph ph-plus text-3xl"></i>
+                <span class="text-sm font-medium uppercase tracking-wider">Tambah Properti</span>
+              </button>
+
+              <div class="fp-card relative rounded-2xl overflow-hidden shadow-lg h-64">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="Rumah Modern Pondok Indah" class="fp-img w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+                <button type="button" onclick="this.classList.toggle('is-featured'); this.querySelector('i').className = this.classList.contains('is-featured') ? 'ph-fill ph-star' : 'ph ph-star'" class="is-featured absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-orange" aria-label="Tandai sebagai featured">
+                  <i class="ph-fill ph-star"></i>
+                </button>
+                <div class="absolute top-3 left-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white cursor-grab">
+                  <i class="ph ph-dots-six-vertical"></i>
+                </div>
+                <button type="button" onclick="openPropertyForm('edit')" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-stone-700 hover:bg-white transition-colors" aria-label="Edit properti">
+                  <i class="ph ph-pencil-simple"></i>
+                </button>
+                <div class="absolute bottom-0 left-0 w-full p-4 text-white">
+                  <div class="bg-white/20 backdrop-blur-md rounded-full px-3 py-1 text-xs font-medium inline-block mb-2">Rp 2.5 M</div>
+                  <h3 class="font-playfair text-lg italic">Rumah Modern Pondok Indah</h3>
+                  <p class="text-white/70 text-xs">Jakarta Selatan</p>
+                </div>
+              </div>
+
+              <div class="fp-card relative rounded-2xl overflow-hidden shadow-lg h-64">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="Apartemen Mewah Sudirman" class="fp-img w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+                <button type="button" onclick="this.classList.toggle('is-featured'); this.querySelector('i').className = this.classList.contains('is-featured') ? 'ph-fill ph-star' : 'ph ph-star'" class="is-featured absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-orange" aria-label="Tandai sebagai featured">
+                  <i class="ph-fill ph-star"></i>
+                </button>
+                <div class="absolute top-3 left-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white cursor-grab">
+                  <i class="ph ph-dots-six-vertical"></i>
+                </div>
+                <button type="button" onclick="openPropertyForm('edit')" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-stone-700 hover:bg-white transition-colors" aria-label="Edit properti">
+                  <i class="ph ph-pencil-simple"></i>
+                </button>
+                <div class="absolute bottom-0 left-0 w-full p-4 text-white">
+                  <div class="bg-white/20 backdrop-blur-md rounded-full px-3 py-1 text-xs font-medium inline-block mb-2">Rp 35 jt/bln</div>
+                  <h3 class="font-playfair text-lg italic">Apartemen Mewah Sudirman</h3>
+                  <p class="text-white/70 text-xs">Jakarta Pusat</p>
+                </div>
+              </div>
+
+              <div class="fp-card relative rounded-2xl overflow-hidden shadow-lg h-64">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="Villa Eksklusif BSD" class="fp-img w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+                <button type="button" onclick="this.classList.toggle('is-featured'); this.querySelector('i').className = this.classList.contains('is-featured') ? 'ph-fill ph-star' : 'ph ph-star'" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-stone-400" aria-label="Tandai sebagai featured">
+                  <i class="ph ph-star"></i>
+                </button>
+                <div class="absolute top-3 left-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white cursor-grab">
+                  <i class="ph ph-dots-six-vertical"></i>
+                </div>
+                <button type="button" onclick="openPropertyForm('edit')" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-stone-700 hover:bg-white transition-colors" aria-label="Edit properti">
+                  <i class="ph ph-pencil-simple"></i>
+                </button>
+                <div class="absolute bottom-0 left-0 w-full p-4 text-white">
+                  <div class="bg-white/20 backdrop-blur-md rounded-full px-3 py-1 text-xs font-medium inline-block mb-2">Rp 4.5 M</div>
+                  <h3 class="font-playfair text-lg italic">Villa Eksklusif BSD</h3>
+                  <p class="text-white/70 text-xs">Tangerang</p>
+                </div>
+              </div>
+
+              <div class="fp-card relative rounded-2xl overflow-hidden shadow-lg h-64">
+                <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=600&q=80" alt="Cluster Premium Bandung" class="fp-img w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent"></div>
+                <button type="button" onclick="this.classList.toggle('is-featured'); this.querySelector('i').className = this.classList.contains('is-featured') ? 'ph-fill ph-star' : 'ph ph-star'" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-stone-400" aria-label="Tandai sebagai featured">
+                  <i class="ph ph-star"></i>
+                </button>
+                <div class="absolute top-3 left-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white cursor-grab">
+                  <i class="ph ph-dots-six-vertical"></i>
+                </div>
+                <button type="button" onclick="openPropertyForm('edit')" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-white/90 flex items-center justify-center text-stone-700 hover:bg-white transition-colors" aria-label="Edit properti">
+                  <i class="ph ph-pencil-simple"></i>
+                </button>
+                <div class="absolute bottom-0 left-0 w-full p-4 text-white">
+                  <div class="bg-white/20 backdrop-blur-md rounded-full px-3 py-1 text-xs font-medium inline-block mb-2">Rp 1.8 M</div>
+                  <h3 class="font-playfair text-lg italic">Cluster Premium Bandung</h3>
+                  <p class="text-white/70 text-xs">Bandung</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ STATS ============ -->
+          <div class="tab-panel-content" id="panel-stats">
+            <div class="flex justify-between items-center mb-6">
+              <div>
+                <div class="eyebrow-left mb-1">Admin</div>
+                <h2 class="font-playfair italic text-2xl text-stone-900">Stats</h2>
+              </div>
+              <button type="button" class="bg-stone-900 text-white rounded-full px-5 py-2.5 text-sm font-medium hover:bg-stone-800 transition-colors">Simpan Perubahan</button>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <!-- Stat 1: editing state -->
+              <div class="bg-white/70 rounded-2xl p-6 border border-orange/40 ring-1 ring-orange/20">
+                <div class="flex justify-between items-start mb-3">
+                  <span class="text-xs uppercase tracking-wider text-orange font-medium">Sedang diedit</span>
+                  <button type="button" class="text-stone-400 hover:text-stone-700"><i class="ph ph-check"></i></button>
+                </div>
+                <div class="space-y-2">
+                  <input type="text" value="150" class="w-full text-2xl font-semibold rounded-lg border border-stone-200 px-3 py-1.5 focus:outline-none focus:border-orange">
+                  <input type="text" value="+" class="w-full text-sm rounded-lg border border-stone-200 px-3 py-1.5 focus:outline-none focus:border-orange">
+                  <input type="text" value="Properti Terjual" class="w-full text-xs rounded-lg border border-stone-200 px-3 py-1.5 focus:outline-none focus:border-orange">
+                </div>
+              </div>
+
+              <!-- Stat 2 -->
+              <div class="bg-white/60 rounded-2xl p-6 border border-stone-200/60 relative group">
+                <button type="button" class="absolute top-4 right-4 text-stone-300 group-hover:text-orange transition-colors"><i class="ph ph-pencil-simple"></i></button>
+                <div class="text-4xl font-semibold text-stone-900 mb-2">200<span class="text-orange">+</span></div>
+                <p class="text-xs font-bold uppercase text-stone-400 tracking-widest">Klien Puas</p>
+              </div>
+
+              <!-- Stat 3 -->
+              <div class="bg-white/60 rounded-2xl p-6 border border-stone-200/60 relative group">
+                <button type="button" class="absolute top-4 right-4 text-stone-300 group-hover:text-orange transition-colors"><i class="ph ph-pencil-simple"></i></button>
+                <div class="text-4xl font-semibold text-stone-900 mb-2">5<span class="text-orange">+</span></div>
+                <p class="text-xs font-bold uppercase text-stone-400 tracking-widest">Tahun Pengalaman</p>
+              </div>
+
+              <!-- Stat 4 -->
+              <div class="bg-white/60 rounded-2xl p-6 border border-stone-200/60 relative group">
+                <button type="button" class="absolute top-4 right-4 text-stone-300 group-hover:text-orange transition-colors"><i class="ph ph-pencil-simple"></i></button>
+                <div class="text-4xl font-semibold text-stone-900 mb-2">98<span class="text-orange">%</span></div>
+                <p class="text-xs font-bold uppercase text-stone-400 tracking-widest">Keberhasilan</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ TESTIMONIAL ============ -->
+          <div class="tab-panel-content" id="panel-testimonial">
+            <div class="flex justify-between items-center mb-6">
+              <div>
+                <div class="eyebrow-left mb-1">Admin</div>
+                <h2 class="font-playfair italic text-2xl text-stone-900">Testimonial</h2>
+                <p class="text-sm text-stone-500 mt-1">Foto latar bersifat statis (diatur di kode) — hanya teks kutipan yang dikelola di sini.</p>
+              </div>
+              <button type="button" class="inline-flex items-center gap-2 bg-stone-900 text-white rounded-full px-5 py-2.5 text-sm font-medium hover:bg-stone-800 transition-colors">
+                <i class="ph ph-plus"></i> Tambah Testimonial
+              </button>
+            </div>
+
+            <div class="space-y-4">
+              <div class="bg-white/60 rounded-2xl border border-stone-200/60 p-6 relative">
+                <button type="button" class="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-stone-400 hover:bg-stone-100 hover:text-red-500 transition-colors" aria-label="Hapus testimonial">
+                  <i class="ph ph-trash"></i>
+                </button>
+                <div class="grid md:grid-cols-2 gap-4 pr-10">
+                  <div>
+                    <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Kutipan</label>
+                    <textarea rows="2" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">We believe a home isn't just a transaction —</textarea>
+                  </div>
+                  <div>
+                    <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Penekanan</label>
+                    <textarea rows="2" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">it's a life-changing experience.</textarea>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mt-4 max-w-md">
+                  <div>
+                    <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Nama</label>
+                    <input type="text" value="Ahmad Wijaya" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">
+                  </div>
+                  <div>
+                    <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Jabatan</label>
+                    <input type="text" value="FOUNDING PARTNER" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white/60 rounded-2xl border border-stone-200/60 p-6 relative">
+                <button type="button" class="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-stone-400 hover:bg-stone-100 hover:text-red-500 transition-colors" aria-label="Hapus testimonial">
+                  <i class="ph ph-trash"></i>
+                </button>
+                <div class="grid md:grid-cols-2 gap-4 pr-10">
+                  <div>
+                    <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Kutipan</label>
+                    <textarea rows="2" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">Prosesnya cepat, transparan, dan tim selalu responsif —</textarea>
+                  </div>
+                  <div>
+                    <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Penekanan</label>
+                    <textarea rows="2" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">benar-benar terasa seperti dibantu, bukan dijual.</textarea>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mt-4 max-w-md">
+                  <div>
+                    <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Nama</label>
+                    <input type="text" value="Siti Rahayu" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">
+                  </div>
+                  <div>
+                    <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Jabatan</label>
+                    <input type="text" value="KLIEN — SUDIRMAN" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ============ SOCIALS ============ -->
+          <div class="tab-panel-content" id="panel-socials">
+            <div class="flex justify-between items-center mb-6">
+              <div>
+                <div class="eyebrow-left mb-1">Admin</div>
+                <h2 class="font-playfair italic text-2xl text-stone-900">Socials & Kontak</h2>
+              </div>
+              <button type="button" class="bg-stone-900 text-white rounded-full px-5 py-2.5 text-sm font-medium hover:bg-stone-800 transition-colors">Simpan Perubahan</button>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 max-w-3xl">
+              <div>
+                <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Telepon</label>
+                <input type="text" value="+62 812 3456 7890" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">
+              </div>
+              <div>
+                <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Email</label>
+                <input type="text" value="info@aresphi.com" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">
+              </div>
+              <div>
+                <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Alamat Baris 1</label>
+                <input type="text" value="Jl. Sudirman No. 123" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">
+              </div>
+              <div>
+                <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Alamat Baris 2</label>
+                <input type="text" value="Jakarta Selatan, 12190" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">
+              </div>
+              <div>
+                <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Instagram URL</label>
+                <input type="text" value="https://instagram.com/aresphi" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">
+              </div>
+              <div>
+                <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">LinkedIn URL</label>
+                <input type="text" value="https://linkedin.com/company/aresphi" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:outline-none focus:border-orange">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Full-screen: Property Create/Edit Form -->
+  <div id="property-form">
+    <header class="sticky top-0 z-10 bg-white/80 backdrop-blur-sm border-b border-stone-200/60">
+      <div class="max-w-5xl mx-auto px-6 md:px-12 py-4 flex items-center gap-4">
+        <button type="button" onclick="closePropertyForm()" class="w-9 h-9 rounded-full flex items-center justify-center text-stone-500 hover:bg-stone-100 hover:text-stone-900 transition-colors" aria-label="Kembali">
+          <i class="ph ph-arrow-left text-lg"></i>
+        </button>
+        <h2 id="property-form-title" class="font-playfair italic text-2xl text-stone-900">Tambah Properti Baru</h2>
+      </div>
+    </header>
+
+    <div class="max-w-5xl mx-auto px-6 md:px-12 py-10 grid lg:grid-cols-3 gap-8">
+      <!-- Main fields -->
+      <div class="lg:col-span-2 space-y-6">
+        <div>
+          <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Nama Properti</label>
+          <input type="text" placeholder="mis. Rumah Modern Pondok Indah" value="Rumah Modern Pondok Indah" class="w-full bg-transparent border-0 border-b-2 border-transparent px-0 py-2 text-3xl font-playfair italic text-stone-900 focus:outline-none focus:border-orange transition-colors">
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Tipe Properti</label>
+            <select class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2.5 text-sm focus:outline-none focus:border-orange">
+              <option>Rumah</option>
+              <option>Apartemen</option>
+              <option>Villa</option>
+              <option>Ruko</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Harga</label>
+            <input type="text" value="Rp 2.5 M" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2.5 text-sm focus:outline-none focus:border-orange">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Lokasi / Alamat</label>
+          <input type="text" value="Jl. Metro Pondok Indah, Jakarta Selatan" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2.5 text-sm focus:outline-none focus:border-orange">
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Luas Tanah (m²)</label>
+            <input type="text" value="400" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2.5 text-sm focus:outline-none focus:border-orange">
+          </div>
+          <div>
+            <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Luas Bangunan (m²)</label>
+            <input type="text" value="320" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2.5 text-sm focus:outline-none focus:border-orange">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Deskripsi</label>
+          <div class="rounded-lg border border-stone-300 bg-white/70 overflow-hidden">
+            <div class="rte-toolbar flex items-center gap-1 border-b border-stone-200 bg-stone-50 px-2 py-1.5">
+              <button type="button" onclick="document.execCommand('bold')" class="w-8 h-8 rounded hover:bg-stone-200 flex items-center justify-center text-stone-600" aria-label="Tebal"><i class="ph ph-text-b"></i></button>
+              <button type="button" onclick="document.execCommand('italic')" class="w-8 h-8 rounded hover:bg-stone-200 flex items-center justify-center text-stone-600" aria-label="Miring"><i class="ph ph-text-italic"></i></button>
+              <button type="button" onclick="document.execCommand('underline')" class="w-8 h-8 rounded hover:bg-stone-200 flex items-center justify-center text-stone-600" aria-label="Garis bawah"><i class="ph ph-text-underline"></i></button>
+              <span class="w-px h-5 bg-stone-200 mx-1"></span>
+              <button type="button" onclick="document.execCommand('insertUnorderedList')" class="w-8 h-8 rounded hover:bg-stone-200 flex items-center justify-center text-stone-600" aria-label="Daftar poin"><i class="ph ph-list-bullets"></i></button>
+              <button type="button" onclick="document.execCommand('insertOrderedList')" class="w-8 h-8 rounded hover:bg-stone-200 flex items-center justify-center text-stone-600" aria-label="Daftar bernomor"><i class="ph ph-list-numbers"></i></button>
+              <span class="w-px h-5 bg-stone-200 mx-1"></span>
+              <button type="button" onclick="document.execCommand('createLink', false, prompt('URL tautan:', 'https://') || '')" class="w-8 h-8 rounded hover:bg-stone-200 flex items-center justify-center text-stone-600" aria-label="Sisipkan tautan"><i class="ph ph-link"></i></button>
+            </div>
+            <div class="rte-body p-3 text-sm text-stone-700 leading-relaxed" contenteditable="true" data-placeholder="Tulis deskripsi properti...">Hunian modern dua lantai di kawasan elit Pondok Indah, dikelilingi taman asri dan akses mudah ke pusat kota. Rumah ini menawarkan tata ruang terbuka dengan pencahayaan alami yang maksimal, dapur modern, serta ruang keluarga yang luas.</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs text-stone-400 uppercase tracking-wider mb-2 block">Foto Properti</label>
+          <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+            <div class="thumb relative aspect-square rounded-lg overflow-hidden group">
+              <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=300&q=80" class="w-full h-full object-cover" alt="Foto 1">
+              <button type="button" class="absolute top-1 right-1 w-5 h-5 rounded-full bg-stone-900/70 text-white flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Hapus foto"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="thumb relative aspect-square rounded-lg overflow-hidden group">
+              <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=300&q=80" class="w-full h-full object-cover" alt="Foto 2">
+              <button type="button" class="absolute top-1 right-1 w-5 h-5 rounded-full bg-stone-900/70 text-white flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Hapus foto"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="thumb relative aspect-square rounded-lg overflow-hidden group">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=300&q=80" class="w-full h-full object-cover" alt="Foto 3">
+              <button type="button" class="absolute top-1 right-1 w-5 h-5 rounded-full bg-stone-900/70 text-white flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity" aria-label="Hapus foto"><i class="ph ph-x"></i></button>
+            </div>
+            <button type="button" class="aspect-square rounded-lg border-2 border-dashed border-stone-300 flex flex-col items-center justify-center gap-1 text-stone-400 hover:border-orange hover:text-orange transition-colors">
+              <i class="ph ph-plus"></i>
+              <span class="text-[9px] uppercase tracking-wider">Tambah</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar: publish settings -->
+      <div class="lg:col-span-1">
+        <div class="flashlight-card sticky top-24" onmousemove="this.style.setProperty('--mouse-x', event.clientX - this.getBoundingClientRect().left + 'px'); this.style.setProperty('--mouse-y', event.clientY - this.getBoundingClientRect().top + 'px')">
+          <div class="flashlight-card-content p-6 space-y-5">
+            <div>
+              <label class="text-xs text-stone-400 uppercase tracking-wider mb-1.5 block">Status</label>
+              <select class="w-full rounded-lg border border-stone-300 bg-white px-3 py-2.5 text-sm focus:outline-none focus:border-orange">
+                <option>Tersedia</option>
+                <option>Disewa</option>
+                <option>Terjual</option>
+              </select>
+            </div>
+            <label class="flex items-center gap-3">
+              <input type="checkbox" class="switch" checked>
+              <span class="text-sm text-stone-600">Tampilkan di Property Showcase</span>
+            </label>
+            <div class="pt-4 border-t border-stone-200/60 space-y-3">
+              <button type="button" onclick="closePropertyForm()" class="w-full bg-stone-900 text-white rounded-full py-3 text-sm font-medium hover:bg-stone-800 transition-colors">Simpan Properti</button>
+              <button type="button" onclick="closePropertyForm()" class="w-full border border-stone-300 rounded-full py-3 text-sm font-medium hover:bg-stone-100 transition-colors">Batal</button>
+            </div>
+            <p class="text-xs text-stone-400 leading-relaxed">Properti baru otomatis muncul di halaman Properti setelah disimpan.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tab) {
+      document.querySelectorAll('.subtab-btn').forEach(el => el.classList.toggle('active', el.dataset.tab === tab));
+      document.querySelectorAll('.tab-panel-content').forEach(el => el.classList.toggle('active', el.id === 'panel-' + tab));
+    }
+
+    function openPropertyForm(mode) {
+      document.getElementById('property-form-title').textContent = mode === 'edit' ? 'Edit Properti' : 'Tambah Properti Baru';
+      document.getElementById('property-form').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePropertyForm() {
+      document.getElementById('property-form').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  </script>
+</body>
+</html>
