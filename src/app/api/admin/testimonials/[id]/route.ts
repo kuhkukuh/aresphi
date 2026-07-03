@@ -3,6 +3,8 @@ import { db } from '@/infrastructure/database';
 import { testimonials } from '@/infrastructure/database/schema';
 import { getAdminSession } from '@/lib/auth';
 import { eq } from 'drizzle-orm';
+import { revalidateTag } from 'next/cache';
+import { CACHE_TAGS } from '@/lib/cache';
 
 export async function PUT(
   request: Request,
@@ -33,6 +35,9 @@ export async function PUT(
       return NextResponse.json({ error: 'Testimonial not found' }, { status: 404 });
     }
 
+    // Invalidate cached testimonials data
+    revalidateTag(CACHE_TAGS.testimonials, 'max');
+
     return NextResponse.json(updated);
   } catch (error) {
     console.error('Update testimonial error:', error);
@@ -60,6 +65,9 @@ export async function DELETE(
     if (!deleted) {
       return NextResponse.json({ error: 'Testimonial not found' }, { status: 404 });
     }
+
+    // Invalidate cached testimonials data
+    revalidateTag(CACHE_TAGS.testimonials, 'max');
 
     return NextResponse.json({ success: true });
   } catch (error) {

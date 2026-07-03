@@ -3,6 +3,8 @@ import { db } from '@/infrastructure/database';
 import { properties, propertyPhotos } from '@/infrastructure/database/schema';
 import { getAdminSession } from '@/lib/auth';
 import { eq, asc } from 'drizzle-orm';
+import { revalidateTag } from 'next/cache';
+import { CACHE_TAGS } from '@/lib/cache';
 
 export async function PUT(
   request: Request,
@@ -58,6 +60,9 @@ export async function PUT(
       return NextResponse.json({ error: 'Property not found' }, { status: 404 });
     }
 
+    // Invalidate cached property data
+    revalidateTag(CACHE_TAGS.properties, 'max');
+
     const photos = await db
       .select()
       .from(propertyPhotos)
@@ -91,6 +96,9 @@ export async function DELETE(
     if (!deleted) {
       return NextResponse.json({ error: 'Property not found' }, { status: 404 });
     }
+
+    // Invalidate cached property data
+    revalidateTag(CACHE_TAGS.properties, 'max');
 
     return NextResponse.json({ success: true });
   } catch (error) {

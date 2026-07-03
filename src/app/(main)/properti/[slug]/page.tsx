@@ -1,28 +1,22 @@
-import { db } from '@/infrastructure/database';
-import { properties, propertyPhotos, socials } from '@/infrastructure/database/schema';
-import { eq, ne, asc, sql } from 'drizzle-orm';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import DetailClient from './DetailClient';
 import Footer from '@/components/Footer';
 import FlashlightCard from '@/components/FlashlightCard';
 import PropertyMap from '@/components/PropertyMap';
+import {
+  getAllPropertySlugs,
+  getPropertyBySlug,
+  getRandomProperties,
+  getSocials,
+} from '@/lib/data';
 
-export const revalidate = 60; // ISR: regenerate every 60 seconds
+// On-demand ISR: pages are cached indefinitely until admin makes changes
+// Revalidation happens via revalidateTag() in admin API routes
 
 // Generate static params for all properties at build time
 export async function generateStaticParams() {
-  try {
-    const allProperties = await db
-      .select({ slug: properties.slug })
-      .from(properties);
-
-    return allProperties.map((property) => ({
-      slug: property.slug,
-    }));
-  } catch {
-    return [];
-  }
+  return getAllPropertySlugs();
 }
 
 // Generate metadata for SEO
@@ -51,70 +45,6 @@ export async function generateMetadata({
   };
 }
 
-async function getPropertyBySlug(slug: string) {
-  try {
-    const [property] = await db
-      .select()
-      .from(properties)
-      .where(eq(properties.slug, slug));
-
-    if (!property) return null;
-
-    const photos = await db
-      .select()
-      .from(propertyPhotos)
-      .where(eq(propertyPhotos.propertyId, property.id))
-      .orderBy(asc(propertyPhotos.displayOrder));
-
-    return {
-      ...property,
-      photos,
-    };
-  } catch {
-    return null;
-  }
-}
-
-async function getRandomProperties(propertyId: number) {
-  try {
-    // Get 3 random properties (excluding current)
-    const random = await db
-      .select()
-      .from(properties)
-      .where(ne(properties.id, propertyId))
-      .orderBy(sql`RANDOM()`)
-      .limit(3);
-
-    const withPhotos = await Promise.all(
-      random.map(async (prop) => {
-        const [photo] = await db
-          .select()
-          .from(propertyPhotos)
-          .where(eq(propertyPhotos.propertyId, prop.id))
-          .orderBy(asc(propertyPhotos.displayOrder))
-          .limit(1);
-        return {
-          ...prop,
-          photos: photo ? [photo] : [],
-        };
-      })
-    );
-
-    return withPhotos;
-  } catch {
-    return [];
-  }
-}
-
-async function getSocials() {
-  try {
-    const [social] = await db.select().from(socials);
-    return social || { phone: '', email: '' };
-  } catch {
-    return { phone: '', email: '' };
-  }
-}
-
 export default async function PropertyDetailPage({
   params,
 }: {
@@ -128,7 +58,7 @@ export default async function PropertyDetailPage({
   }
 
   const [suggestedProperties, social] = await Promise.all([
-    getRandomProperties(property.id),
+    getRandomProperties(property.id, 5),
     getSocials(),
   ]);
 
@@ -264,7 +194,7 @@ export default async function PropertyDetailPage({
 
       {/* Suggested Properties */}
       {suggestedProperties.length > 0 && (
-        <section className="py-24 relative overflow-hidden bg-white/30 w-full">
+        <section className="py-24 relative overflow-hidden bg-white w-full">
           <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12">
             <div className="eyebrow">
               <span className="eyebrow-left"><span className="text-stone-500">—</span> Properti Lainnya</span>

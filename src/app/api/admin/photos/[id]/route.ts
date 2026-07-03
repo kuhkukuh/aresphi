@@ -4,6 +4,8 @@ import { propertyPhotos } from '@/infrastructure/database/schema';
 import { getAdminSession } from '@/lib/auth';
 import { eq } from 'drizzle-orm';
 import { del } from '@vercel/blob';
+import { revalidateTag } from 'next/cache';
+import { CACHE_TAGS } from '@/lib/cache';
 
 export async function DELETE(
   request: Request,
@@ -34,6 +36,9 @@ export async function DELETE(
     } catch {
       console.warn('Failed to delete blob:', photo.url);
     }
+
+    // Invalidate cached property data
+    revalidateTag(CACHE_TAGS.properties, 'max');
 
     return NextResponse.json({ success: true });
   } catch (error) {

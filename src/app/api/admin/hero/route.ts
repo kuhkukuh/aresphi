@@ -3,6 +3,8 @@ import { db } from '@/infrastructure/database';
 import { heroPhotos } from '@/infrastructure/database/schema';
 import { getAdminSession } from '@/lib/auth';
 import { asc } from 'drizzle-orm';
+import { revalidateTag } from 'next/cache';
+import { CACHE_TAGS } from '@/lib/cache';
 
 export async function GET() {
   const photos = await db
@@ -52,6 +54,9 @@ export async function PUT(request: Request) {
         set: { url, alt: alt || '' },
       })
       .returning();
+
+    // Invalidate cached hero data
+    revalidateTag(CACHE_TAGS.hero, 'max');
 
     return NextResponse.json(photo);
   } catch (error) {
