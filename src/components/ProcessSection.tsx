@@ -106,6 +106,19 @@ export default function ProcessSection() {
 
           {/* Right Column - Cards */}
           <div className="relative w-full">
+            {/* Orange Flow Line */}
+            <svg
+              className="absolute inset-0 w-full h-full -z-10 pointer-events-none"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M 50,0 C 100,200 -50,400 150,800"
+                stroke="#f97316"
+                strokeWidth="2"
+                fill="none"
+                opacity="0.3"
+              />
+            </svg>
             <div className="grid gap-8 md:gap-12 lg:gap-16">
               {steps.map((step, index) => (
                 <div

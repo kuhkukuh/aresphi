@@ -43,8 +43,8 @@ export default function PartnerLogos() {
                 alt={logo.name}
                 width={360}
                 height={144}
-                className="h-24 md:h-36 w-auto object-contain transition-all duration-300"
-                style={{ width: 'auto' }}
+                className="object-contain transition-all duration-300"
+                style={{ height: 'auto', width: 'auto' }}
               />
             </div>
           ))}
@@ -59,8 +59,8 @@ export default function PartnerLogos() {
                 alt={logo.name}
                 width={360}
                 height={144}
-                className="h-24 md:h-36 w-auto object-contain transition-all duration-300"
-                style={{ width: 'auto' }}
+                className="object-contain transition-all duration-300"
+                style={{ height: 'auto', width: 'auto' }}
               />
             </div>
           ))}
