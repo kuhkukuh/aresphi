@@ -53,14 +53,14 @@ export default function HeroClient({ photos }: HeroProps) {
     <section
       ref={containerRef}
       id="hero"
-      className="relative min-h-screen flex flex-col justify-end overflow-hidden pt-24"
+      className="relative min-h-screen flex flex-col justify-center md:justify-end overflow-hidden pt-24 pb-8 md:pb-0"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0d1f] via-[#0e1228] to-[#0a0d1f]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <h1
           ref={wordmarkRef}
-          className="select-none text-[17vw] leading-[0.85] text-center will-change-transform font-playfair italic tracking-tighter text-white"
+          className="select-none text-[24vw] sm:text-[20vw] md:text-[17vw] leading-[0.85] text-center will-change-transform font-playfair italic tracking-tighter text-white"
           style={{ opacity: prefersReducedMotion ? 1 : 0 }}
         >
           Aresphi<span className="text-orange">®</span>
@@ -116,7 +116,7 @@ export default function HeroClient({ photos }: HeroProps) {
         style={{ opacity: prefersReducedMotion ? 1 : 0 }}
       >
         <p className="text-sm text-white/50 leading-relaxed">
-          Full-service property partner for sales, rental, and consultation across Indonesia.
+          Mitra properti lengkap untuk jual-beli, sewa, dan konsultasi di seluruh Indonesia.
         </p>
       </div>
     </section>

@@ -252,8 +252,8 @@ function PropertyForm({
     longitude: z.number().nullable(),
     price: z.string().min(1, 'Harga wajib diisi'),
     propertyType: z.enum(['rumah', 'apartemen', 'villa', 'ruko']),
-    landArea: z.string().min(1, 'Luas tanah wajib diisi'),
-    buildingArea: z.string().min(1, 'Luas bangunan wajib diisi'),
+    landArea: z.number().positive('Luas tanah harus berupa angka positif'),
+    buildingArea: z.number().positive('Luas bangunan harus berupa angka positif'),
     description: z.string().min(320, 'Deskripsi minimal 320 karakter'),
     showInShowcase: z.boolean(),
   });
@@ -266,8 +266,8 @@ function PropertyForm({
     longitude: property?.longitude || null as number | null,
     price: property?.price || '',
     propertyType: property?.propertyType || 'rumah' as const,
-    landArea: property?.landArea || '',
-    buildingArea: property?.buildingArea || '',
+    landArea: property?.landArea ?? null as number | null,
+    buildingArea: property?.buildingArea ?? null as number | null,
     description: property?.description || '',
     showInShowcase: property?.showInShowcase ?? true,
   });
@@ -345,11 +345,7 @@ function PropertyForm({
     setValidationErrors({});
     setIsSaving(true);
     try {
-      await onSave({
-        ...formData,
-        landArea: formData.landArea ? parseInt(String(formData.landArea)) : null,
-        buildingArea: formData.buildingArea ? parseInt(String(formData.buildingArea)) : null,
-      });
+      await onSave(formData);
     } finally {
       setIsSaving(false);
     }
@@ -492,9 +488,9 @@ function PropertyForm({
                 Luas Tanah (m²) <span className="text-red-500">*</span>
               </label>
               <input
-                type="text"
-                value={formData.landArea}
-                onChange={(e) => setFormData((f) => ({ ...f, landArea: e.target.value }))}
+                type="number"
+                value={formData.landArea ?? ''}
+                onChange={(e) => setFormData((f) => ({ ...f, landArea: e.target.value ? parseInt(e.target.value) : null }))}
                 className={`w-full rounded-lg bg-white/70 px-3 py-2.5 text-sm focus:outline-none ${
                   validationErrors.landArea ? 'border border-red-400 focus:border-red-500' : 'border border-stone-300 focus:border-orange'
                 }`}
@@ -508,9 +504,9 @@ function PropertyForm({
                 Luas Bangunan (m²) <span className="text-red-500">*</span>
               </label>
               <input
-                type="text"
-                value={formData.buildingArea}
-                onChange={(e) => setFormData((f) => ({ ...f, buildingArea: e.target.value }))}
+                type="number"
+                value={formData.buildingArea ?? ''}
+                onChange={(e) => setFormData((f) => ({ ...f, buildingArea: e.target.value ? parseInt(e.target.value) : null }))}
                 className={`w-full rounded-lg bg-white/70 px-3 py-2.5 text-sm focus:outline-none ${
                   validationErrors.buildingArea ? 'border border-red-400 focus:border-red-500' : 'border border-stone-300 focus:border-orange'
                 }`}

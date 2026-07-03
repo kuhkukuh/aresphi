@@ -30,19 +30,41 @@ export default function AdminPage() {
       .finally(() => setIsLoading(false));
   }, []);
 
-  // Flashlight effect for login card
+  // Flashlight + tilt effect for login card
   useEffect(() => {
     const card = cardRef.current;
     if (!card || isAuthenticated) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = card!.getBoundingClientRect();
-      card!.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
-      card!.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      // Update CSS variables for spotlight (as percentages)
+      const percentX = (x / rect.width) * 100;
+      const percentY = (y / rect.height) * 100;
+      card!.style.setProperty('--mouse-x', `${percentX}%`);
+      card!.style.setProperty('--mouse-y', `${percentY}%`);
+      
+      // Calculate tilt (max 10 degrees, inverted for natural feel)
+      const rotateX = ((y - centerY) / centerY) * -10;
+      const rotateY = ((x - centerX) / centerX) * 10;
+      
+      card!.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    };
+
+    const handleMouseLeave = () => {
+      card!.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
     };
 
     card.addEventListener('mousemove', handleMouseMove);
-    return () => card.removeEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
   }, [isAuthenticated]);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -81,10 +103,18 @@ export default function AdminPage() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-6">
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0d1f] via-[#0e1228] to-[#0a0d1f]" />
 
+        {/* Big Admin wordmark overlay */}
+        <h1
+          className="admin-wordmark font-playfair italic text-white/[0.03]"
+          aria-hidden="true"
+        >
+          Admin<span className="text-orange/[0.15]">®</span>
+        </h1>
+
         <div className="relative z-10 w-full max-w-sm">
           <div
             ref={cardRef}
-            className="flashlight-card !bg-white/[0.04] !border-white/10 backdrop-blur-2xl"
+            className="flashlight-card dark !bg-white/[0.03] !border-white/[0.08] backdrop-blur-lg"
           >
             <div className="flashlight-card-content p-8 md:p-10">
               <div className="text-center mb-8">
@@ -129,7 +159,7 @@ export default function AdminPage() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full rounded-full bg-white text-black font-semibold py-3 text-sm mt-2 hover:bg-white/90 transition-colors"
+                  className="w-full rounded-full border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] transition-all duration-300 hover:border-white/40 hover:bg-white/20"
                 >
                   Masuk
                 </button>
@@ -149,21 +179,18 @@ export default function AdminPage() {
       {/* Topbar */}
       <header className="sticky top-0 z-40 bg-white/60 backdrop-blur-sm border-b border-stone-200/60">
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
-          <div className="flex items-baseline gap-3">
+          <a href="/" className="flex items-baseline gap-3 cursor-pointer">
             <span className="font-playfair text-xl italic tracking-tight text-stone-900">
               Aresphi<span className="text-orange">®</span>
             </span>
             <span className="text-xs uppercase tracking-[0.2em] text-stone-400 hidden sm:inline">
               Admin Dashboard
             </span>
-          </div>
+          </a>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-2 text-sm font-medium text-stone-500 hover:text-stone-900 transition-colors"
+            className="cursor-pointer text-sm font-medium text-stone-500 hover:text-stone-900 transition-colors"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-            </svg>
             Logout
           </button>
         </div>
@@ -176,7 +203,7 @@ export default function AdminPage() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`subtab-btn pb-3 text-sm whitespace-nowrap ${activeTab === tab ? 'active' : ''}`}
+              className={`subtab-btn pb-3 text-sm whitespace-nowrap cursor-pointer ${activeTab === tab ? 'active' : ''}`}
             >
               {tab === 'property' && 'Property'}
               {tab === 'hero' && 'Hero Photos'}
@@ -194,8 +221,8 @@ export default function AdminPage() {
         </div>
 
         {/* Tab Panel */}
-        <div className="flashlight-card">
-          <div className="flashlight-card-content p-6 md:p-8">
+        <div className="rounded-2xl bg-white/60 backdrop-blur-sm border border-stone-200/60">
+          <div className="p-6 md:p-8">
             {activeTab === 'property' && <PropertiesTab />}
             {activeTab === 'hero' && <HeroTab />}
             {activeTab === 'stats' && <StatsTab />}

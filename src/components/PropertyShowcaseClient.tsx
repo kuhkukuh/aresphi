@@ -5,6 +5,7 @@ import { useRef } from "react";
 export type Property = {
   id: string;
   name: string;
+  slug: string;
   location: string;
   price: string;
   image: string;
@@ -33,17 +34,15 @@ export default function PropertyShowcaseClient({
   return (
     <section
       id="properti"
-      className="py-24 relative overflow-hidden bg-beige w-full"
+      className="py-16 md:py-24 lg:py-32 relative overflow-hidden bg-beige w-full"
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-12 flex justify-between items-end">
-        <div>
-          <div className="flex justify-between items-baseline mb-4 pb-4 border-b border-stone-400/20">
-            <span className="text-xs font-semibold text-orange uppercase tracking-[0.15em]">
-              / {properties.length.toString().padStart(2, '0')} Properti
-            </span>
-            <span className="text-xs text-stone-400 font-mono">[ {properties.length.toString().padStart(2, '0')} ]</span>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 mb-2 md:mb-4 lg:mb-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+        <div className="w-full">
+          <div className="eyebrow">
+            <span className="eyebrow-left">/ {properties.length.toString().padStart(2, '0')} Properti</span>
+            <span className="eyebrow-right">[ {properties.length.toString().padStart(2, '0')} ]</span>
           </div>
-          <h2 className="mt-6 text-4xl font-medium leading-tight sm:text-5xl md:text-6xl text-stone-900 tracking-[-0.055em]">
+          <h2 className="mt-6 text-4xl font-medium leading-[1.1] sm:text-5xl md:text-6xl text-stone-900 tracking-[-0.055em]">
             Koleksi
             <br />
             <span className="font-playfair italic font-normal text-stone-500/80">
@@ -52,8 +51,8 @@ export default function PropertyShowcaseClient({
           </h2>
         </div>
         <a
-          href="#"
-          className="hidden md:inline-flex items-center gap-2 border border-stone-300 rounded-full px-6 py-3 hover:bg-stone-900 hover:text-white transition-colors text-base font-medium"
+          href="/properti"
+          className="hidden sm:inline-flex items-center gap-2 border border-stone-300 rounded-full px-6 py-3 hover:bg-stone-900 hover:text-white transition-colors text-base font-medium whitespace-nowrap"
         >
           Lihat Semua
         </a>
@@ -101,12 +100,13 @@ export default function PropertyShowcaseClient({
 
         <div
           ref={scrollContainerRef}
-          className="h-[65vh] flex items-center w-full overflow-x-auto no-scrollbar"
+          className="h-[45vh] md:h-[55vh] lg:h-[65vh] flex items-center w-full overflow-x-auto no-scrollbar"
         >
           <div className="flex gap-6 px-6 md:px-12 w-max h-[80%] items-center">
             {properties.map((property, index) => (
-              <div
+              <a
                 key={property.id}
+                href={`/properti/${property.slug}`}
                 className={`relative w-[320px] md:w-[400px] ${
                   cardHeights[index % cardHeights.length]
                 } rounded-2xl overflow-hidden group shadow-xl shrink-0`}
@@ -127,19 +127,19 @@ export default function PropertyShowcaseClient({
                     <div className="bg-white/20 backdrop-blur-md rounded-full px-4 py-2 text-sm font-medium">
                       {property.price}
                     </div>
-                    <button
+                    <span
                       className="w-10 h-10 bg-orange rounded-full flex items-center justify-center hover:bg-white hover:text-black transition-colors text-sm font-bold"
                       aria-label="View property details"
                     >
                       →
-                    </button>
+                    </span>
                   </div>
                   <h3 className="font-playfair text-2xl italic">
                     {property.name}
                   </h3>
                   <p className="text-white/70 text-sm">{property.location}</p>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
