@@ -32,17 +32,6 @@ export default function MobileNav({ activeSection }: MobileNavProps) {
   const handleLinkClick = () => setIsOpen(false);
 
   // Animation variants
-  const containerVariants = {
-    collapsed: {
-      borderRadius: 9999,
-      transition: { type: "tween" as const, duration: 0.3, ease: [0.16, 1, 0.3, 1] as const },
-    },
-    expanded: {
-      borderRadius: 24,
-      transition: { type: "tween" as const, duration: 0.3, ease: [0.16, 1, 0.3, 1] as const },
-    },
-  };
-
   const menuVariants = {
     collapsed: {
       height: 0,
@@ -65,9 +54,8 @@ export default function MobileNav({ activeSection }: MobileNavProps) {
     <div className="md:hidden">
       {/* Floating Pill Container */}
       <motion.div
-        className={`${navStyles.container.floating} ${navStyles.container.shadow} overflow-hidden`}
-        variants={containerVariants}
-        initial="collapsed"
+        className={`${navStyles.container.floating} ${navStyles.container.shadow} rounded-3xl overflow-hidden`}
+        initial={false}
         animate={isOpen ? "expanded" : "collapsed"}
       >
         {/* Header Row - Always Visible */}
