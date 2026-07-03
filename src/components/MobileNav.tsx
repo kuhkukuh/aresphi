@@ -54,7 +54,7 @@ export default function MobileNav({ activeSection }: MobileNavProps) {
     <div className="md:hidden">
       {/* Floating Pill Container */}
       <motion.div
-        className={`${navStyles.container.floating} ${navStyles.container.shadow} rounded-3xl overflow-hidden`}
+        className={`${navStyles.container.floating} ${navStyles.container.shadow} rounded-[40px] overflow-hidden`}
         initial={false}
         animate={isOpen ? "expanded" : "collapsed"}
       >
