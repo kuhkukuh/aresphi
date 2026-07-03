@@ -99,20 +99,32 @@ export default function MobileNav({ activeSection }: MobileNavProps) {
               className="overflow-hidden"
             >
               <motion.div className="flex flex-col gap-1 px-4 pb-4">
-                {/* Nav Links */}
-                {navLinks.map((link) => (
-                  <motion.a
-                    key={link.href}
-                    href={link.href}
-                    variants={itemVariants}
-                    className={`py-3 text-lg font-medium transition-colors ${
-                      activeSection === link.id ? "text-orange" : "text-white"
-                    }`}
-                    onClick={handleLinkClick}
-                  >
-                    {link.label}
-                  </motion.a>
-                ))}
+                {/* Nav Links Container */}
+                <div className="flex flex-col rounded-full border border-white/10 bg-white/[0.04] p-2">
+                  {navLinks.map((link) => {
+                    const isActive = activeSection === link.id;
+                    return (
+                      <motion.a
+                        key={link.href}
+                        href={link.href}
+                        variants={itemVariants}
+                        className={`relative rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${
+                          isActive ? "text-black" : "text-white/80 hover:bg-white/10 hover:text-white"
+                        }`}
+                        onClick={handleLinkClick}
+                      >
+                        {isActive && (
+                          <motion.span
+                            layoutId="mobile-nav-active-pill"
+                            className="absolute inset-0 rounded-full bg-white"
+                            transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                          />
+                        )}
+                        <span className="relative">{link.label}</span>
+                      </motion.a>
+                    );
+                  })}
+                </div>
 
                 {/* Katalog Properti Button */}
                 <motion.a
