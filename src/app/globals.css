@@ -1,49 +1,44 @@
 @import 'tailwindcss';
+@config '../../tailwind.config.ts';
 
 :root {
-  /* Warm beige palette from Design 1 */
-  --bg-primary: #F2EFEA;
-  --bg-secondary: #26221E;
-  --bg-card: rgba(255, 255, 255, 0.4);
+  --font-inter: 'Inter', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
   
-  --text-primary: #2C2824;
-  --text-secondary: #78716C;
-  --text-muted: #A8A29E;
-  
-  --accent: #E67E22;
-  --accent-light: #F39C12;
-  --accent-dark: #D35400;
-  
-  --border-light: rgba(0, 0, 0, 0.05);
-  --border-dark: rgba(255, 255, 255, 0.1);
-}
-
-@theme inline {
-  --color-background: var(--bg-primary);
-  --color-foreground: var(--text-primary);
-  --font-sans: var(--font-inter);
-  --font-heading: var(--font-playfair);
+  --color-beige: #F2EFEA;
+  --color-stone-850: #26221E;
+  --color-orange: #f97316;
+  --color-sage: #2C3E35;
 }
 
 /* Base styles */
+* {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-family: var(--font-inter), system-ui, sans-serif;
+  font-family: var(--font-inter);
+  background: var(--color-beige);
+  color: #2C2824;
+  overflow-x: hidden;
   letter-spacing: -0.02em;
 }
 
-/* Custom selection */
 ::selection {
-  background-color: #f97316;
+  background: var(--color-orange);
   color: #fff;
 }
 
-/* Eyebrow - Section labels */
+/* Playfair font class */
+.font-playfair {
+  font-family: var(--font-playfair) !important;
+}
+
+/* Eyebrow styling */
 .eyebrow {
   display: flex;
   justify-content: space-between;
@@ -56,7 +51,7 @@ body {
 .eyebrow-left {
   font-size: 11px;
   font-weight: 600;
-  color: #f97316;
+  color: var(--color-orange);
   text-transform: uppercase;
   letter-spacing: 0.15em;
 }
@@ -67,28 +62,13 @@ body {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* Smooth image loading */
-img {
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-img[loading] {
-  opacity: 0;
-}
-
-/* Font families */
-.font-playfair {
-  font-family: var(--font-playfair), serif !important;
-}
-
-/* Flashlight card effect */
+/* Flashlight card */
 .flashlight-card {
   position: relative;
   border-radius: 1rem;
-  background: var(--bg-card);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(12px);
-  border: 1px solid var(--border-light);
+  border: 1px solid rgba(0, 0, 0, 0.06);
   overflow: hidden;
 }
 
@@ -102,7 +82,7 @@ img[loading] {
     transparent 40%
   );
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s;
   pointer-events: none;
   z-index: 0;
 }
@@ -116,102 +96,193 @@ img[loading] {
   z-index: 1;
 }
 
-/* Dark section variants */
-.dark-section .flashlight-card {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-dark);
+/* Tab underline */
+.subtab-btn {
+  transition: all 0.15s ease;
+  border-bottom: 2px solid transparent;
+  color: #78716c;
 }
 
-.dark-section .flashlight-card::before {
-  background: radial-gradient(
-    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(255, 255, 255, 0.08),
-    transparent 40%
-  );
+.subtab-btn.active {
+  border-bottom-color: var(--color-orange);
+  color: #1c1917;
+  font-weight: 600;
 }
 
-/* Watermark typography */
-.watermark-text {
-  font-size: 16vw;
-  line-height: 0.85;
-  opacity: 0.03;
-  pointer-events: none;
-  user-select: none;
+.subtab-btn.disabled {
+  color: #D6D3CE;
+  cursor: not-allowed;
 }
 
-/* Marquee animation */
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+.subtab-btn.disabled:hover {
+  color: #D6D3CE;
 }
 
-.animate-marquee {
-  animation: marquee 30s linear infinite;
+/* Custom checkbox */
+.filter-check {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid #D6D3CE;
+  background: #fff;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
 }
 
-.marquee-mask {
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+.filter-check:checked {
+  background: var(--color-orange);
+  border-color: var(--color-orange);
 }
 
-/* Sonar pulse animation */
-@keyframes sonar {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(2.5); opacity: 0; }
-}
-
-.sonar-ring {
+.filter-check:checked::after {
+  content: "";
   position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-  animation: sonar 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-  pointer-events: none;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
-/* Grayscale hover effect */
-.grayscale-hover {
+/* Pill toggle switch */
+.switch {
+  appearance: none;
+  width: 40px;
+  height: 22px;
+  border-radius: 9999px;
+  background: #D6D3CE;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  flex-shrink: 0;
+}
+
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 9999px;
+  background: #fff;
+  transition: transform 0.15s ease;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.switch:checked {
+  background: var(--color-orange);
+}
+
+.switch:checked::after {
+  transform: translateX(18px);
+}
+
+/* Status badges */
+.badge-available {
+  background: rgba(44, 62, 53, 0.1);
+  color: var(--color-sage);
+}
+
+.badge-sold {
+  background: #E7E5E4;
+  color: #78716c;
+}
+
+.badge-rented {
+  background: rgba(249, 115, 22, 0.1);
+  color: var(--color-orange);
+}
+
+/* Property card image hover */
+.fp-img {
+  transition: transform 0.7s ease, filter 0.7s ease;
   filter: grayscale(30%);
-  transition: filter 0.5s ease;
 }
 
-.grayscale-hover:hover {
+.fp-card:hover .fp-img {
   filter: grayscale(0%);
-}
-
-/* Image hover scale */
-.img-hover-scale {
-  transition: transform 0.7s ease;
-}
-
-.group:hover .img-hover-scale {
   transform: scale(1.05);
 }
 
-/* Hide scrollbar */
-.hide-scrollbar::-webkit-scrollbar,
+/* Photo thumbnail hover */
+.thumb {
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.thumb:hover {
+  transform: translateY(-2px);
+}
+
+/* Hero tile hover overlay */
+.hero-tile .hero-overlay {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.hero-tile:hover .hero-overlay {
+  opacity: 1;
+}
+
+/* Full-screen property form */
+.property-form-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--color-beige);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(16px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.property-form-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Rich text editor */
+.rte-toolbar button {
+  transition: background 0.15s ease;
+}
+
+.rte-body {
+  min-height: 220px;
+}
+
+.rte-body:focus {
+  outline: none;
+}
+
+.rte-body:empty:before {
+  content: attr(data-placeholder);
+  color: #A8A29E;
+}
+
+/* Scrollbar */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-.hide-scrollbar,
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-/* Snap scroll */
-.snap-x {
-  scroll-snap-type: x mandatory;
-}
-
-.snap-center {
-  scroll-snap-align: center;
-}
-
-/* Reduced motion: disable marquee animation */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee {
-    animation: none;
+  .fp-img,
+  .thumb,
+  .property-form-overlay,
+  .hero-tile .hero-overlay {
+    transition: none;
   }
 }

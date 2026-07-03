@@ -16,7 +16,7 @@
     "provenance": {
       "file": "prd.md",
       "lines": "36-47",
-      "briefHash": "b9735466461863cd"
+      "briefHash": "70a4f1563a744726"
     },
     "dependsOn": [
       "F-010"
@@ -58,7 +58,7 @@
     "specRef": "specs/F-001.json",
     "commits": [],
     "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
+    "updatedAt": "2026-07-03T09:15:00.000Z"
   },
   {
     "id": "F-002",
@@ -77,7 +77,7 @@
     "provenance": {
       "file": "prd.md",
       "lines": "49-56",
-      "briefHash": "b9735466461863cd"
+      "briefHash": "70a4f1563a744726"
     },
     "dependsOn": [],
     "blocks": [],
@@ -114,7 +114,7 @@
     "specRef": "specs/F-002.json",
     "commits": [],
     "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
+    "updatedAt": "2026-07-03T09:15:00.000Z"
   },
   {
     "id": "F-003",
@@ -133,7 +133,7 @@
     "provenance": {
       "file": "prd.md",
       "lines": "58-66",
-      "briefHash": "b9735466461863cd"
+      "briefHash": "70a4f1563a744726"
     },
     "dependsOn": [],
     "blocks": [],
@@ -172,7 +172,7 @@
     "specRef": "specs/F-003.json",
     "commits": [],
     "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
+    "updatedAt": "2026-07-03T09:15:00.000Z"
   },
   {
     "id": "F-004",
@@ -191,7 +191,7 @@
     "provenance": {
       "file": "prd.md",
       "lines": "68-77",
-      "briefHash": "b9735466461863cd"
+      "briefHash": "70a4f1563a744726"
     },
     "dependsOn": [
       "F-010"
@@ -231,7 +231,7 @@
     "specRef": "specs/F-004.json",
     "commits": [],
     "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
+    "updatedAt": "2026-07-03T09:15:00.000Z"
   },
   {
     "id": "F-005",
@@ -250,7 +250,7 @@
     "provenance": {
       "file": "prd.md",
       "lines": "79-87",
-      "briefHash": "b9735466461863cd"
+      "briefHash": "70a4f1563a744726"
     },
     "dependsOn": [],
     "blocks": [],
@@ -288,7 +288,7 @@
     "specRef": "specs/F-005.json",
     "commits": [],
     "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
+    "updatedAt": "2026-07-03T09:15:00.000Z"
   },
   {
     "id": "F-006",
@@ -307,7 +307,7 @@
     "provenance": {
       "file": "prd.md",
       "lines": "89-99",
-      "briefHash": "b9735466461863cd"
+      "briefHash": "70a4f1563a744726"
     },
     "dependsOn": [
       "F-010"
@@ -352,7 +352,7 @@
     "specRef": "specs/F-006.json",
     "commits": [],
     "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
+    "updatedAt": "2026-07-03T09:15:00.000Z"
   },
   {
     "id": "F-007",
@@ -371,7 +371,7 @@
     "provenance": {
       "file": "prd.md",
       "lines": "101-106",
-      "briefHash": "b9735466461863cd"
+      "briefHash": "70a4f1563a744726"
     },
     "dependsOn": [],
     "blocks": [],
@@ -409,7 +409,7 @@
     "specRef": "specs/F-007.json",
     "commits": [],
     "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
+    "updatedAt": "2026-07-03T09:15:00.000Z"
   },
   {
     "id": "F-008",
@@ -428,7 +428,7 @@
     "provenance": {
       "file": "prd.md",
       "lines": "108-115",
-      "briefHash": "b9735466461863cd"
+      "briefHash": "70a4f1563a744726"
     },
     "dependsOn": [],
     "blocks": [],
@@ -467,7 +467,7 @@
     "specRef": "specs/F-008.json",
     "commits": [],
     "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
+    "updatedAt": "2026-07-03T09:15:00.000Z"
   },
   {
     "id": "F-009",
@@ -486,7 +486,7 @@
     "provenance": {
       "file": "prd.md",
       "lines": "117-124",
-      "briefHash": "b9735466461863cd"
+      "briefHash": "70a4f1563a744726"
     },
     "dependsOn": [],
     "blocks": [],
@@ -524,13 +524,13 @@
     "specRef": "specs/F-009.json",
     "commits": [],
     "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
+    "updatedAt": "2026-07-03T09:15:00.000Z"
   },
   {
     "id": "F-010",
     "fingerprint": "property-management-admin",
     "title": "Property Management Admin",
-    "description": "Admin dashboard for managing property inventory catalog with CRUD operations. Image upload to Vercel Blob, property status tracking, photo section assignment. Static auth via env variables.",
+    "description": "Admin dashboard for managing property inventory catalog with CRUD operations. Image upload to Vercel Blob, property status tracking, photo section assignment. Static auth via env variables. Dashboard with tabs for Properties, Stats, Hero photos.",
     "type": "feature",
     "module": "Admin",
     "confidence": "stated",
@@ -542,8 +542,8 @@
     },
     "provenance": {
       "file": "prd.md",
-      "lines": "126-135",
-      "briefHash": "b9735466461863cd"
+      "lines": "126-138",
+      "briefHash": "70a4f1563a744726"
     },
     "dependsOn": [],
     "blocks": [
@@ -588,7 +588,7 @@
     "specRef": "specs/F-010.json",
     "commits": [],
     "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
+    "updatedAt": "2026-07-03T09:15:00.000Z"
   },
   {
     "id": "F-011",
@@ -606,8 +606,8 @@
     },
     "provenance": {
       "file": "prd.md",
-      "lines": "137-143",
-      "briefHash": "b9735466461863cd"
+      "lines": "140-146",
+      "briefHash": "70a4f1563a744726"
     },
     "dependsOn": [],
     "blocks": [],
@@ -646,17 +646,17 @@
     "specRef": "specs/F-011.json",
     "commits": [],
     "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
+    "updatedAt": "2026-07-03T09:15:00.000Z"
   },
   {
     "id": "F-012",
     "fingerprint": "property-detail-page-property",
     "title": "Property Detail Page",
-    "description": "Individual property listing page with full details and photos. ON HOLD pending design.",
+    "description": "Individual property listing page with full details, photo gallery with lightbox, and contact CTA. Property specs: price, location, bedrooms, bathrooms, land area, building area. WhatsApp and email contact buttons.",
     "type": "feature",
     "module": "Property",
     "confidence": "stated",
-    "lifecycle": "deferred",
+    "lifecycle": "proposed",
     "flags": {
       "needsReanalysis": false,
       "stale": false,
@@ -664,71 +664,8 @@
     },
     "provenance": {
       "file": "prd.md",
-      "lines": "145-151",
-      "briefHash": "b9735466461863cd"
-    },
-    "dependsOn": [
-      "F-006",
-      "F-010"
-    ],
-    "blocks": [],
-    "blockedBy": [
-      "F-006",
-      "F-010"
-    ],
-    "score": {
-      "impact": {
-        "score": 7,
-        "factors": [
-          "Property information display",
-          "Conversion path"
-        ]
-      },
-      "effort": {
-        "score": 5,
-        "factors": [
-          "Page layout",
-          "Image gallery",
-          "Dependent on F-006 and F-010"
-        ]
-      },
-      "risk": {
-        "score": 2,
-        "factors": [
-          "Design pending"
-        ]
-      },
-      "urgency": {
-        "factor": 0.8,
-        "reason": "Deferred pending design"
-      },
-      "priority": 7,
-      "formulaVersion": 1
-    },
-    "overrides": {},
-    "specRef": "specs/F-012.json",
-    "commits": [],
-    "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
-  },
-  {
-    "id": "F-013",
-    "fingerprint": "catalog-page-property",
-    "title": "Catalog Page",
-    "description": "Property catalog/listing page with filtering. ON HOLD pending design.",
-    "type": "feature",
-    "module": "Property",
-    "confidence": "stated",
-    "lifecycle": "deferred",
-    "flags": {
-      "needsReanalysis": false,
-      "stale": false,
-      "orphaned": false
-    },
-    "provenance": {
-      "file": "prd.md",
-      "lines": "153-159",
-      "briefHash": "b9735466461863cd"
+      "lines": "148-157",
+      "briefHash": "70a4f1563a744726"
     },
     "dependsOn": [
       "F-006",
@@ -743,36 +680,102 @@
       "impact": {
         "score": 8,
         "factors": [
-          "Browse all properties",
-          "Filter functionality"
+          "Full property information",
+          "Conversion path",
+          "SEO opportunity with structured data"
         ]
       },
       "effort": {
-        "score": 6,
+        "score": 5,
         "factors": [
-          "Filter implementation",
-          "Pagination or infinite scroll",
-          "Dependent on F-006 and F-010"
+          "Photo gallery with lightbox",
+          "Property specs grid",
+          "ISR setup"
         ]
       },
       "risk": {
         "score": 2,
         "factors": [
-          "Design pending",
-          "Filter complexity TBD"
+          "Design ready",
+          "Well-understood pattern"
         ]
       },
       "urgency": {
-        "factor": 0.8,
-        "reason": "Deferred pending design"
+        "factor": 1.2,
+        "reason": "Design now ready, was previously deferred"
       },
-      "priority": 6,
+      "priority": 11,
+      "formulaVersion": 1
+    },
+    "overrides": {},
+    "specRef": "specs/F-012.json",
+    "commits": [],
+    "createdAt": "2026-07-03T00:31:00.000Z",
+    "updatedAt": "2026-07-03T09:15:00.000Z"
+  },
+  {
+    "id": "F-013",
+    "fingerprint": "catalog-page-property",
+    "title": "Catalog Page",
+    "description": "Property catalog/listing page with grid layout. Filter by type (jual/sewa), price range, and location. URL-based filter state for shareable links.",
+    "type": "feature",
+    "module": "Property",
+    "confidence": "stated",
+    "lifecycle": "proposed",
+    "flags": {
+      "needsReanalysis": false,
+      "stale": false,
+      "orphaned": false
+    },
+    "provenance": {
+      "file": "prd.md",
+      "lines": "159-169",
+      "briefHash": "70a4f1563a744726"
+    },
+    "dependsOn": [
+      "F-006",
+      "F-010"
+    ],
+    "blocks": [],
+    "blockedBy": [
+      "F-006",
+      "F-010"
+    ],
+    "score": {
+      "impact": {
+        "score": 9,
+        "factors": [
+          "Browse all properties",
+          "Filter functionality",
+          "Primary discovery page"
+        ]
+      },
+      "effort": {
+        "score": 6,
+        "factors": [
+          "Filter implementation (type, price, location)",
+          "Grid layout",
+          "URL state management"
+        ]
+      },
+      "risk": {
+        "score": 2,
+        "factors": [
+          "Design ready",
+          "Filter complexity manageable"
+        ]
+      },
+      "urgency": {
+        "factor": 1.5,
+        "reason": "Design now ready, key user flow target"
+      },
+      "priority": 13,
       "formulaVersion": 1
     },
     "overrides": {},
     "specRef": "specs/F-013.json",
     "commits": [],
     "createdAt": "2026-07-03T00:31:00.000Z",
-    "updatedAt": "2026-07-03T00:31:00.000Z"
+    "updatedAt": "2026-07-03T09:15:00.000Z"
   }
 ]

@@ -1,7 +1,11 @@
+'use client';
+
+import { QueryProvider } from '@/lib/query-provider';
+
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return <QueryProvider>{children}</QueryProvider>;
 }

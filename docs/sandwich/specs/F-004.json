@@ -1,25 +1,24 @@
 {
   "featureId": "F-004",
   "title": "Stats Section",
-  "module": "stats",
-  "description": "Dark background section menampilkan company achievements: 150+ Properti Terjual, 200+ Klien Puas, 5+ Tahun Pengalaman, 98% Keberhasilan. Stats editable via admin dashboard.",
+  "module": "Stats",
+  "description": "Dark background section displaying company achievements (150+ properties sold, 200+ clients, 5+ years, 98% success rate). Stats editable via admin dashboard.",
   "scope": {
     "inScope": [
-      "4 stat items: properti terjual, klien puas, tahun pengalaman, keberhasilan",
-      "Dark background design",
-      "Admin CRUD untuk stats values",
-      "Stats fetched from database"
+      "Display 4 stat items: Properti Terjual, Klien Puas, Tahun Pengalaman, Keberhasilan",
+      "Dark background styling",
+      "Stats editable via admin dashboard (F-010)"
     ],
     "outOfScope": [
-      "Historical stats tracking",
-      "Stats charts/graphs"
+      "Animated stat counters",
+      "Historical stat tracking"
     ]
   },
   "acceptanceCriteria": [
-    { "id": "AC1", "text": "4 stat items tampil dengan dark background dan white text", "done": false },
-    { "id": "AC2", "text": "Stats values loaded from database, not hardcoded", "done": false },
-    { "id": "AC3", "text": "Admin dapat update semua stats values via dashboard", "done": false },
-    { "id": "AC4", "text": "Stats show appropriate formatting (150+, 98%, etc)", "done": false }
+    { "id": "AC1", "text": "Stats section displays: 150+ Properti Terjual, 200+ Klien Puas, 5+ Tahun Pengalaman, 98% Keberhasilan", "done": false },
+    { "id": "AC2", "text": "Admin can update stat values via dashboard", "done": false },
+    { "id": "AC3", "text": "Stats persist in database and revalidate on public site", "done": false },
+    { "id": "AC4", "text": "Dark background with light text for contrast", "done": false }
   ],
   "dependsOn": ["F-010"],
   "source": { "file": "prd.md", "lines": "68-77" }

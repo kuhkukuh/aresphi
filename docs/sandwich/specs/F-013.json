@@ -1,24 +1,31 @@
 {
   "featureId": "F-013",
   "title": "Catalog Page",
-  "module": "property",
-  "description": "Property catalog/listing page dengan filtering. ON HOLD pending design.",
+  "module": "Property",
+  "description": "Property catalog/listing page with grid layout. Filter by type (jual/sewa), price range, and location. URL-based filter state for shareable links.",
   "scope": {
     "inScope": [
-      "Browse all properties",
-      "Filter functionality",
-      "Property cards grid layout"
+      "Grid layout of property cards",
+      "Filter by property type: Jual or Sewa",
+      "Filter by price range",
+      "Filter by location",
+      "URL-based filter state for shareable links"
     ],
     "outOfScope": [
-      "Advanced search",
-      "Saved searches"
+      "Map view of properties",
+      "Saved searches",
+      "Pagination (infinite scroll acceptable)"
     ]
   },
   "acceptanceCriteria": [
-    { "id": "AC1", "text": "All properties displayed in grid layout", "done": false },
-    { "id": "AC2", "text": "Filters available for property type, price range, location", "done": false },
-    { "id": "AC3", "text": "Click on property navigates to detail page", "done": false }
+    { "id": "AC1", "text": "Property cards display in responsive grid layout", "done": false },
+    { "id": "AC2", "text": "Filter by type (Jual/Sewa) updates grid results", "done": false },
+    { "id": "AC3", "text": "Filter by price range (min/max) updates grid results", "done": false },
+    { "id": "AC4", "text": "Filter by location updates grid results", "done": false },
+    { "id": "AC5", "text": "Filter state is reflected in URL for shareable links", "done": false },
+    { "id": "AC6", "text": "Clicking a property card navigates to property detail page", "done": false },
+    { "id": "AC7", "text": "Page uses ISR with on-demand revalidation when admin updates properties", "done": false }
   ],
   "dependsOn": ["F-006", "F-010"],
-  "source": { "file": "prd.md", "lines": "153-159" }
+  "source": { "file": "prd.md", "lines": "159-169" }
 }

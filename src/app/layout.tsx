@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
-import { SmoothScrollProvider } from '@/lib/smooth-scroll';
-import Navigation from '@/components/Navigation';
+import { Toaster } from 'sonner';
 import './globals.css';
 
 const inter = Inter({
@@ -39,10 +38,23 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${inter.variable} ${playfair.variable} antialiased`}>
       <body className="min-h-screen flex flex-col bg-stone-50 text-stone-900 font-sans">
-        <SmoothScrollProvider>
-          <Navigation />
-          {children}
-        </SmoothScrollProvider>
+        {children}
+        <Toaster
+          position="top-center"
+          toastOptions={{
+            unstyled: true,
+            classNames: {
+              toast: 'group flex items-center gap-3 w-auto max-w-md px-4 py-3 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 shadow-xl shadow-stone-900/10',
+              title: 'text-sm font-medium text-stone-900',
+              description: 'text-sm text-stone-500',
+              icon: 'flex-shrink-0 w-5 h-5 text-orange',
+              success: 'text-orange',
+              error: 'text-red-500',
+              info: 'text-blue-500',
+              closeButton: 'right-1 top-1/2 -translate-y-1/2 left-auto bg-white/5 backdrop-blur-md border-white/10 hover:bg-white/10 text-stone-500 hover:text-stone-700',
+            },
+          }}
+        />
       </body>
     </html>
   );

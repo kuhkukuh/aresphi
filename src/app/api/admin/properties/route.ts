@@ -37,7 +37,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json();
-    const { name, location, price, status, showInShowcase } = body;
+    const { name, location, latitude, longitude, price, propertyType, landArea, buildingArea, description, showInShowcase } = body;
 
     if (!name || !location || !price) {
       return NextResponse.json(
@@ -51,8 +51,13 @@ export async function POST(request: Request) {
       .values({
         name,
         location,
+        latitude: latitude || null,
+        longitude: longitude || null,
         price,
-        status: status || 'available',
+        propertyType: propertyType || 'rumah',
+        landArea: landArea || null,
+        buildingArea: buildingArea || null,
+        description: description || null,
         showInShowcase: showInShowcase || false,
       })
       .returning();

@@ -1,30 +1,32 @@
 {
   "featureId": "F-010",
   "title": "Property Management Admin",
-  "module": "admin",
-  "description": "Admin dashboard untuk managing property inventory catalog dengan CRUD operations. Image upload to Vercel Blob, property status tracking, photo section assignment. Static auth via env variables.",
+  "module": "Admin",
+  "description": "Admin dashboard for managing property inventory catalog with CRUD operations. Image upload to Vercel Blob, property status tracking, photo section assignment. Static auth via env variables. Dashboard with tabs for Properties, Stats, Hero photos.",
   "scope": {
     "inScope": [
-      "CRUD operations untuk property inventory catalog",
-      "Image upload to Vercel Blob untuk property photos",
-      "Property status (available, sold, rented)",
+      "CRUD operations for property inventory catalog",
+      "Image upload to Vercel Blob for property photos",
+      "Property status tracking (available, sold, rented)",
       "Admin selects which photos appear in each section (Hero, Showcase)",
-      "Static authentication via environment variables"
+      "Static authentication via environment variables",
+      "Dashboard tabs: Properties, Stats, Hero photos"
     ],
     "outOfScope": [
       "OAuth authentication",
-      "User management/multiple users",
-      "Role-based permissions"
+      "User role management",
+      "Audit logging"
     ]
   },
   "acceptanceCriteria": [
-    { "id": "AC1", "text": "Admin can create new property listing dengan semua required fields", "done": true },
-    { "id": "AC2", "text": "Admin can upload property photos ke Vercel Blob via dashboard", "done": true },
-    { "id": "AC3", "text": "Admin can set property status: available, sold, atau rented", "done": true },
-    { "id": "AC4", "text": "Admin can designate which photo appears in Hero section", "done": true },
-    { "id": "AC5", "text": "Admin can designate which properties appear in Showcase section", "done": true },
-    { "id": "AC6", "text": "Login with static credentials from env vars, session via signed cookie", "done": true }
+    { "id": "AC1", "text": "Admin can log in using env-stored credentials", "done": true },
+    { "id": "AC2", "text": "Admin can create, read, update, delete property listings", "done": true },
+    { "id": "AC3", "text": "Admin can upload property photos to Vercel Blob", "done": true },
+    { "id": "AC4", "text": "Admin can set property status: available, sold, rented", "done": true },
+    { "id": "AC5", "text": "Admin can assign photos to Hero and Showcase sections", "done": true },
+    { "id": "AC6", "text": "Admin can edit company stats (properties sold, clients, years, success rate)", "done": true },
+    { "id": "AC7", "text": "Dashboard has tabbed interface: Properties, Stats, Hero", "done": true }
   ],
   "dependsOn": [],
-  "source": { "file": "prd.md", "lines": "126-135" }
+  "source": { "file": "prd.md", "lines": "126-138" }
 }

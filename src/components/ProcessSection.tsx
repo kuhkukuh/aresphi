@@ -100,49 +100,40 @@ export default function ProcessSection() {
             </a>
           </div>
 
-          {/* Right Column - Staggered Cards */}
+          {/* Right Column - Cards */}
           <div className="relative w-full">
-            {/* Decorative SVG */}
-            <svg
-              className="absolute inset-0 w-full h-full -z-10 pointer-events-none"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M 50,0 C 100,200 -50,400 150,800"
-                stroke="#f97316"
-                strokeWidth="2"
-                fill="none"
-                opacity="0.3"
-              />
-            </svg>
-
-            <div className="grid gap-12 md:gap-16 relative z-10">
+            <div className="grid gap-12 md:gap-16">
               {steps.map((step, index) => (
                 <div
                   key={step.number}
                   ref={(el) => {
                     cardsRef.current[index] = el;
                   }}
-                  className={`bg-white rounded-3xl p-6 shadow-sm border border-stone-100 w-[85%] md:w-[70%] group hover:shadow-lg transition-shadow ${
+                  className={`relative rounded-2xl overflow-hidden w-[85%] md:w-[70%] group shadow-xl ${
                     index % 2 === 0 ? "ml-auto" : ""
                   }`}
                   style={{ opacity: prefersReducedMotion ? 1 : 0 }}
                 >
-                  <div className="text-orange font-medium mb-4 text-lg">
-                    {step.number}
+                  <img
+                    src={step.image}
+                    alt={step.alt}
+                    className="w-full h-64 md:h-80 object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                    onError={(e) => {
+                      e.currentTarget.style.visibility = "hidden";
+                    }}
+                  />
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                  <div className="absolute bottom-0 left-0 w-full p-6 text-white">
+                    <div className="bg-white/20 backdrop-blur-md rounded-full px-4 py-2 text-sm font-medium mb-4 inline-block">
+                      {step.number}
+                    </div>
+                    <h3 className="font-playfair text-2xl italic">
+                      {step.title}
+                    </h3>
+                    <p className="text-white/70 text-sm">{step.description}</p>
                   </div>
-                  <div className="w-full h-40 rounded-2xl overflow-hidden mb-6">
-                    <img
-                      src={step.image}
-                      alt={step.alt}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      onError={(e) => {
-                        e.currentTarget.style.visibility = "hidden";
-                      }}
-                    />
-                  </div>
-                  <h3 className="font-playfair text-4xl italic">{step.title}</h3>
-                  <p className="text-stone-500">{step.description}</p>
                 </div>
               ))}
             </div>

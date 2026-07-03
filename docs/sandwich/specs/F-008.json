@@ -1,27 +1,27 @@
 {
   "featureId": "F-008",
   "title": "Footer",
-  "module": "footer",
-  "description": "Contact information, social links (Instagram, LinkedIn), dan large watermark. Phone, email, dan address display.",
+  "module": "Footer",
+  "description": "Contact information, social links (Instagram, LinkedIn), and large watermark. Phone, email, and address display.",
   "scope": {
     "inScope": [
-      "Phone number: +62 812 3456 7890",
-      "Email: info@aresphi.com",
-      "Address: Jl. Sudirman No. 123, Jakarta Selatan",
+      "Phone number display: +62 812 3456 7890",
+      "Email display: info@aresphi.com",
+      "Address display: Jl. Sudirman No. 123, Jakarta Selatan",
       "Social links: Instagram, LinkedIn",
       "Large Aresphi watermark"
     ],
     "outOfScope": [
-      "Newsletter subscription",
-      "Dynamic contact info via admin"
+      "Dynamic contact info management",
+      "Newsletter subscription"
     ]
   },
   "acceptanceCriteria": [
-    { "id": "AC1", "text": "Phone number clickable dengan tel: link", "done": false },
-    { "id": "AC2", "text": "Email clickable dengan mailto: link", "done": false },
-    { "id": "AC3", "text": "Social icons link ke Instagram dan LinkedIn profiles", "done": false },
-    { "id": "AC4", "text": "Address tampil dengan icon atau formatting yang jelas", "done": false },
-    { "id": "AC5", "text": "Large Aresphi watermark visible but subtle in background", "done": false }
+    { "id": "AC1", "text": "Footer displays phone, email, and address", "done": false },
+    { "id": "AC2", "text": "Instagram link opens aresphi Instagram profile", "done": false },
+    { "id": "AC3", "text": "LinkedIn link opens aresphi LinkedIn profile", "done": false },
+    { "id": "AC4", "text": "Large watermark displays Aresphi branding", "done": false },
+    { "id": "AC5", "text": "Footer appears on all pages", "done": false }
   ],
   "dependsOn": [],
   "source": { "file": "prd.md", "lines": "108-115" }

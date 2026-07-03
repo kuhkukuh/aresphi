@@ -1,4 +1,4 @@
-import { integer, pgTable, text, timestamp, boolean } from 'drizzle-orm/pg-core';
+import { integer, pgTable, text, timestamp, boolean, real } from 'drizzle-orm/pg-core';
 
 export const stats = pgTable('stats', {
   id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
@@ -16,8 +16,13 @@ export const properties = pgTable('properties', {
   id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
   name: text('name').notNull(),
   location: text('location').notNull(),
+  latitude: real('latitude'),
+  longitude: real('longitude'),
   price: text('price').notNull(),
-  status: text('status', { enum: ['available', 'sold', 'rented'] }).notNull().default('available'),
+  propertyType: text('property_type', { enum: ['rumah', 'apartemen', 'villa', 'ruko'] }).notNull().default('rumah'),
+  landArea: integer('land_area'),
+  buildingArea: integer('building_area'),
+  description: text('description'),
   showInShowcase: boolean('show_in_showcase').notNull().default(false),
   displayOrder: integer('display_order').notNull().default(0),
   createdAt: timestamp('created_at', { mode: 'date' }).notNull().defaultNow(),
@@ -47,3 +52,27 @@ export const heroPhotos = pgTable('hero_photos', {
 
 export type HeroPhoto = typeof heroPhotos.$inferSelect;
 export type NewHeroPhoto = typeof heroPhotos.$inferInsert;
+
+export const testimonials = pgTable('testimonials', {
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  quote: text('quote').notNull(),
+  name: text('name').notNull(),
+  title: text('title').notNull(),
+  displayOrder: integer('display_order').notNull().default(0),
+});
+
+export type Testimonial = typeof testimonials.$inferSelect;
+export type NewTestimonial = typeof testimonials.$inferInsert;
+
+export const socials = pgTable('socials', {
+  id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+  phone: text('phone'),
+  email: text('email'),
+  addressLine1: text('address_line_1'),
+  addressLine2: text('address_line_2'),
+  instagram: text('instagram'),
+  linkedin: text('linkedin'),
+});
+
+export type Social = typeof socials.$inferSelect;
+export type NewSocial = typeof socials.$inferInsert;

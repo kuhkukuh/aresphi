@@ -2,10 +2,10 @@
   "schemaVersion": 1,
   "name": "Aresphi Property",
   "briefHashes": {
-    "prd": "b9735466461863cd",
-    "userFlows": "d74405c71d88ba49",
-    "technicalNotes": "cdc06a6fa6178039",
-    "clientQuestions": "34bfa0be7d2bc550"
+    "prd": "70a4f1563a744726",
+    "userFlows": "75776185fe11c0f1",
+    "technicalNotes": "4c37ca67cb222fee",
+    "clientQuestions": "193654cd531f5b65"
   },
   "gates": {
     "briefApproved": {
@@ -16,5 +16,5 @@
     }
   },
   "createdAt": "2026-07-03T00:31:00.000Z",
-  "updatedAt": "2026-07-03T00:31:00.000Z"
+  "updatedAt": "2026-07-03T09:15:00.000Z"
 }

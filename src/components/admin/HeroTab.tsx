@@ -1,52 +1,20 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-
-type HeroPhoto = {
-  id: string;
-  src: string;
-  alt: string;
-} | null;
+import { useState } from 'react';
+import { useHeroPhotos, useUpdateHeroPhoto, useUploadPhoto } from '@/lib/admin-hooks';
 
 export default function HeroTab() {
-  const [photos, setPhotos] = useState<[HeroPhoto, HeroPhoto, HeroPhoto]>([null, null, null]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data: photos, isLoading } = useHeroPhotos();
+  const updateMutation = useUpdateHeroPhoto();
+  const uploadMutation = useUploadPhoto();
+
   const [uploadingPosition, setUploadingPosition] = useState<number | null>(null);
-
-  useEffect(() => {
-    loadHeroPhotos();
-  }, []);
-
-  const loadHeroPhotos = async () => {
-    setIsLoading(true);
-    const res = await fetch('/api/admin/hero');
-    const data = await res.json();
-    setPhotos(data);
-    setIsLoading(false);
-  };
 
   const handleUpload = async (position: number, file: File) => {
     setUploadingPosition(position);
-
     try {
-      const formData = new FormData();
-      formData.append('file', file);
-      const uploadRes = await fetch('/api/admin/photos', {
-        method: 'POST',
-        body: formData,
-      });
-      const { url } = await uploadRes.json();
-
-      await fetch('/api/admin/hero', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ position, url, alt: '' }),
-      });
-
-      await loadHeroPhotos();
-    } catch (error) {
-      console.error('Upload error:', error);
-      alert('Failed to upload hero photo');
+      const { url } = await uploadMutation.mutateAsync(file);
+      await updateMutation.mutateAsync({ position, url });
     } finally {
       setUploadingPosition(null);
     }
@@ -56,22 +24,32 @@ export default function HeroTab() {
     return <p className="text-stone-500">Loading hero photos...</p>;
   }
 
-  return (
-    <div>
-      <h2 className="text-xl font-medium mb-6">Hero Photos</h2>
-      <p className="text-sm text-stone-500 mb-6">
-        These photos appear in the stacked card animation on the homepage.
-        Position 1 is the front card, 3 is the back.
-      </p>
+  // Positions: 1 = front, 2 = middle, 3 = back
+  // In display: middle, front (elevated), back
+  const positions: { pos: number; label: string; translate: string; size: string }[] = [
+    { pos: 2, label: 'Posisi 2 (Tengah)', translate: '', size: '' },
+    { pos: 1, label: 'Posisi 1 (Depan)', translate: '-translate-y-4', size: '' },
+    { pos: 3, label: 'Posisi 3 (Belakang)', translate: '', size: '' },
+  ];
 
-      <div className="grid grid-cols-3 gap-6">
-        {[1, 2, 3].map((position) => {
-          const photo = photos[position - 1];
-          const isUploading = uploadingPosition === position;
+  return (
+    <>
+      <div className="mb-6">
+        <span className="eyebrow-left">Admin</span>
+        <h2 className="font-playfair italic text-2xl text-stone-900">Foto Hero</h2>
+        <p className="text-sm text-stone-500 mt-1">
+          3 foto yang tampil pada stack kartu di halaman utama.
+        </p>
+      </div>
+
+      <div className="grid items-end gap-4" style={{ gridTemplateColumns: '1fr 1.2fr 1fr' }}>
+        {positions.map(({ pos, label, translate }) => {
+          const photo = photos?.[pos - 1];
+          const isUploading = uploadingPosition === pos;
 
           return (
-            <div key={position} className="relative">
-              <div className="aspect-[4/3] rounded-xl overflow-hidden bg-stone-100 border border-stone-200">
+            <div key={pos} className={`hero-tile relative ${translate}`}>
+              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-lg ring-1 ring-stone-200 group">
                 {photo ? (
                   <img
                     src={photo.src}
@@ -79,35 +57,45 @@ export default function HeroTab() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="flex items-center justify-center h-full text-stone-400">
+                  <div className="w-full h-full bg-stone-100 flex items-center justify-center text-stone-400">
                     No photo
                   </div>
                 )}
+
+                {/* Upload overlay */}
                 {isUploading && (
                   <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                    <p className="text-white">Uploading...</p>
+                    <p className="text-white text-sm">Uploading...</p>
                   </div>
                 )}
-              </div>
-              <div className="mt-2 flex items-center justify-between">
-                <span className="text-sm font-medium">Position {position}</span>
-                <label className="cursor-pointer text-sm text-orange hover:text-orange-600">
-                  Change
-                  <input
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp"
-                    className="hidden"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) handleUpload(position, file);
-                    }}
-                  />
-                </label>
+
+                {/* Hover overlay */}
+                <div className="hero-overlay absolute inset-0 bg-black/50 flex items-center justify-center">
+                  <label className="cursor-pointer bg-white text-stone-900 text-xs font-medium rounded-full px-4 py-2 hover:bg-stone-100 transition-colors">
+                    Ganti Foto
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) handleUpload(pos, file);
+                      }}
+                      disabled={isUploading}
+                    />
+                  </label>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
-    </div>
+
+      <div className="grid gap-4 mt-4 text-center text-xs text-stone-400 uppercase tracking-wider" style={{ gridTemplateColumns: '1fr 1.2fr 1fr' }}>
+        <span>Posisi 2 (Tengah)</span>
+        <span>Posisi 1 (Depan)</span>
+        <span>Posisi 3 (Belakang)</span>
+      </div>
+    </>
   );
 }

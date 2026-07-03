@@ -1,27 +1,27 @@
 {
   "featureId": "F-001",
   "title": "Hero Section",
-  "module": "hero",
-  "description": "Animated hero dengan wordmark, stacked property cards, dan smooth scroll-triggered animations. Admin dapat memilih foto properti yang ditampilkan.",
+  "module": "Hero",
+  "description": "Animated hero with wordmark, stacked property cards, and smooth scroll-triggered animations. Admin can select which property photos appear.",
   "scope": {
     "inScope": [
-      "Large animated wordmark dengan Aresphi branding",
-      "Stacked property cards dengan parallax effect",
-      "Meta card menampilkan featured property info",
-      "Tagline dan CTA copy",
-      "Admin photo selection untuk hero section"
+      "Large animated wordmark with Aresphi branding",
+      "Stacked property cards with parallax effect",
+      "Meta card showing featured property info",
+      "Tagline and CTA copy",
+      "Admin photo selection integration"
     ],
     "outOfScope": [
-      "Property upload (handled by F-010)",
-      "Animation library decision (GSAP vs Framer Motion)"
+      "Property data management (handled by F-010)",
+      "Navigation functionality (handled by F-009)"
     ]
   },
   "acceptanceCriteria": [
-    { "id": "AC1", "text": "Wordmark Aresphi tampil dengan animasi entrance saat page load", "done": true },
-    { "id": "AC2", "text": "Stacked property cards memiliki parallax effect saat scroll", "done": true },
-    { "id": "AC3", "text": "Meta card menampilkan info properti featured (nama, lokasi, harga)", "done": true },
-    { "id": "AC4", "text": "Tagline dan CTA button terlihat jelas di viewport", "done": true },
-    { "id": "AC5", "text": "Admin dapat memilih properti yang tampil di hero via dashboard", "done": false }
+    { "id": "AC1", "text": "Hero displays animated wordmark with Aresphi branding on load", "done": false },
+    { "id": "AC2", "text": "Stacked property cards animate with parallax effect on scroll", "done": false },
+    { "id": "AC3", "text": "Meta card shows featured property info (price, location, name)", "done": false },
+    { "id": "AC4", "text": "Admin can select which property photos appear in hero via dashboard", "done": false },
+    { "id": "AC5", "text": "Animations respect prefers-reduced-motion setting", "done": false }
   ],
   "dependsOn": ["F-010"],
   "source": { "file": "prd.md", "lines": "36-47" }

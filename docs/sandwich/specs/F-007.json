@@ -1,24 +1,24 @@
 {
   "featureId": "F-007",
   "title": "Quote Section",
-  "module": "quote",
-  "description": "Full-width hero image dengan centered quote tentang home buying philosophy.",
+  "module": "Quote",
+  "description": "Full-width hero image with centered quote about home buying philosophy.",
   "scope": {
     "inScope": [
-      "Full-width background image",
-      "Centered quote text dengan overlay",
-      "Quote tentang home as life-changing experience",
-      "Responsive text sizing"
+      "Full-width background property image",
+      "Centered quote about home as life-changing experience",
+      "Text overlay with good contrast"
     ],
     "outOfScope": [
-      "Quote management via admin",
+      "Dynamic quote management",
       "Multiple quotes rotation"
     ]
   },
   "acceptanceCriteria": [
-    { "id": "AC1", "text": "Full-width background image covers entire section viewport", "done": true },
-    { "id": "AC2", "text": "Quote text centered dan readable dengan overlay scrim", "done": true },
-    { "id": "AC3", "text": "Text responsive: readable on mobile dan desktop", "done": true }
+    { "id": "AC1", "text": "Full-width background image displays property photo", "done": false },
+    { "id": "AC2", "text": "Quote is centered with readable text overlay", "done": false },
+    { "id": "AC3", "text": "Image has dark overlay for text contrast", "done": false },
+    { "id": "AC4", "text": "Section is responsive on mobile devices", "done": false }
   ],
   "dependsOn": [],
   "source": { "file": "prd.md", "lines": "101-106" }

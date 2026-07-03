@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id" class="antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Katalog Properti | Aresphi Property</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { heading: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] },
+          colors: { beige: { DEFAULT: '#F2EFEA' }, stone: { 850: '#26221E' }, orange: { DEFAULT: '#f97316' }, sage: { DEFAULT: '#2C3E35' } }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F2EFEA; color: #2C2824; overflow-x: hidden; letter-spacing: -0.02em; }
+    .font-playfair { font-family: 'Playfair Display', serif !important; }
+
+    .eyebrow { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(214,211,206,0.4); }
+    .eyebrow-left { font-size: 11px; font-weight: 600; color: #f97316; text-transform: uppercase; letter-spacing: 0.15em; }
+    .eyebrow-right { font-size: 11px; color: #A8A29E; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+
+    ::selection { background: #f97316; color: #fff; }
+
+    .floating-nav {
+      box-shadow: 0 24px 90px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.16);
+      transform: translate(-50%, -20px) scale(0.96);
+      opacity: 0;
+      transition: transform 0.8s cubic-bezier(.16,1,.3,1), opacity 0.8s ease, max-width 0.4s ease;
+      max-width: 800px;
+    }
+    body.page-ready .floating-nav { transform: translate(-50%, 0) scale(1); opacity: 1; }
+    body.has-scrolled .floating-nav { max-width: 1152px; }
+
+    .filter-panel { background: rgba(255,255,255,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(0,0,0,0.06); }
+
+    .filter-check { appearance: none; width: 18px; height: 18px; border-radius: 5px; border: 1.5px solid #D6D3CE; background: #fff; cursor: pointer; position: relative; flex-shrink: 0; transition: all 0.15s ease; }
+    .filter-check:checked { background: #f97316; border-color: #f97316; }
+    .filter-check:checked::after { content: ""; position: absolute; left: 5px; top: 1px; width: 5px; height: 9px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+
+    .status-pill { transition: all 0.15s ease; }
+    .status-pill.active { background: #1c1917; color: #fff; }
+    .status-pill:not(.active) { border: 1px solid #D6D3CE; color: #57534e; }
+
+    .row-img { overflow: hidden; }
+    .row-img img { transition: transform 0.7s ease, filter 0.7s ease; filter: grayscale(30%); }
+    .property-row:hover .row-img img { filter: grayscale(0%); transform: scale(1.05); }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .row-img img { transition: none; }
+    }
+  </style>
+</head>
+<body class="antialiased overflow-x-hidden selection:bg-orange selection:text-white">
+
+  <!-- Navigation -->
+  <nav class="floating-nav fixed left-1/2 top-5 z-[100] flex w-[calc(100%-32px)] -translate-x-1/2 items-center justify-between rounded-full border border-white/10 bg-black/50 px-4 py-3 backdrop-blur-2xl sm:px-5 md:px-6" aria-label="Main navigation">
+    <a href="aresphi-preview.html" class="group flex items-center gap-3 text-white" aria-label="Aresphi home">
+      <span class="font-playfair text-2xl italic tracking-tight">Aresphi<span class="text-orange">®</span></span>
+    </a>
+
+    <div class="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-2 py-2 md:flex" aria-label="Primary links">
+      <a href="aresphi-catalog.html" class="rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white">Properti</a>
+      <a href="aresphi-preview.html#layanan" class="rounded-full px-4 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white">Layanan</a>
+      <a href="aresphi-preview.html#tentang" class="rounded-full px-4 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white">Tentang</a>
+      <a href="aresphi-preview.html#kontak" class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-black shadow-sm">Kontak</a>
+    </div>
+
+    <a href="aresphi-preview.html#kontak" class="hidden rounded-full border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.16)] transition-all duration-300 hover:border-white/40 hover:bg-white/20 md:inline-flex">Hubungi Kami</a>
+    <button class="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white backdrop-blur-xl md:hidden" type="button" aria-label="Open menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+    </button>
+  </nav>
+
+  <!-- Header -->
+  <section class="pt-40 pb-16 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="eyebrow">
+        <span class="eyebrow-left"><span class="text-stone-500">—</span> Properti</span>
+      </div>
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mt-8">
+        <h1 class="text-4xl font-medium leading-[1.02] sm:text-5xl md:text-6xl text-stone-900" style="letter-spacing: -.055em;">
+          Koleksi<br><span class="font-playfair italic font-normal text-stone-500/80">Properti Unggulan</span>
+        </h1>
+        <p class="text-stone-500 max-w-sm text-sm">Jelajahi seluruh properti pilihan kami di berbagai lokasi strategis, dari rumah tinggal hingga investasi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catalog Body -->
+  <section class="px-6 md:px-12 pb-32">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+
+      <!-- Filters Sidebar -->
+      <aside class="w-full lg:w-[280px] shrink-0">
+        <div class="filter-panel rounded-2xl p-6 lg:sticky lg:top-32 space-y-8">
+
+          <div>
+            <div class="flex justify-between items-center mb-4">
+              <span class="eyebrow-left">Tipe Properti</span>
+            </div>
+            <div class="space-y-3">
+              <label class="flex items-center gap-3 text-sm text-stone-600 cursor-pointer">
+                <input type="checkbox" class="filter-check" checked>
+                Rumah
+              </label>
+              <label class="flex items-center gap-3 text-sm text-stone-600 cursor-pointer">
+                <input type="checkbox" class="filter-check">
+                Apartemen
+              </label>
+              <label class="flex items-center gap-3 text-sm text-stone-600 cursor-pointer">
+                <input type="checkbox" class="filter-check">
+                Villa
+              </label>
+              <label class="flex items-center gap-3 text-sm text-stone-600 cursor-pointer">
+                <input type="checkbox" class="filter-check">
+                Ruko
+              </label>
+            </div>
+          </div>
+
+          <div class="pt-8 border-t border-stone-300/40">
+            <span class="eyebrow-left block mb-4">Rentang Harga</span>
+            <div class="flex items-center gap-3">
+              <input type="text" placeholder="Rp Min" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm text-stone-700 placeholder:text-stone-400 focus:outline-none focus:border-orange">
+              <span class="text-stone-400 text-sm">—</span>
+              <input type="text" placeholder="Rp Max" class="w-full rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm text-stone-700 placeholder:text-stone-400 focus:outline-none focus:border-orange">
+            </div>
+          </div>
+
+          <div class="pt-8 border-t border-stone-300/40">
+            <span class="eyebrow-left block mb-4">Lokasi</span>
+            <div class="space-y-3">
+              <label class="flex items-center gap-3 text-sm text-stone-600 cursor-pointer">
+                <input type="checkbox" class="filter-check">
+                Jakarta Selatan
+              </label>
+              <label class="flex items-center gap-3 text-sm text-stone-600 cursor-pointer">
+                <input type="checkbox" class="filter-check">
+                Jakarta Pusat
+              </label>
+              <label class="flex items-center gap-3 text-sm text-stone-600 cursor-pointer">
+                <input type="checkbox" class="filter-check">
+                Tangerang
+              </label>
+              <label class="flex items-center gap-3 text-sm text-stone-600 cursor-pointer">
+                <input type="checkbox" class="filter-check">
+                Bandung
+              </label>
+            </div>
+          </div>
+
+          <div class="pt-8 border-t border-stone-300/40">
+            <span class="eyebrow-left block mb-4">Status</span>
+            <div class="flex gap-2">
+              <button type="button" class="status-pill active rounded-full px-4 py-2 text-xs font-medium">Dijual</button>
+              <button type="button" class="status-pill rounded-full px-4 py-2 text-xs font-medium">Disewa</button>
+            </div>
+          </div>
+
+          <div class="pt-6 border-t border-stone-300/40 text-right">
+            <a href="#" class="text-xs text-stone-400 hover:text-orange underline underline-offset-2">Reset Filter</a>
+          </div>
+
+        </div>
+      </aside>
+
+      <!-- Property Rows -->
+      <main class="flex-1 flex flex-col border-t border-stone-300/40">
+
+        <!-- Row 1 -->
+        <a href="aresphi-detail.html" class="property-row group block py-8 px-6 border-b border-stone-300/40 hover:bg-white/40 transition-colors">
+          <div class="flex flex-col md:flex-row gap-6">
+            <div class="row-img w-full md:w-[38%] aspect-[4/3] rounded-2xl shrink-0">
+              <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Rumah Modern Pondok Indah, Jakarta Selatan" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 flex flex-col justify-center gap-3 py-2">
+              <div class="flex items-center gap-3">
+                <span class="text-xs uppercase tracking-[0.2em] text-stone-400" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;">Rumah</span>
+              </div>
+              <h3 class="font-playfair italic text-2xl md:text-3xl text-stone-900">Rumah Modern Pondok Indah</h3>
+              <p class="text-sm font-normal text-stone-900">Rp <span class="text-orange">2.5 M</span></p>
+              <p class="text-sm text-stone-500 flex items-center gap-1.5">
+                <i class="ph ph-map-pin text-sm"></i>
+                Jakarta Selatan
+              </p>
+              <div class="flex items-center gap-4 text-sm text-stone-500">
+                <span class="flex items-center gap-1.5">
+                  <i class="ph ph-ruler text-base"></i>
+                  Luas Tanah 400 m²
+                </span>
+                <span class="text-stone-300">•</span>
+                <span class="flex items-center gap-1.5">
+                  <i class="ph ph-square text-base"></i>
+                  Luas Bangunan 320 m²
+                </span>
+              </div>
+              <p class="text-sm text-stone-500 line-clamp-2 max-w-md">Hunian modern dua lantai di kawasan elit Pondok Indah, dikelilingi taman asri dan akses mudah ke pusat kota.</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Row 2 -->
+        <a href="aresphi-detail.html" class="property-row group block py-8 px-6 border-b border-stone-300/40 hover:bg-white/40 transition-colors">
+          <div class="flex flex-col md:flex-row gap-6">
+            <div class="row-img w-full md:w-[38%] aspect-[4/3] rounded-2xl shrink-0">
+              <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Apartemen Mewah Sudirman, Jakarta Pusat" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 flex flex-col justify-center gap-3 py-2">
+              <div class="flex items-center gap-3">
+                <span class="text-xs uppercase tracking-[0.2em] text-stone-400" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;">Apartemen</span>
+              </div>
+              <h3 class="font-playfair italic text-2xl md:text-3xl text-stone-900">Apartemen Mewah Sudirman</h3>
+              <p class="text-sm font-normal text-stone-900">Rp <span class="text-orange">35 jt</span>/bln</p>
+              <p class="text-sm text-stone-500 flex items-center gap-1.5">
+                <i class="ph ph-map-pin text-sm"></i>
+                Jakarta Pusat
+              </p>
+              <div class="flex items-center gap-4 text-sm text-stone-500">
+                <span class="flex items-center gap-1.5">
+                  <i class="ph ph-ruler text-base"></i>
+                  Luas Tanah 250 m²
+                </span>
+                <span class="text-stone-300">•</span>
+                <span class="flex items-center gap-1.5">
+                  <i class="ph ph-square text-base"></i>
+                  Luas Bangunan 95 m²
+                </span>
+              </div>
+              <p class="text-sm text-stone-500 line-clamp-2 max-w-md">Unit high-floor dengan pemandangan kota, fasilitas lengkap, dan akses langsung ke pusat perkantoran Sudirman.</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Row 3 -->
+        <a href="aresphi-detail.html" class="property-row group block py-8 px-6 border-b border-stone-300/40 hover:bg-white/40 transition-colors">
+          <div class="flex flex-col md:flex-row gap-6">
+            <div class="row-img w-full md:w-[38%] aspect-[4/3] rounded-2xl shrink-0">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Villa Eksklusif BSD, Tangerang" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 flex flex-col justify-center gap-3 py-2">
+              <div class="flex items-center gap-3">
+                <span class="text-xs uppercase tracking-[0.2em] text-stone-400" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;">Villa</span>
+              </div>
+              <h3 class="font-playfair italic text-2xl md:text-3xl text-stone-900">Villa Eksklusif BSD</h3>
+              <p class="text-sm font-normal text-stone-900">Rp <span class="text-orange">4.5 M</span></p>
+              <p class="text-sm text-stone-500 flex items-center gap-1.5">
+                <i class="ph ph-map-pin text-sm"></i>
+                Tangerang
+              </p>
+              <div class="flex items-center gap-4 text-sm text-stone-500">
+                <span class="flex items-center gap-1.5">
+                  <i class="ph ph-ruler text-base"></i>
+                  Luas Tanah 600 m²
+                </span>
+                <span class="text-stone-300">•</span>
+                <span class="flex items-center gap-1.5">
+                  <i class="ph ph-square text-base"></i>
+                  Luas Bangunan 480 m²
+                </span>
+              </div>
+              <p class="text-sm text-stone-500 line-clamp-2 max-w-md">Villa privat dengan kolam renang pribadi dan taman luas, cocok untuk keluarga besar di kawasan BSD City.</p>
+            </div>
+          </div>
+        </a>
+
+        <!-- Row 4 -->
+        <a href="aresphi-detail.html" class="property-row group block py-8 px-6 border-b border-stone-300/40 hover:bg-white/40 transition-colors">
+          <div class="flex flex-col md:flex-row gap-6">
+            <div class="row-img w-full md:w-[38%] aspect-[4/3] rounded-2xl shrink-0">
+              <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80" alt="Cluster Premium Bandung, Bandung" class="w-full h-full object-cover">
+            </div>
+            <div class="flex-1 flex flex-col justify-center gap-3 py-2">
+              <div class="flex items-center gap-3">
+                <span class="text-xs uppercase tracking-[0.2em] text-stone-400" style="font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;">Rumah</span>
+              </div>
+              <h3 class="font-playfair italic text-2xl md:text-3xl text-stone-900">Cluster Premium Bandung</h3>
+              <p class="text-sm font-normal text-stone-900">Rp <span class="text-orange">1.8 M</span></p>
+              <p class="text-sm text-stone-500 flex items-center gap-1.5">
+                <i class="ph ph-map-pin text-sm"></i>
+                Bandung
+              </p>
+              <div class="flex items-center gap-4 text-sm text-stone-500">
+                <span class="flex items-center gap-1.5">
+                  <i class="ph ph-ruler text-base"></i>
+                  Luas Tanah 300 m²
+                </span>
+                <span class="text-stone-300">•</span>
+                <span class="flex items-center gap-1.5">
+                  <i class="ph ph-square text-base"></i>
+                  Luas Bangunan 210 m²
+                </span>
+              </div>
+              <p class="text-sm text-stone-500 line-clamp-2 max-w-md">Rumah cluster dengan keamanan 24 jam, dekat dengan sekolah internasional dan pusat perbelanjaan.</p>
+            </div>
+          </div>
+        </a>
+
+        <div class="pt-4 text-center">
+          <button type="button" class="inline-flex items-center gap-2 border border-stone-300 rounded-full px-6 py-3 hover:bg-stone-900 hover:text-white transition-colors text-base font-medium">
+            Muat Lebih Banyak
+          </button>
+        </div>
+
+      </main>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="relative bg-stone-900 pt-28 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex justify-between text-xs tracking-[0.2em] text-white/40 border-b border-white/10 pb-8">
+        <span>EST. 2020</span>
+        <span class="hidden sm:block">QUALITY // TRUST // TRANSPARENCY</span>
+        <span>MENU</span>
+      </div>
+      <div class="text-center py-20">
+        <a href="tel:+6281234567890" class="block text-3xl sm:text-4xl md:text-5xl hover:text-white/70 transition-colors font-medium tracking-tight text-white">
+          +62 812 3456 7890
+        </a>
+        <a href="mailto:info@aresphi.com" class="block text-3xl sm:text-4xl md:text-5xl text-orange mt-2 hover:text-orange/80 transition-colors font-medium tracking-tight">
+          info@aresphi.com
+        </a>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-8 text-xs text-white/40 pb-16">
+        <div>
+          <p>ALL RIGHTS RESERVED.</p>
+          <p class="mt-1">©2025 ARESPHI</p>
+        </div>
+        <div class="sm:text-center">
+          <p>JL. SUDIRMAN NO. 123</p>
+          <p class="mt-1">JAKARTA SELATAN, 12190</p>
+        </div>
+        <div class="sm:text-right space-x-4">
+          <a href="#" class="hover:text-white transition-colors">INSTAGRAM</a>
+          <a href="#" class="hover:text-white transition-colors">LINKEDIN</a>
+          <a href="#" class="hover:text-white transition-colors">PRIVACY</a>
+        </div>
+      </div>
+    </div>
+    <p class="select-none text-[24vw] leading-[0.75] text-white/[0.04] text-center -mb-[4vw] font-bold tracking-tight">
+      ARESPHI
+    </p>
+  </footer>
+
+  <script>
+    document.body.classList.add('page-ready');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 200) {
+        document.body.classList.add('has-scrolled');
+      } else {
+        document.body.classList.remove('has-scrolled');
+      }
+    }, { passive: true });
+
+    document.querySelectorAll('.status-pill').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.status-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

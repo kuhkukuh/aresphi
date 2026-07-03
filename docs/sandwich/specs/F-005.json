@@ -1,25 +1,25 @@
 {
   "featureId": "F-005",
   "title": "Process Section",
-  "module": "process",
-  "description": "Staggered cards menampilkan 3-step client journey: Konsultasi Awal, Kurasi Properti, Pendampingan Transaksi. Termasuk sticky heading dengan CTA button.",
+  "module": "Process",
+  "description": "Staggered cards showing 3-step client journey: Konsultasi Awal, Kurasi Properti, Pendampingan Transaksi. Includes sticky heading with CTA.",
   "scope": {
     "inScope": [
-      "3 step cards: Konsultasi Awal, Kurasi Properti, Pendampingan Transaksi",
-      "Each step with image, title, description (matching design ref)",
-      "Sticky heading with CTA button",
-      "Staggered entrance animation"
+      "Step 1: Konsultasi Awal - understanding client needs",
+      "Step 2: Kurasi Properti - curated property selection",
+      "Step 3: Pendampingan Transaksi - end-to-end support",
+      "Sticky heading with CTA button"
     ],
     "outOfScope": [
-      "Dynamic process steps configuration",
-      "Video content"
+      "Dynamic process step management",
+      "Booking/scheduling integration"
     ]
   },
   "acceptanceCriteria": [
-    { "id": "AC1", "text": "3 step cards tampil dalam horizontal atau staggered layout", "done": true },
-    { "id": "AC2", "text": "Setiap step memiliki icon, title, dan description yang jelas", "done": true },
-    { "id": "AC3", "text": "Sticky heading dengan CTA button \"Mulai Proses\" (matches design ref)", "done": true },
-    { "id": "AC4", "text": "Staggered entrance animation saat section masuk viewport", "done": true }
+    { "id": "AC1", "text": "Three process cards display in staggered layout: Konsultasi Awal, Kurasi Properti, Pendampingan Transaksi", "done": false },
+    { "id": "AC2", "text": "Each card shows step number, title, and description", "done": false },
+    { "id": "AC3", "text": "Sticky heading remains visible while scrolling through section", "done": false },
+    { "id": "AC4", "text": "CTA button links to contact section", "done": false }
   ],
   "dependsOn": [],
   "source": { "file": "prd.md", "lines": "79-87" }

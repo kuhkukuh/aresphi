@@ -1,24 +1,24 @@
 {
   "featureId": "F-002",
   "title": "Partner Logos",
-  "module": "partners",
-  "description": "Marquee-style scrolling bank partner logos dengan infinite horizontal scroll animation dan greyscale treatment.",
+  "module": "Partners",
+  "description": "Marquee-style scrolling bank partner logos section with infinite horizontal scroll animation and greyscale treatment.",
   "scope": {
     "inScope": [
-      "9 bank partner logos: BNI, BJB, BTN, BRI, BCA, BPR, BPR HIK, BWS (Bank Woori Saudara), Bank Sampoerna",
+      "Bank partner logos: BNI, BJB, BTN, BRI, BCA, BPR, BPR HIK, BWS (Bank Woori Saudara), Bank Sampoerna",
       "Infinite horizontal scroll animation",
-      "Greyscale logo treatment untuk visual consistency"
+      "Greyscale logo treatment for visual consistency"
     ],
     "outOfScope": [
-      "Logo sourcing (client provides)",
-      "Click-through to bank websites"
+      "Partner link clicks (no navigation required)",
+      "Dynamic partner management (static list)"
     ]
   },
   "acceptanceCriteria": [
-    { "id": "AC1", "text": "Semua 9 bank logos tampil dalam satu row dengan greyscale filter", "done": true },
-    { "id": "AC2", "text": "Marquee scroll infinite ke kiri dengan kecepatan konsisten", "done": true },
-    { "id": "AC3", "text": "Animation pause on hover untuk inspection", "done": true },
-    { "id": "AC4", "text": "Reduced motion support: logos static jika prefers-reduced-motion", "done": true }
+    { "id": "AC1", "text": "All 9 bank partner logos display in greyscale", "done": false },
+    { "id": "AC2", "text": "Logos scroll horizontally with infinite loop animation", "done": false },
+    { "id": "AC3", "text": "Animation pauses on hover for individual logo inspection", "done": false },
+    { "id": "AC4", "text": "Logos are crisp at all viewport sizes (SVG preferred)", "done": false }
   ],
   "dependsOn": [],
   "source": { "file": "prd.md", "lines": "49-56" }

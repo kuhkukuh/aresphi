@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { verifyCredentials, setAdminSession } from '@/lib/auth';
+import { verifyCredentials, setAdminSession, clearAdminSession } from '@/lib/auth';
 
 export async function POST(request: Request) {
   try {
@@ -30,4 +30,9 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
+}
+
+export async function DELETE() {
+  await clearAdminSession();
+  return NextResponse.json({ success: true });
 }

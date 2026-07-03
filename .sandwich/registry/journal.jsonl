@@ -11,3 +11,6 @@
 {"ts":"2026-07-03T00:31:00.000Z","actor":"system","type":"feature-added","target":"F-011","summary":"New feature: Lead Capture"}
 {"ts":"2026-07-03T00:31:00.000Z","actor":"system","type":"feature-added","target":"F-012","summary":"New feature: Property Detail Page (deferred)"}
 {"ts":"2026-07-03T00:31:00.000Z","actor":"system","type":"feature-added","target":"F-013","summary":"New feature: Catalog Page (deferred)"}
+{"ts":"2026-07-03T09:15:00.000Z","actor":"system","type":"reconciled","summary":"Brief updated: designs ready for Property Detail Page and Catalog Page"}
+{"ts":"2026-07-03T09:15:00.000Z","actor":"system","type":"lifecycle-changed","target":"F-012","summary":"Property Detail Page: deferred → proposed (design ready)"}
+{"ts":"2026-07-03T09:15:00.000Z","actor":"system","type":"lifecycle-changed","target":"F-013","summary":"Catalog Page: deferred → proposed (design ready)"}

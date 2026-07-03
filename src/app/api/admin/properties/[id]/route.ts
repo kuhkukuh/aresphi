@@ -16,15 +16,20 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { name, location, price, status, showInShowcase, displayOrder } = body;
+    const { name, location, latitude, longitude, price, propertyType, landArea, buildingArea, description, showInShowcase, displayOrder } = body;
 
     const [updated] = await db
       .update(properties)
       .set({
         ...(name !== undefined && { name }),
         ...(location !== undefined && { location }),
+        ...(latitude !== undefined && { latitude }),
+        ...(longitude !== undefined && { longitude }),
         ...(price !== undefined && { price }),
-        ...(status !== undefined && { status }),
+        ...(propertyType !== undefined && { propertyType }),
+        ...(landArea !== undefined && { landArea }),
+        ...(buildingArea !== undefined && { buildingArea }),
+        ...(description !== undefined && { description }),
         ...(showInShowcase !== undefined && { showInShowcase }),
         ...(displayOrder !== undefined && { displayOrder }),
         updatedAt: new Date(),

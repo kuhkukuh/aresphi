@@ -2,22 +2,20 @@
 
 export type QuoteSectionProps = {
   image: string;
-  quoteText: string;
-  quoteEmphasis: string;
+  quote: string;
   authorName: string;
   authorTitle: string;
 };
 
 const defaultProps: QuoteSectionProps = {
   image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&q=80",
-  quoteText: "We believe a home isn't just a transaction —",
-  quoteEmphasis: "it's a life-changing experience.",
+  quote: "We believe a home isn't just a transaction — it's a life-changing experience.",
   authorName: "Ahmad Wijaya",
   authorTitle: "FOUNDING PARTNER",
 };
 
 export default function QuoteSection(props: Partial<QuoteSectionProps> = {}) {
-  const { image, quoteText, quoteEmphasis, authorName, authorTitle } = {
+  const { image, quote, authorName, authorTitle } = {
     ...defaultProps,
     ...props,
   };
@@ -41,9 +39,8 @@ export default function QuoteSection(props: Partial<QuoteSectionProps> = {}) {
 
       {/* Quote Content */}
       <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
-        <p className="text-2xl sm:text-3xl md:text-4xl leading-snug font-medium tracking-tight text-white">
-          {quoteText}{" "}
-          <span className="text-white/40">{quoteEmphasis}</span>
+        <p className="text-2xl sm:text-3xl md:text-4xl leading-snug font-medium tracking-tight text-white whitespace-pre-line">
+          {quote}
         </p>
         <p className="text-sm font-medium mt-8 text-white">{authorName}</p>
         <p className="text-xs tracking-[0.2em] text-white/40 mt-1">{authorTitle}</p>

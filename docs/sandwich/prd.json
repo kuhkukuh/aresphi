@@ -1,6 +1,6 @@
 {
   "projectName": "Aresphi Property",
-  "mode": "answer",
+  "mode": "refine",
   "overview": "A full-service property broker platform for sales, rental, and consultation services across Indonesia. The website serves as a digital storefront to build trust, generate leads, and showcase property listings.",
   "projectState": {
     "phase": "development",
@@ -123,7 +123,8 @@
         { "text": "Image upload to Vercel Blob for property photos", "confidence": "stated" },
         { "text": "Property status (available, sold, rented)", "confidence": "stated" },
         { "text": "Admin selects which photos appear in each section", "confidence": "stated" },
-        { "text": "Static authentication via environment variables", "confidence": "stated" }
+        { "text": "Static authentication via environment variables", "confidence": "stated" },
+        { "text": "Dashboard with tabs for Properties, Stats, Hero photos", "confidence": "stated" }
       ]
     },
     {
@@ -139,19 +140,24 @@
     {
       "name": "Property Detail Page",
       "status": "planned",
-      "description": "Individual property listing page with full details",
+      "description": "Individual property listing page with full details, photo gallery, and contact CTA",
       "features": [
-        { "text": "Property detail view with photos and information", "confidence": "stated" },
-        { "text": "On hold pending design", "confidence": "stated" }
+        { "text": "Property photo gallery with lightbox", "confidence": "stated" },
+        { "text": "Property information: price, location, specs, description", "confidence": "stated" },
+        { "text": "WhatsApp and email contact buttons", "confidence": "stated" },
+        { "text": "Design ready for implementation", "confidence": "stated" }
       ]
     },
     {
       "name": "Catalog Page",
       "status": "planned",
-      "description": "Property catalog/listing page with filters",
+      "description": "Property catalog/listing page with filters for type, price, location",
       "features": [
-        { "text": "Browse all properties with filtering", "confidence": "stated" },
-        { "text": "On hold pending design", "confidence": "stated" }
+        { "text": "Grid layout of property cards", "confidence": "stated" },
+        { "text": "Filter by property type (jual, sewa)", "confidence": "stated" },
+        { "text": "Filter by price range", "confidence": "stated" },
+        { "text": "Filter by location", "confidence": "stated" },
+        { "text": "Design ready for implementation", "confidence": "stated" }
       ]
     }
   ],
@@ -168,8 +174,7 @@
     { "text": "Indonesian language for content", "confidence": "stated" },
     { "text": "Mobile-first responsive design", "confidence": "inferred" },
     { "text": "Smooth animations with reduced-motion support", "confidence": "inferred" },
-    { "text": "Admin auth via static env credentials (no OAuth)", "confidence": "stated" },
-    { "text": "Property Detail Page and Catalog Page on hold pending design", "confidence": "stated" }
+    { "text": "Admin auth via static env credentials (no OAuth)", "confidence": "stated" }
   ],
   "stakeholders": [
     { "name": "Aresphi Property Team", "role": "Client" }

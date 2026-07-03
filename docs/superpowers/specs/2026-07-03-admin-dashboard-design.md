@@ -6,7 +6,9 @@
 
 Static HTML design mockup for a redesigned admin dashboard, extending the visual language established in `docs/aresphi-preview.html`, `docs/aresphi-catalog.html`, and `docs/aresphi-detail.html`. The current React admin (`src/app/admin`) is functional but visually generic (plain white cards on beige, default form controls) and only covers 3 sections (Properties, Hero, Stats). This pass redesigns the dashboard's look and information architecture to match the marketing site's aesthetic, and expands the IA to cover the other content areas that are currently hardcoded in components (`Footer.tsx`, `QuoteSection.tsx`, `PartnerLogos.tsx`).
 
-This is a design-phase deliverable: a self-contained static HTML file for visual review, not a React implementation. React componentization, new DB fields/tables, and wiring for the newly-designed sections (Featured Property, Testimonial, Partners, Socials) are follow-up engineering tasks.
+This is a design-phase deliverable: a self-contained static HTML file for visual review, not a React implementation. React componentization, new DB fields/tables, and wiring for the newly-designed sections (Featured Property, Testimonial, Socials) are follow-up engineering tasks.
+
+> **Revision note:** After initial review, the category-grouped nav (Listings / Site Content) was dropped in favor of a single flat tab row — the grouping added a click without earning it for only 6 tabs. Partners was cut entirely (not needed). Testimonial changed from a single record with a configurable background photo to a repeatable list of quote/author entries — the background photo is one static image set in code, not admin-configurable. Socials dropped the privacy-link and copyright-text fields (unnecessary).
 
 ## File
 
@@ -38,12 +40,8 @@ The mockup renders both states in one file (simplest way to review both), separa
     Logout link -- right
   </header>
 
-  <nav id="category-pills">
-    [ Listings ]  [ Site Content ]   <!-- pill toggle, active = dark bg -->
-  </nav>
-
-  <nav id="sub-tabs">
-    <!-- contextual to active category, same status-pill/tab visual language -->
+  <nav id="tabs">
+    <!-- single flat row, underline-tab visual language -->
   </nav>
 
   <main id="tab-panel">
@@ -53,18 +51,12 @@ The mockup renders both states in one file (simplest way to review both), separa
 ```
 
 - Topbar: `bg-white/60 backdrop-blur-sm border-b border-stone-200/60`, sits on the page's `bg-beige`, NOT a floating pill nav (per approved shell decision) — a plain sticky bar, `px-6 md:px-12 py-4`
-- Category pills: two large pill buttons, active state `bg-stone-900 text-white`, inactive `border border-stone-300 text-stone-600` (same recipe as catalog's `status-pill`)
-- Sub-tabs: smaller pill/underline tabs directly below, switch content within the active category without changing the category pill
+- Tabs: a single flat row of underline tabs (no category grouping — dropped per revision note above), active state `border-b-2 border-orange text-stone-900 font-semibold`, inactive `text-stone-500`
 - Content panel: `flashlight-card` surface (`bg-white/60 backdrop-blur-md border border-stone-200/60 rounded-2xl p-6 md:p-8`)
 
-**Categories → Tabs:**
+**Tabs:** Properties, Hero Photos, Featured Property, Stats, Testimonial, Socials
 
-| Category | Tabs |
-|---|---|
-| Listings | Properties, Hero Photos, Featured Property |
-| Site Content | Stats, Testimonial, Partners, Socials |
-
-Mockup ships with **Properties** (under Listings) as the visibly-active tab/category by default; the other 6 tabs are fully built out in the markup but can be toggled via the JS (all present in the DOM, hidden/shown — not lazily rendered, since there's no backend here).
+Mockup ships with **Properties** as the visibly-active tab by default; the other 5 tabs are fully built out in the markup but can be toggled via the JS (all present in the DOM, hidden/shown — not lazily rendered, since there's no backend here).
 
 ## Tab Content Specifications
 
@@ -97,24 +89,20 @@ Mockup ships with **Properties** (under Listings) as the visibly-active tab/cate
 
 ### Testimonial
 
-- Two-column layout: left column is a form (background image picker with thumbnail + "Ganti" button, quote text `<textarea>`, emphasis text `<textarea>`, author name input, author title input); right column is a **live mini-preview** — a small non-interactive replica of the actual `QuoteSection` dark card (image bg, scrim, centered quote typography) so the admin can see what it'll look like before saving
-- Preview card uses `aspect-[16/10] rounded-2xl overflow-hidden` scaled down, not full-bleed like the real section
-
-### Partners
-
-- Grid of logo tiles (`grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4`), each tile `aspect-square rounded-xl border border-stone-200/60 bg-white flex items-center justify-center p-4` showing one partner logo (reuse existing `/partners/*.svg` files) with a small ✕ remove button on hover, and the bank name in a tiny label underneath
-- Dashed-border "+ Tambah Partner" tile at the end of the grid, same visual treatment as the photo-add tile in Properties
-- Drag handles omitted here (logos are less order-sensitive) unless a "reorder" affordance is trivial — kept simple: just add/remove
+- Repeatable list, not a single record — the site can show more than one testimonial. Header row has "+ Tambah Testimonial" pill button (same recipe as Properties' "+ Tambah Properti")
+- No background-photo field: the testimonial section uses one static photo set in code, not per-testimonial — so each entry is text-only: Kutipan `<textarea>`, Penekanan `<textarea>`, Nama input, Jabatan input, laid out as `grid md:grid-cols-2 gap-3` for the name/title pair below the two textareas
+- Each testimonial is its own card (`bg-white/60 rounded-2xl border border-stone-200/60 p-6`), with a trash icon top-right to remove it
+- No live preview column — removing the photo made per-testimonial preview less meaningful, and it added a UI cost this pass doesn't need
 
 ### Socials
 
-- Two-column form (`grid md:grid-cols-2 gap-6`): Telepon, Email, Alamat (2 lines), Instagram URL, LinkedIn URL, Link Privasi, Teks Copyright — each a labeled text input using the same input styling as the catalog filter sidebar (`rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:border-orange`)
+- Two-column form (`grid md:grid-cols-2 gap-6`): Telepon, Email, Alamat (2 lines), Instagram URL, LinkedIn URL — each a labeled text input using the same input styling as the catalog filter sidebar (`rounded-lg border border-stone-300 bg-white/70 px-3 py-2 text-sm focus:border-orange`)
+- Link Privasi and Teks Copyright dropped (unnecessary — not something admin needs to change)
 - "Simpan Perubahan" save button, same dark pill pattern as Stats
 
 ## Interactions (mockup-level, no backend)
 
-- Category pill click → swaps which sub-tab row + which tabs are available (vanilla JS show/hide, same pattern as catalog's `status-pill` toggle script)
-- Sub-tab click → shows/hides the corresponding panel within `#tab-panel`
+- Tab click → shows/hides the corresponding panel within `#tab-panel` (vanilla JS show/hide, same pattern as catalog's `status-pill` toggle script)
 - All uploads, saves, drag-reorder, and toggles are **visual states only** — no live logic. Where an interaction needs to show state (toggle on/off, one stat in edit mode, one property in slide-over edit), the mockup hardcodes that state on a representative example rather than wiring real toggling for every control set.
 - Reduced motion: any hover transitions (image grayscale, overlay fade) respect `prefers-reduced-motion`, consistent with the other mockups
 
@@ -127,20 +115,20 @@ property:      { name, location, price, status, showInShowcase, photos: [] }   /
 heroPhoto:      { url, alt, position }                                          // matches schema.ts today
 featuredProperty: reuses property + showInShowcase + displayOrder               // matches schema.ts today
 stat:          { value, suffix, label }                                        // matches schema.ts today
-testimonial:   { image, quoteText, quoteEmphasis, authorName, authorTitle }     // NEW — no table yet (QuoteSection props today are hardcoded defaults)
-partner:       { name, logoUrl, displayOrder }                                  // NEW — no table yet (PARTNER_LOGOS is a hardcoded array today)
-socials:       { phone, email, addressLine1, addressLine2, instagramUrl, linkedinUrl, privacyUrl, copyrightText } // NEW — no table yet (hardcoded in Footer.tsx today)
+testimonial:   { quoteText, quoteEmphasis, authorName, authorTitle, displayOrder } // NEW — no table yet (QuoteSection props today are hardcoded defaults, single record); note: no `image` field — background photo stays a static asset in code, not per-record
+socials:       { phone, email, addressLine1, addressLine2, instagramUrl, linkedinUrl } // NEW — no table yet (hardcoded in Footer.tsx today)
 ```
 
-`testimonial`, `partner`, and `socials` do not exist in `schema.ts` yet — schema + migration + API route work needed before this can be wired to real data. That's out of scope for this design pass, same as the catalog page's deferred fields.
+`testimonial` and `socials` do not exist in `schema.ts` yet — schema + migration + API route work needed before this can be wired to real data. That's out of scope for this design pass, same as the catalog page's deferred fields.
 
 ## Out of Scope
 
 - Live upload/save/toggle/reorder logic (visual states only)
-- Schema/migration changes for `testimonial`, `partner`, `socials` tables
+- Schema/migration changes for `testimonial` and `socials` tables
 - API routes for the new sections
 - React componentization (follow-up implementation task, would replace/extend `src/app/admin` and `src/components/admin`)
 - Auth changes (login screen is a visual redesign only, same static-credential flow as today)
+- Partner logos management (cut from scope — partners are not admin-managed)
 
 ## Files to Create/Modify
 

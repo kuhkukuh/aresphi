@@ -1,25 +1,26 @@
 {
   "featureId": "F-003",
   "title": "USP Section",
-  "module": "usp",
-  "description": "Bento grid layout menampilkan key differentiators: transparency, personal service, responsiveness, effective marketing, integrity. Termasuk flashlight effect cards dan testimonial.",
+  "module": "USP",
+  "description": "Bento grid layout highlighting key differentiators: transparency, personal service, responsiveness, effective marketing, integrity. Includes flashlight effect cards and testimonial.",
   "scope": {
     "inScope": [
-      "Bento grid layout dengan 5 USP items",
-      "Large testimonial card dengan client photo",
-      "Flashlight effect cards (cursor spotlight)",
+      "Bento grid layout with USP items",
+      "Flashlight hover effect on cards",
+      "Large testimonial card with client photo",
       "Dark stats card showing transparency metric"
     ],
     "outOfScope": [
-      "Testimonial data management",
-      "Dynamic USP configuration"
+      "Dynamic testimonial management",
+      "USP content editing via admin"
     ]
   },
   "acceptanceCriteria": [
-    { "id": "AC1", "text": "Bento grid menampilkan 5 USP items dalam layout asymmetric", "done": true },
-    { "id": "AC2", "text": "Testimonial card menampilkan client photo, quote, dan nama", "done": true },
-    { "id": "AC3", "text": "Flashlight effect aktif pada hover cards di desktop", "done": true },
-    { "id": "AC4", "text": "Dark stats card menampilkan transparency metric", "done": true }
+    { "id": "AC1", "text": "Bento grid displays 5 USP items: transparency, personal service, responsiveness, effective marketing, integrity", "done": false },
+    { "id": "AC2", "text": "Flashlight effect follows cursor on card hover", "done": false },
+    { "id": "AC3", "text": "Testimonial card shows client photo and quote", "done": false },
+    { "id": "AC4", "text": "Dark stats card displays transparency metric", "done": false },
+    { "id": "AC5", "text": "Layout is responsive on mobile devices", "done": false }
   ],
   "dependsOn": [],
   "source": { "file": "prd.md", "lines": "58-66" }

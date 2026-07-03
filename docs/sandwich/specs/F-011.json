@@ -1,29 +1,26 @@
 {
   "featureId": "F-011",
   "title": "Lead Capture",
-  "module": "contact",
-  "status": "cancelled",
-  "cancelReason": "No design reference exists in aresphi-preview.html for a contact form section. Footer already has phone/email links. Deferring until design is provided.",
-  "description": "Contact form dengan mailto link dan WhatsApp deep link integration. Form fields: name, email, phone, message.",
+  "module": "Contact",
+  "description": "Contact form with mailto link and WhatsApp deep link integration. Form fields: name, email, phone, message.",
   "scope": {
     "inScope": [
-      "Contact form dengan fields: name, email, phone, message",
-      "mailto: link untuk email contact",
-      "WhatsApp deep link (wa.me/62xxx) untuk direct contact",
-      "Form validation"
+      "Contact form with name, email, phone, message fields",
+      "mailto: link for email contact",
+      "WhatsApp deep link (wa.me/62xxx) for direct contact"
     ],
     "outOfScope": [
       "Backend form processing",
       "Lead storage in database",
-      "Email sending via API"
+      "Form validation beyond required fields"
     ]
   },
   "acceptanceCriteria": [
-    { "id": "AC1", "text": "Contact form dengan 4 fields: name, email, phone, message", "done": false },
-    { "id": "AC2", "text": "mailto: link opens email client dengan pre-filled subject/body", "done": false },
-    { "id": "AC3", "text": "WhatsApp link opens wa.me dengan pre-filled message", "done": false },
-    { "id": "AC4", "text": "Form validation: required fields, email format, phone format", "done": false }
+    { "id": "AC1", "text": "Contact form displays fields: name, email, phone, message", "done": false },
+    { "id": "AC2", "text": "mailto: link opens email client with pre-filled subject", "done": false },
+    { "id": "AC3", "text": "WhatsApp deep link opens WhatsApp with pre-filled message", "done": false },
+    { "id": "AC4", "text": "Form is accessible on mobile devices", "done": false }
   ],
   "dependsOn": [],
-  "source": { "file": "prd.md", "lines": "137-143" }
+  "source": { "file": "prd.md", "lines": "140-146" }
 }

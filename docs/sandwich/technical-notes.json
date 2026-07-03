@@ -34,8 +34,12 @@
       "body": "Client has 9 bank partners (BNI, BJB, BTN, BRI, BCA, BPR, BPR HIK, BWS/Bank Woori Saudara, Bank Sampoerna). Need to source official logos and apply greyscale filter for visual consistency in the marquee. Consider SVG format for crisp rendering at any size."
     },
     {
-      "heading": "Deferred: Property Detail & Catalog Pages",
-      "body": "Property Detail Page and Catalog Page are confirmed requirements but on hold until designs are provided. Build data models and admin CRUD now, add public pages when design is ready."
+      "heading": "Catalog Page Implementation",
+      "body": "Design now ready. Grid layout with property cards, filter sidebar or top bar for type (jual/sewa), price range, and location. Consider URL-based filter state for shareable links. ISR with on-demand revalidation when admin updates properties."
+    },
+    {
+      "heading": "Property Detail Page Implementation",
+      "body": "Design now ready. Photo gallery with lightbox, property specs grid, description section, and sticky contact CTA. Generate static pages for all properties at build time with ISR. Include structured data (JSON-LD) for SEO."
     }
   ],
   "risks": [

@@ -98,6 +98,50 @@
       ],
       "outcome": "Renter has scheduled property viewing with Aresphi agent",
       "confidence": "inferred"
+    },
+    {
+      "id": "UF-008",
+      "title": "Visitor browses property catalog with filters",
+      "actor": "Pembeli Rumah",
+      "trigger": "Visitor clicks 'Properti' in navigation to see all available properties",
+      "steps": [
+        "Visitor lands on Catalog Page with grid of all properties",
+        "Visitor filters by type: Jual or Sewa",
+        "Visitor filters by price range using price slider or input",
+        "Visitor filters by location using dropdown or search",
+        "Visitor browses filtered results in grid layout"
+      ],
+      "outcome": "Visitor has found properties matching their criteria",
+      "confidence": "stated"
+    },
+    {
+      "id": "UF-009",
+      "title": "Visitor views property details",
+      "actor": "Pembeli Rumah",
+      "trigger": "Visitor clicks on a property card from Showcase or Catalog",
+      "steps": [
+        "Visitor lands on Property Detail Page",
+        "Visitor browses photo gallery with lightbox view",
+        "Visitor reads property specs: bedrooms, bathrooms, land area, building area",
+        "Visitor reviews price and location details",
+        "Visitor clicks WhatsApp or email button to contact Aresphi about the property"
+      ],
+      "outcome": "Visitor has full property information and direct contact channel",
+      "confidence": "stated"
+    },
+    {
+      "id": "UF-010",
+      "title": "Admin manages hero section photos",
+      "actor": "Admin",
+      "trigger": "Marketing wants to update featured properties in hero",
+      "steps": [
+        "Admin logs into dashboard",
+        "Admin navigates to Hero tab",
+        "Admin selects which property photos appear in hero section",
+        "Admin saves changes and hero section updates on public site"
+      ],
+      "outcome": "Hero section showcases current featured properties",
+      "confidence": "stated"
     }
   ]
 }
