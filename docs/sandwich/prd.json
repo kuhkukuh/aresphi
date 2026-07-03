@@ -109,7 +109,7 @@
       "description": "Floating navigation bar with glassmorphism effect",
       "features": [
         { "text": "Floating pill-shaped navbar with blur effect", "confidence": "inferred" },
-        { "text": "Links: Properti, Layanan, Tentang, Kontak", "confidence": "inferred" },
+        { "text": "Links: Tentang, Layanan, Properti, Kontak", "confidence": "stated" },
         { "text": "Mobile hamburger menu", "confidence": "inferred" },
         { "text": "Expands on scroll", "confidence": "inferred" }
       ]

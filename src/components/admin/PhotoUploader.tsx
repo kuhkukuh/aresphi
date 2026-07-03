@@ -1,0 +1,271 @@
+'use client';
+
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useDropzone, type FileRejection } from 'react-dropzone';
+import imageCompression from 'browser-image-compression';
+import type { Property } from '@/lib/admin-hooks';
+import { appToast } from '@/lib/toast';
+
+const MAX_PHOTOS = 10;
+const MAX_RAW_SIZE = 20 * 1024 * 1024; // 20MB
+const COMPRESS_SKIP_THRESHOLD = 300 * 1024; // 300KB
+const CONCURRENCY = 3;
+const ACCEPTED_TYPES = { 'image/jpeg': [], 'image/png': [], 'image/webp': [] };
+
+interface UploadItem {
+  id: string;
+  file: File;
+  previewUrl: string;
+  status: 'queued' | 'compressing' | 'uploading' | 'error';
+  error?: string;
+}
+
+interface PhotoUploaderProps {
+  photos: Property['photos'];
+  pendingPhotos: string[];
+  onUploadFile: (file: File) => Promise<void>;
+  onDeletePhoto: (photoId: number | null, photoUrl?: string) => Promise<void>;
+}
+
+async function compressFile(file: File): Promise<File> {
+  if (file.size <= COMPRESS_SKIP_THRESHOLD) return file;
+  try {
+    return await imageCompression(file, {
+      maxWidthOrHeight: 1920,
+      maxSizeMB: 1,
+      useWebWorker: true,
+      preserveExif: true,
+    });
+  } catch (err) {
+    console.error('Compression failed, uploading original file', err);
+    return file;
+  }
+}
+
+export default function PhotoUploader({ photos, pendingPhotos, onUploadFile, onDeletePhoto }: PhotoUploaderProps) {
+  const [queue, setQueue] = useState<UploadItem[]>([]);
+  const [message, setMessage] = useState<string | null>(null);
+  const startedRef = useRef<Set<string>>(new Set());
+
+  const currentCount = photos.length + pendingPhotos.length + queue.filter((q) => q.status !== 'error').length;
+  const remainingSlots = Math.max(0, MAX_PHOTOS - currentCount);
+
+  const processFile = useCallback(
+    async (item: UploadItem) => {
+      try {
+        const compressed = await compressFile(item.file);
+        setQueue((prev) => prev.map((q) => (q.id === item.id ? { ...q, status: 'uploading' } : q)));
+        await onUploadFile(compressed);
+        setQueue((prev) => prev.filter((q) => q.id !== item.id));
+        URL.revokeObjectURL(item.previewUrl);
+      } catch (err) {
+        console.error('Upload failed', err);
+        appToast.error('Gagal mengunggah foto', { description: item.file.name });
+        setQueue((prev) =>
+          prev.map((q) => (q.id === item.id ? { ...q, status: 'error', error: 'Gagal mengunggah' } : q))
+        );
+      } finally {
+        startedRef.current.delete(item.id);
+      }
+    },
+    [onUploadFile]
+  );
+
+  // Global concurrency scheduler: starts queued items up to CONCURRENCY
+  // in-flight at once, across all drop batches (not just the latest one).
+  useEffect(() => {
+    const activeCount = queue.filter((q) => q.status === 'compressing' || q.status === 'uploading').length;
+    const availableSlots = CONCURRENCY - activeCount;
+    if (availableSlots <= 0) return;
+
+    const toStart = queue
+      .filter((q) => q.status === 'queued' && !startedRef.current.has(q.id))
+      .slice(0, availableSlots);
+    if (toStart.length === 0) return;
+
+    setQueue((prev) =>
+      prev.map((q) => (toStart.some((s) => s.id === q.id) ? { ...q, status: 'compressing' } : q))
+    );
+    toStart.forEach((item) => {
+      startedRef.current.add(item.id);
+      processFile(item);
+    });
+  }, [queue, processFile]);
+
+  const enqueueFiles = useCallback((files: File[]) => {
+    const items: UploadItem[] = files.map((file) => ({
+      id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      file,
+      previewUrl: URL.createObjectURL(file),
+      status: 'queued',
+    }));
+    setQueue((prev) => [...prev, ...items]);
+  }, []);
+
+  const onDrop = useCallback(
+    (acceptedFiles: File[], fileRejections: FileRejection[]) => {
+      setMessage(null);
+
+      if (fileRejections.length > 0) {
+        setMessage(`${fileRejections.length} file ditolak (format harus JPEG/PNG/WebP, maks. 20MB)`);
+      }
+
+      if (remainingSlots <= 0) {
+        setMessage(`Maksimal ${MAX_PHOTOS} foto per properti`);
+        return;
+      }
+
+      const filesToUpload = acceptedFiles.slice(0, remainingSlots);
+      if (acceptedFiles.length > remainingSlots) {
+        setMessage(`Hanya ${remainingSlots} foto ditambahkan (maksimal ${MAX_PHOTOS} foto per properti)`);
+      }
+
+      if (filesToUpload.length > 0) {
+        enqueueFiles(filesToUpload);
+      }
+    },
+    [remainingSlots, enqueueFiles]
+  );
+
+  const retryItem = useCallback((id: string) => {
+    startedRef.current.delete(id);
+    setQueue((prev) => prev.map((q) => (q.id === id ? { ...q, status: 'queued', error: undefined } : q)));
+  }, []);
+
+  const removeQueueItem = useCallback((id: string) => {
+    startedRef.current.delete(id);
+    setQueue((prev) => {
+      const item = prev.find((q) => q.id === id);
+      if (item) URL.revokeObjectURL(item.previewUrl);
+      return prev.filter((q) => q.id !== id);
+    });
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: ACCEPTED_TYPES,
+    maxSize: MAX_RAW_SIZE,
+    multiple: true,
+    disabled: remainingSlots <= 0,
+    onDrop,
+  });
+
+  const activeCount = queue.filter((q) => q.status !== 'error').length;
+
+  return (
+    <div>
+      {message && <p className="text-xs text-red-500 mb-2">{message}</p>}
+      {activeCount > 0 && (
+        <p className="text-xs text-stone-400 mb-2 flex items-center gap-1.5">
+          <svg className="w-3 h-3 animate-spin text-orange" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path
+              className="opacity-90"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+            />
+          </svg>
+          Mengunggah {activeCount} foto...
+        </p>
+      )}
+      <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+        {photos.map((photo, idx) => (
+          <div key={photo.id} className="thumb relative aspect-square rounded-lg overflow-hidden group">
+            <img src={photo.url} alt={photo.alt || `Foto ${idx + 1}`} className="w-full h-full object-cover" />
+            <button
+              type="button"
+              onClick={() => onDeletePhoto(photo.id)}
+              className="absolute top-1 right-1 w-5 h-5 rounded-full bg-stone-900/70 text-white flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"
+              aria-label="Hapus foto"
+            >
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        ))}
+
+        {pendingPhotos.map((url, idx) => (
+          <div key={url} className="thumb relative aspect-square rounded-lg overflow-hidden group">
+            <img src={url} alt={`Foto ${idx + 1}`} className="w-full h-full object-cover" />
+            <button
+              type="button"
+              onClick={() => onDeletePhoto(null, url)}
+              className="absolute top-1 right-1 w-5 h-5 rounded-full bg-stone-900/70 text-white flex items-center justify-center text-[10px] opacity-0 group-hover:opacity-100 transition-opacity"
+              aria-label="Hapus foto"
+            >
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        ))}
+
+        {queue.map((item) => (
+          <div key={item.id} className="thumb relative aspect-square rounded-lg overflow-hidden bg-stone-100">
+            <img src={item.previewUrl} alt="Mengunggah" className="w-full h-full object-cover opacity-50" />
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 bg-stone-900/30">
+              {item.status === 'error' ? (
+                <>
+                  <span className="text-[9px] text-red-100 uppercase tracking-wider px-1 text-center">
+                    {item.error}
+                  </span>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => retryItem(item.id)}
+                      className="text-[9px] uppercase tracking-wider text-white underline"
+                    >
+                      Coba lagi
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => removeQueueItem(item.id)}
+                      className="text-[9px] uppercase tracking-wider text-stone-200 underline"
+                    >
+                      Hapus
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <svg className="w-5 h-5 animate-spin text-white" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path
+                      className="opacity-90"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    />
+                  </svg>
+                  <span className="text-[9px] uppercase tracking-wider text-white">
+                    {item.status === 'queued'
+                      ? 'Menunggu...'
+                      : item.status === 'compressing'
+                      ? 'Memproses...'
+                      : 'Mengunggah...'}
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+        ))}
+
+        {remainingSlots > 0 && (
+          <div
+            {...getRootProps()}
+            className={`aspect-square rounded-lg border-2 border-dashed flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors ${
+              isDragActive
+                ? 'border-orange text-orange bg-orange/5'
+                : 'border-stone-300 text-stone-400 hover:border-orange hover:text-orange'
+            }`}
+          >
+            <input {...getInputProps()} />
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            <span className="text-[9px] uppercase tracking-wider">Tambah</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

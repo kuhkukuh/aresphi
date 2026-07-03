@@ -15,6 +15,7 @@ export async function POST(
 
   try {
     const { id } = await params;
+    const propertyId = parseInt(id);
     const body = await request.json();
     const { url, alt } = body;
 
@@ -22,15 +23,24 @@ export async function POST(
       return NextResponse.json({ error: 'URL is required' }, { status: 400 });
     }
 
+    const [{ count }] = await db
+      .select({ count: sql<number>`COUNT(*)` })
+      .from(propertyPhotos)
+      .where(eq(propertyPhotos.propertyId, propertyId));
+
+    if (Number(count) >= 10) {
+      return NextResponse.json({ error: 'Maksimal 10 foto per properti' }, { status: 400 });
+    }
+
     const [maxOrder] = await db
       .select({ max: sql<number>`COALESCE(MAX(display_order), -1)` })
       .from(propertyPhotos)
-      .where(eq(propertyPhotos.propertyId, parseInt(id)));
+      .where(eq(propertyPhotos.propertyId, propertyId));
 
     const [photo] = await db
       .insert(propertyPhotos)
       .values({
-        propertyId: parseInt(id),
+        propertyId,
         url,
         alt: alt || '',
         displayOrder: (maxOrder?.max ?? -1) + 1,

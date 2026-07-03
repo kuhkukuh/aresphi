@@ -15,6 +15,7 @@ export type NewStat = typeof stats.$inferInsert;
 export const properties = pgTable('properties', {
   id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
   name: text('name').notNull(),
+  slug: text('slug').notNull().unique(),
   location: text('location').notNull(),
   latitude: real('latitude'),
   longitude: real('longitude'),

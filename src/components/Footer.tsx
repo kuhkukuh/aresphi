@@ -9,26 +9,31 @@ export default function Footer() {
             QUALITY // TRUST // TRANSPARENCY
           </span>
           <a
-              href="#"
+              href="/admin"
               className="hover:text-white transition-colors"
-              aria-label="View Privacy Policy"
+              aria-label="Admin login"
             >
-              PRIVACY
+              ADMIN
             </a>
         </div>
 
         {/* Contact Links */}
-        <div id="kontak" className="text-center py-20">
+        <div id="kontak" className="text-center py-20 space-y-2">
           <a
             href="tel:+6281234567890"
-            className="block text-3xl sm:text-4xl md:text-5xl hover:text-white/70 transition-colors font-medium tracking-tight text-white"
+            className="inline-block text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-white
+              bg-gradient-to-r from-white to-white bg-[length:0%_2px] bg-no-repeat bg-[position:left_bottom]
+              hover:bg-[length:100%_2px] transition-all duration-300 pb-1"
             aria-label="Call Aresphi Property"
           >
             +62 812 3456 7890
           </a>
+          <br />
           <a
             href="mailto:info@aresphi.com"
-            className="block text-3xl sm:text-4xl md:text-5xl text-white mt-2 hover:text-orange transition-colors font-medium tracking-tight"
+            className="inline-block text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-orange
+              bg-gradient-to-r from-orange to-orange bg-[length:0%_2px] bg-no-repeat bg-[position:left_bottom]
+              hover:bg-[length:100%_2px] transition-all duration-300 pb-1"
             aria-label="Email Aresphi Property"
           >
             info@aresphi.com

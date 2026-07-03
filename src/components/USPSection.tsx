@@ -76,7 +76,7 @@ export default function USPSection() {
               01
             </span>
             <div className="relative z-10 p-6 h-full flex flex-col justify-end min-h-[180px]">
-              <h4 className="text-xl tracking-tight text-stone-900 mb-1">
+              <h4 className="font-playfair text-2xl italic text-stone-900 mb-1">
                 Layanan Lengkap
               </h4>
               <p className="text-stone-500 text-sm">
@@ -94,7 +94,7 @@ export default function USPSection() {
               02
             </span>
             <div className="relative z-10 p-6 h-full flex flex-col justify-end min-h-[180px]">
-              <h4 className="text-xl tracking-tight text-stone-900 mb-1">
+              <h4 className="font-playfair text-2xl italic text-stone-900 mb-1">
                 Jaringan Luas
               </h4>
               <p className="text-stone-500 text-sm">
@@ -104,7 +104,7 @@ export default function USPSection() {
           </div>
 
           {/* Dark Stats Card */}
-          <div className="md:col-span-2 bg-[#2C3E35] rounded-2xl p-8 flex flex-col justify-between relative overflow-hidden text-white min-h-[160px]">
+          <div className="md:col-span-2 bg-[#0a0d1f] rounded-2xl p-8 flex flex-col justify-between relative overflow-hidden text-white min-h-[160px]">
             <span className="absolute -top-2 -right-1 font-playfair text-[120px] italic tracking-tighter text-white/30 leading-none select-none pointer-events-none">
               03
             </span>

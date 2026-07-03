@@ -37,7 +37,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className={`${inter.variable} ${playfair.variable} antialiased`}>
-      <body className="min-h-screen flex flex-col bg-stone-50 text-stone-900 font-sans">
+      <head>
+        <script src="https://unpkg.com/@phosphor-icons/web" async></script>
+      </head>
+      <body className="min-h-screen flex flex-col bg-beige text-stone-900 font-sans overflow-x-hidden selection:bg-orange selection:text-white">
         {children}
         <Toaster
           position="top-center"
