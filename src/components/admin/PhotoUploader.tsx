@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDropzone, type FileRejection } from 'react-dropzone';
 import imageCompression from 'browser-image-compression';
 import type { Property } from '@/lib/admin-hooks';
@@ -16,7 +16,7 @@ interface UploadItem {
   id: string;
   file: File;
   previewUrl: string;
-  status: 'compressing' | 'uploading' | 'error';
+  status: 'queued' | 'compressing' | 'uploading' | 'error';
   error?: string;
 }
 
@@ -45,6 +45,7 @@ async function compressFile(file: File): Promise<File> {
 export default function PhotoUploader({ photos, pendingPhotos, onUploadFile, onDeletePhoto }: PhotoUploaderProps) {
   const [queue, setQueue] = useState<UploadItem[]>([]);
   const [message, setMessage] = useState<string | null>(null);
+  const startedRef = useRef<Set<string>>(new Set());
 
   const currentCount = photos.length + pendingPhotos.length + queue.filter((q) => q.status !== 'error').length;
   const remainingSlots = Math.max(0, MAX_PHOTOS - currentCount);
@@ -63,30 +64,43 @@ export default function PhotoUploader({ photos, pendingPhotos, onUploadFile, onD
         setQueue((prev) =>
           prev.map((q) => (q.id === item.id ? { ...q, status: 'error', error: 'Gagal mengunggah' } : q))
         );
+      } finally {
+        startedRef.current.delete(item.id);
       }
     },
     [onUploadFile]
   );
 
-  const enqueueFiles = useCallback(
-    (files: File[]) => {
-      const items: UploadItem[] = files.map((file) => ({
-        id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
-        file,
-        previewUrl: URL.createObjectURL(file),
-        status: 'compressing',
-      }));
-      setQueue((prev) => [...prev, ...items]);
+  // Global concurrency scheduler: starts queued items up to CONCURRENCY
+  // in-flight at once, across all drop batches (not just the latest one).
+  useEffect(() => {
+    const activeCount = queue.filter((q) => q.status === 'compressing' || q.status === 'uploading').length;
+    const availableSlots = CONCURRENCY - activeCount;
+    if (availableSlots <= 0) return;
 
-      (async () => {
-        for (let i = 0; i < items.length; i += CONCURRENCY) {
-          const chunk = items.slice(i, i + CONCURRENCY);
-          await Promise.allSettled(chunk.map((item) => processFile(item)));
-        }
-      })();
-    },
-    [processFile]
-  );
+    const toStart = queue
+      .filter((q) => q.status === 'queued' && !startedRef.current.has(q.id))
+      .slice(0, availableSlots);
+    if (toStart.length === 0) return;
+
+    setQueue((prev) =>
+      prev.map((q) => (toStart.some((s) => s.id === q.id) ? { ...q, status: 'compressing' } : q))
+    );
+    toStart.forEach((item) => {
+      startedRef.current.add(item.id);
+      processFile(item);
+    });
+  }, [queue, processFile]);
+
+  const enqueueFiles = useCallback((files: File[]) => {
+    const items: UploadItem[] = files.map((file) => ({
+      id: `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+      file,
+      previewUrl: URL.createObjectURL(file),
+      status: 'queued',
+    }));
+    setQueue((prev) => [...prev, ...items]);
+  }, []);
 
   const onDrop = useCallback(
     (acceptedFiles: File[], fileRejections: FileRejection[]) => {
@@ -113,17 +127,13 @@ export default function PhotoUploader({ photos, pendingPhotos, onUploadFile, onD
     [remainingSlots, enqueueFiles]
   );
 
-  const retryItem = useCallback(
-    (id: string) => {
-      const item = queue.find((q) => q.id === id);
-      if (!item) return;
-      setQueue((prev) => prev.map((q) => (q.id === id ? { ...q, status: 'compressing', error: undefined } : q)));
-      processFile(item);
-    },
-    [queue, processFile]
-  );
+  const retryItem = useCallback((id: string) => {
+    startedRef.current.delete(id);
+    setQueue((prev) => prev.map((q) => (q.id === id ? { ...q, status: 'queued', error: undefined } : q)));
+  }, []);
 
   const removeQueueItem = useCallback((id: string) => {
+    startedRef.current.delete(id);
     setQueue((prev) => {
       const item = prev.find((q) => q.id === id);
       if (item) URL.revokeObjectURL(item.previewUrl);
@@ -203,7 +213,11 @@ export default function PhotoUploader({ photos, pendingPhotos, onUploadFile, onD
                 </>
               ) : (
                 <span className="text-[9px] uppercase tracking-wider text-stone-600">
-                  {item.status === 'compressing' ? 'Memproses...' : 'Mengunggah...'}
+                  {item.status === 'queued'
+                    ? 'Menunggu...'
+                    : item.status === 'compressing'
+                    ? 'Memproses...'
+                    : 'Mengunggah...'}
                 </span>
               )}
             </div>
