@@ -25,7 +25,7 @@ const PARTNER_LOGOS = [
  */
 export default function PartnerLogos() {
   return (
-    <section className="py-6 border-y border-stone-400/10 bg-white/30">
+    <section className="border-y border-stone-400/10 bg-white">
       <div className="overflow-hidden">
         <div
           className="flex items-center gap-24"
@@ -45,7 +45,7 @@ export default function PartnerLogos() {
                 alt={logo.name}
                 width={360}
                 height={144}
-                className="h-36 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                className="h-24 md:h-36 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
               />
             </div>
           ))}
@@ -60,7 +60,7 @@ export default function PartnerLogos() {
                 alt={logo.name}
                 width={360}
                 height={144}
-                className="h-36 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                className="h-24 md:h-36 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
               />
             </div>
           ))}

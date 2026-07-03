@@ -144,7 +144,7 @@ export default async function PropertyDetailPage({
   return (
     <>
       {/* Breadcrumb */}
-      <nav className="max-w-7xl mx-auto px-6 md:px-12 pt-40 pb-8 text-xs tracking-[0.2em] text-stone-400" aria-label="Breadcrumb">
+      <nav className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pt-40 pb-8 text-xs tracking-[0.2em] text-stone-400" aria-label="Breadcrumb">
         <a href="/properti" className="hover:text-orange transition-colors">Properti</a>
         <span className="mx-2">—</span>
         <a href={`/properti?tipe=${property.propertyType}`} className="hover:text-orange transition-colors">
@@ -155,12 +155,12 @@ export default async function PropertyDetailPage({
       </nav>
 
       {/* Gallery */}
-      <section className="max-w-7xl mx-auto px-6 md:px-12 pb-12">
+      <section className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-12">
         <DetailClient photos={property.photos.map(p => ({ url: p.url, alt: p.alt || property.name }))} />
       </section>
 
       {/* Detail Body */}
-      <section className="max-w-7xl mx-auto px-6 md:px-12 pb-24">
+      <section className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pb-24">
         <div className="flex flex-col lg:flex-row gap-12">
           {/* Main Info */}
           <main className="flex-1 lg:w-[65%]">

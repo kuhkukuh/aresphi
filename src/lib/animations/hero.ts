@@ -38,8 +38,9 @@ export function createHeroTimeline(
         .to(cardStack, { y: -80, scale: 1.05, ease: "none", duration: 1 }, 0)
         .to(cards[0], { rotation: -4, ease: "none", duration: 1 }, 0)
         .to(cards[1], { x: "-38vw", y: -50, rotation: -9, ease: "none", duration: 1 }, 0)
-        .to(cards[2], { x: "38vw", y: 50, rotation: 9, ease: "none", duration: 1 }, 0)
-        .fromTo([cardStack, wordmark], { opacity: 1 }, { opacity: 0, ease: "power1.in", duration: 0.15, immediateRender: false }, 0.88);
+        .to(cards[2], { x: "38vw", y: 50, rotation: 9, ease: "none", duration: 1 }, 0);
+        // Temporarily disabled fade-out
+        // .fromTo([cardStack, wordmark], { opacity: 1 }, { opacity: 0, ease: "power1.in", duration: 0.15, immediateRender: false }, 0.88);
 
       ScrollTrigger.sort();
       ScrollTrigger.refresh();
