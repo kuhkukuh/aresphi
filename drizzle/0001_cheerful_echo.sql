@@ -12,7 +12,7 @@ CREATE TABLE "properties" (
 	"location" text NOT NULL,
 	"price" text NOT NULL,
 	"status" text DEFAULT 'available' NOT NULL,
-	"show_in_showcase" integer DEFAULT false NOT NULL,
+	"show_in_showcase" boolean DEFAULT false NOT NULL,
 	"display_order" integer DEFAULT 0 NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL

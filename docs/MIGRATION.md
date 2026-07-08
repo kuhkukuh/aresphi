@@ -323,3 +323,70 @@ Ensure you're using the correct URL:
 - [ ] App starts and functions correctly
 - [ ] Seed data applied if needed
 - [ ] Drizzle Studio check completed
+
+---
+
+## CI/CD Integration
+
+### Automated Workflows
+
+This project uses GitHub Actions for automated migration handling:
+
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| `ci.yml` | Push/PR to main | Lint, type-check, build |
+| `migrate.yml` | Push to main + migration changes | Auto-apply migrations |
+
+### CI Pipeline (ci.yml)
+
+Runs on every push and pull request to `main`:
+
+1. **Lint** - ESLint checks
+2. **Type Check** - TypeScript validation
+3. **Build** - Next.js production build
+4. **Migration Detection** - Alerts if migrations are pending
+
+### Auto-Migration (migrate.yml)
+
+When migrations are merged to `main`:
+
+1. Detects changes to `drizzle/*.sql` or `schema.ts`
+2. Runs `npm run db:migrate` against production database
+3. Creates a GitHub issue on failure for visibility
+
+> ⚠️ **Requires**: `DATABASE_UNPOOLED_URL` secret in repository settings
+
+### Setting Up Repository Secrets
+
+1. Go to **Settings > Secrets and variables > Actions**
+2. Click **New repository secret**
+3. Name: `DATABASE_UNPOOLED_URL`
+4. Value: Your Neon direct connection string
+
+That's it! The migration workflow will use this secret to apply migrations.
+
+### Local Migration Check
+
+Before creating a PR, check for pending migrations:
+
+```bash
+./scripts/check-migrations.sh
+```
+
+This compares your branch against main and shows any migration changes.
+
+### Manual Migration Trigger
+
+If needed, you can manually trigger the migration workflow:
+
+1. Go to **Actions > Apply Migrations**
+2. Click **Run workflow**
+
+### Failure Handling
+
+If migration fails:
+
+1. A GitHub issue is automatically created
+2. Check the workflow logs for SQL errors
+3. Fix the issue and re-run manually
+4. Do NOT modify applied migrations - create a new fix migration instead

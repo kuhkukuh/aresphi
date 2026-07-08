@@ -3,6 +3,8 @@ import { db } from '@/infrastructure/database';
 import { testimonials } from '@/infrastructure/database/schema';
 import { getAdminSession } from '@/lib/auth';
 import { asc } from 'drizzle-orm';
+import { revalidateTag } from 'next/cache';
+import { CACHE_TAGS } from '@/lib/cache';
 
 export async function GET() {
   const isAuth = await getAdminSession();
@@ -48,6 +50,9 @@ export async function POST(request: Request) {
         displayOrder: maxOrder + 1,
       })
       .returning();
+
+    // Invalidate cached testimonials data
+    revalidateTag(CACHE_TAGS.testimonials, 'max');
 
     return NextResponse.json(testimonial, { status: 201 });
   } catch (error) {

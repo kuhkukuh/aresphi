@@ -3,6 +3,8 @@ import { db } from '@/infrastructure/database';
 import { properties, propertyPhotos } from '@/infrastructure/database/schema';
 import { getAdminSession } from '@/lib/auth';
 import { asc, eq } from 'drizzle-orm';
+import { revalidateTag } from 'next/cache';
+import { CACHE_TAGS } from '@/lib/cache';
 
 // Helper to generate URL-friendly slug
 function generateSlug(name: string): string {
@@ -85,6 +87,9 @@ export async function POST(request: Request) {
         showInShowcase: showInShowcase || false,
       })
       .returning();
+
+    // Invalidate cached property data
+    revalidateTag(CACHE_TAGS.properties, 'max');
 
     return NextResponse.json({ ...property, photos: [] }, { status: 201 });
   } catch (error) {

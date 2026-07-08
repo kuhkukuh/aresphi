@@ -1,39 +1,7 @@
-'use client';
+import { getStats } from '@/lib/data';
 
-import { useState, useEffect } from 'react';
-
-interface Stat {
-  id: number;
-  key: string;
-  value: number;
-  suffix: string;
-  label: string;
-  displayOrder: number;
-}
-
-// Fallback stats for when API is unavailable
-const fallbackStats: Stat[] = [
-  { id: 1, key: 'properties_sold', value: 150, suffix: '+', label: 'Properti Terjual', displayOrder: 1 },
-  { id: 2, key: 'happy_clients', value: 200, suffix: '+', label: 'Klien Puas', displayOrder: 2 },
-  { id: 3, key: 'years_experience', value: 5, suffix: '+', label: 'Tahun Pengalaman', displayOrder: 3 },
-  { id: 4, key: 'success_rate', value: 98, suffix: '%', label: 'Keberhasilan', displayOrder: 4 },
-];
-
-export default function StatsSection() {
-  const [stats, setStats] = useState<Stat[]>(fallbackStats);
-
-  useEffect(() => {
-    fetch('/api/admin/stats')
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-          setStats(data);
-        }
-      })
-      .catch(() => {
-        // Use fallback stats on error
-      });
-  }, []);
+export default async function StatsSection() {
+  const stats = await getStats();
 
   return (
     <section className="relative bg-stone-850 py-16 md:py-24 lg:py-32 overflow-hidden">

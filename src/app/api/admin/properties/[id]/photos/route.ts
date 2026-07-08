@@ -3,6 +3,8 @@ import { db } from '@/infrastructure/database';
 import { propertyPhotos } from '@/infrastructure/database/schema';
 import { getAdminSession } from '@/lib/auth';
 import { eq, sql } from 'drizzle-orm';
+import { revalidateTag } from 'next/cache';
+import { CACHE_TAGS } from '@/lib/cache';
 
 export async function POST(
   request: Request,
@@ -46,6 +48,9 @@ export async function POST(
         displayOrder: (maxOrder?.max ?? -1) + 1,
       })
       .returning();
+
+    // Invalidate cached property data (photos are part of property)
+    revalidateTag(CACHE_TAGS.properties, 'max');
 
     return NextResponse.json(photo, { status: 201 });
   } catch (error) {

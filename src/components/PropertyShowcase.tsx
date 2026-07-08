@@ -1,6 +1,8 @@
 import { db } from '@/infrastructure/database';
 import { properties, propertyPhotos } from '@/infrastructure/database/schema';
-import { eq, asc, sql } from 'drizzle-orm';
+import { eq, asc } from 'drizzle-orm';
+import { unstable_cache } from 'next/cache';
+import { CACHE_TAGS } from '@/lib/cache';
 import PropertyShowcaseClient from './PropertyShowcaseClient';
 
 export type Property = {
@@ -47,41 +49,45 @@ const defaultProperties: Property[] = [
   },
 ];
 
-async function getShowcaseProperties(): Promise<Property[]> {
-  try {
-    const showcaseProperties = await db
-      .select()
-      .from(properties)
-      .where(sql`${properties.showInShowcase} = true`)
-      .orderBy(asc(properties.displayOrder));
+const getShowcaseProperties = unstable_cache(
+  async (): Promise<Property[]> => {
+    try {
+      const showcaseProperties = await db
+        .select()
+        .from(properties)
+        .where(eq(properties.showInShowcase, true))
+        .orderBy(asc(properties.displayOrder));
 
-    if (showcaseProperties.length === 0) {
+      if (showcaseProperties.length === 0) {
+        return defaultProperties;
+      }
+
+      const withPhotos = await Promise.all(
+        showcaseProperties.map(async (prop) => {
+          const photos = await db
+            .select()
+            .from(propertyPhotos)
+            .where(eq(propertyPhotos.propertyId, prop.id))
+            .orderBy(asc(propertyPhotos.displayOrder));
+          return {
+            id: String(prop.id),
+            name: prop.name,
+            slug: prop.slug,
+            location: prop.location,
+            price: prop.price,
+            image: photos[0]?.url || 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80',
+          };
+        })
+      );
+
+      return withPhotos;
+    } catch {
       return defaultProperties;
     }
-
-    const withPhotos = await Promise.all(
-      showcaseProperties.map(async (prop) => {
-        const photos = await db
-          .select()
-          .from(propertyPhotos)
-          .where(eq(propertyPhotos.propertyId, prop.id))
-          .orderBy(asc(propertyPhotos.displayOrder));
-        return {
-          id: String(prop.id),
-          name: prop.name,
-          slug: prop.slug,
-          location: prop.location,
-          price: prop.price,
-          image: photos[0]?.url || 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80',
-        };
-      })
-    );
-
-    return withPhotos;
-  } catch {
-    return defaultProperties;
-  }
-}
+  },
+  ['showcase-properties'],
+  { tags: [CACHE_TAGS.properties] }
+);
 
 export default async function PropertyShowcase() {
   const properties = await getShowcaseProperties();

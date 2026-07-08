@@ -3,6 +3,8 @@ import { db } from '@/infrastructure/database';
 import { socials } from '@/infrastructure/database/schema';
 import { getAdminSession } from '@/lib/auth';
 import { eq } from 'drizzle-orm';
+import { revalidateTag } from 'next/cache';
+import { CACHE_TAGS } from '@/lib/cache';
 
 export async function GET() {
   const isAuth = await getAdminSession();
@@ -56,6 +58,9 @@ export async function PUT(request: Request) {
         .where(eq(socials.id, existing[0].id))
         .returning();
     }
+
+    // Invalidate cached socials data
+    revalidateTag(CACHE_TAGS.socials, 'max');
 
     return NextResponse.json(result);
   } catch (error) {

@@ -3,6 +3,8 @@ import { db } from '@/infrastructure/database';
 import { stats } from '@/infrastructure/database/schema';
 import { eq } from 'drizzle-orm';
 import { getAdminSession } from '@/lib/auth';
+import { revalidateTag } from 'next/cache';
+import { CACHE_TAGS } from '@/lib/cache';
 
 export async function GET() {
   const isAuthenticated = await getAdminSession();
@@ -43,6 +45,9 @@ export async function PUT(request: Request) {
         .set({ value: stat.value, label: stat.label, suffix: stat.suffix })
         .where(eq(stats.key, stat.key));
     }
+
+    // Invalidate cached stats data
+    revalidateTag(CACHE_TAGS.stats, 'max');
 
     // Fetch and return updated stats
     const allStats = await db.select().from(stats).orderBy(stats.displayOrder);
